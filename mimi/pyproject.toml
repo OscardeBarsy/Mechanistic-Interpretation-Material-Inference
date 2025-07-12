@@ -16,15 +16,23 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+  "torch==2.6.0",
+  "plotly==5.24.1",
+  "numpy==2.0.2",
+  "nbformat==5.10.4",
+  "kaleido==0.2.1",
+  "transformer_lens==2.11.0"
+]
+
+[tool.hatch.envs.test]
+dependencies = [
+  "jupyter"
+]
 
 [project.urls]
 Documentation = "https://github.com/U.N. Owen/mimi#readme"

@@ -173,3 +173,55 @@ class SyllogismDataset:
         ]
         self.A = [prompt["A"] for prompt in self.prompts]
         self.B = [prompt["B"] for prompt in self.prompts]
+
+
+
+
+
+class MaterialInferenceDataset:
+    def __init__(
+        self,
+        seed = 0,
+        N = 50,
+        type = 'symbolic',
+        device= 'mps',
+        template_type = 'CAT',
+        tokenizer= None,
+    ):
+
+        self.N = N
+        self.seed = seed
+        self.template_type = template_type
+        self.tokenizer = AutoTokenizer.from_pretrained("gpt2")
+        self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.device = device
+        self.prepend_bos = False
+
+        random.seed(self.seed)
+        np.random.seed(self.seed)
+
+        if type == 'symbolic':
+            self.prompts = gen_symbolic_prompt(
+                self.N, self.seed, self.template_type
+            )
+        elif type == 'consistent':
+            self.prompts = gen_consistent_prompt( 
+                self.N, self.tokenizer, self.seed,  self.template_type, sequence_length = 15
+            )  
+        elif type == 'inconsistent':
+            self.prompts = gen_inconsistent_prompt(
+                self.N, self.tokenizer, self.seed, self.template_type, sequence_length = 15
+            )     
+        else:
+            self.prompts = gen_numeric_prompt(
+                self.N, self.seed, self.template_type
+            )            
+    
+        self.sentences = [
+            prompt["input"] for prompt in self.prompts
+        ]
+        self.labels = [
+            prompt["label"] for prompt in self.prompts
+        ]
+        self.A = [prompt["A"] for prompt in self.prompts]
+        self.B = [prompt["B"] for prompt in self.prompts]

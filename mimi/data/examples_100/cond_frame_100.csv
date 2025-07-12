@@ -1,0 +1,101 @@
+P1,P2,C
+if something is renewable then that something is not a fossil fuel,wood is renewable,wood is not a fossil fuel
+if something is edible then that something is safe to eat,blueberries is edible,blueberries is safe to eat
+if something is waterproof then that something remains dry inside,a rain jacket is waterproof,a rain jacket remains dry inside
+if something is flammable then that something can catch fire easily,kerosene is flammable,kerosene can catch fire easily
+if something is transparent then that something allows light to pass through,clear glass is transparent,clear glass allows light to pass through
+if something is biodegradable then that something decomposes naturally,cardboard is biodegradable,cardboard decomposes naturally
+if something is magnetic then that something is attracted to magnets,an iron nail is magnetic,an iron nail is attracted to magnets
+if something is non‑toxic then that something is not poisonous,baking soda is non‑toxic,baking soda is not poisonous
+if something is symmetrical then that something has identical halves,a snowflake is symmetrical,a snowflake has identical halves
+if something is fuel‑efficient then that something consumes less fuel,a hybrid car is fuel‑efficient,a hybrid car consumes less fuel
+if something is digital then that something processes information in binary form,a computer is digital,a computer processes information in binary form
+if something is wireless then that something requires no physical cables,a Bluetooth headset is wireless,a Bluetooth headset requires no physical cables
+if something is organic then that something is grown without synthetic chemicals,lettuce is organic,lettuce is grown without synthetic chemicals
+if something is artificial then that something is man‑made,synthetic turf is artificial,synthetic turf is man‑made
+if something is electric then that something uses electricity for power,a toaster is electric,a toaster uses electricity for power
+if something is portable then that something is easy to carry,a tablet is portable,a tablet is easy to carry
+if something is recyclable then that something can be processed into new materials,an aluminum can is recyclable,an aluminum can can be processed into new materials
+if something is solar‑powered then that something runs on energy from the sun,a garden lamp is solar‑powered,a garden lamp runs on energy from the sun
+if something is a mammal then that something produces milk for its offspring,a dolphin is a mammal,a dolphin produces milk for its offspring
+if something is cold‑blooded then that something relies on external heat sources,a lizard is cold‑blooded,a lizard relies on external heat sources
+if something is amphibious then that something lives both on land and in water,a frog is amphibious,a frog lives both on land and in water
+if something is carnivorous then that something eats meat,a tiger is carnivorous,a tiger eats meat
+if something is diurnal then that something is active during the day,a squirrel is diurnal,a squirrel is active during the day
+if something is nocturnal then that something is active at night,an owl is nocturnal,an owl is active at night
+if something is endangered then that something faces a high risk of extinction,the panda is endangered,the panda faces a high risk of extinction
+if something is native then that something originates in that area,a kangaroo is native,a kangaroo originates in that area
+if something is domesticated then that something is tamed by humans,a cow is domesticated,a cow is tamed by humans
+if something is ferromagnetic then that something can be strongly magnetized,a nickel rod is ferromagnetic,a nickel rod can be strongly magnetized
+if something is compressible then that something can be compressed,air is compressible,air can be compressed
+if something is elastic then that something returns to its original shape,a rubber band is elastic,a rubber band returns to its original shape
+if something is impermeable then that something does not let fluid pass,a plastic sheet is impermeable,a plastic sheet does not let fluid pass
+if something is luminescent then that something emits light without heat,a firefly is luminescent,a firefly emits light without heat
+if something is hydrophobic then that something repels water,a waxed leaf is hydrophobic,a waxed leaf repels water
+if something is polar then that something has positive and negative ends,a water molecule is polar,a water molecule has positive and negative ends
+if something is inert then that something does not react chemically,argon gas is inert,argon gas does not react chemically
+if something is acidic then that something has a pH below 7,lemon juice is acidic,lemon juice has a pH below 7
+if something is alkaline then that something has a pH above 7,a baking‑soda solution is alkaline,a baking‑soda solution has a pH above 7
+if something is radioactive then that something emits ionizing radiation,uranium ore is radioactive,uranium ore emits ionizing radiation
+if something is conductive then that something allows electricity to flow,a copper wire is conductive,a copper wire allows electricity to flow
+if something is a semiconductor then that something conducts under certain conditions,a silicon chip is a semiconductor,a silicon chip conducts under certain conditions
+if something is a vertebrate then that something has a backbone,a horse is a vertebrate,a horse has a backbone
+if something is herbivorous then that something eats plants,a rabbit is herbivorous,a rabbit eats plants
+if something is omnivorous then that something eats both plants and animals,a bear is omnivorous,a bear eats both plants and animals
+if something is photosynthetic then that something makes food from sunlight,algae is photosynthetic,algae makes food from sunlight
+if something is autonomous then that something operates without human control,a self‑driving car is autonomous,a self‑driving car operates without human control
+if something is programmable then that something can be coded with instructions,a microcontroller is programmable,a microcontroller can be coded with instructions
+if something is ergonomic then that something reduces user fatigue,an office chair is ergonomic,an office chair reduces user fatigue
+if something is sustainable then that something meets needs without harming future generations,bamboo flooring is sustainable,bamboo flooring meets needs without harming future generations
+if something is thermostable then that something resists high‑temperature changes,Taq polymerase is thermostable,Taq polymerase resists high‑temperature changes
+if something is drought‑resistant then that something survives with little water,a cactus is drought‑resistant,a cactus survives with little water
+if something is gluten‑free then that something contains no gluten,rice is gluten‑free,rice contains no gluten
+if something is antiseptic then that something inhibits microorganism growth,hydrogen peroxide is antiseptic,hydrogen peroxide inhibits microorganism growth
+if something is aerodynamic then that something has low air resistance,a sports car is aerodynamic,a sports car has low air resistance
+if something is anti‑inflammatory then that something reduces inflammation,ibuprofen is anti‑inflammatory,ibuprofen reduces inflammation
+if something is heat‑conductive then that something transfers heat efficiently,an aluminum pan is heat‑conductive,an aluminum pan transfers heat efficiently
+if something is UV‑resistant then that something resists ultraviolet degradation,outdoor paint is UV‑resistant,outdoor paint resists ultraviolet degradation
+if something is anti‑corrosive then that something resists rusting,stainless steel is anti‑corrosive,stainless steel resists rusting
+if something is frictionless then that something experiences very little friction,an ice surface is frictionless,an ice surface experiences very little friction
+if something is photosensitive then that something reacts to light,photographic film is photosensitive,photographic film reacts to light
+if something is caloric then that something provides energy,sugar is caloric,sugar provides energy
+if something is an amphibian then that something undergoes metamorphosis,a salamander is an amphibian,a salamander undergoes metamorphosis
+if something is antibacterial then that something kills bacteria,penicillin is antibacterial,penicillin kills bacteria
+if something is rechargeable then that something can regain electrical charge,a lithium battery is rechargeable,a lithium battery can regain electrical charge
+if something is heat‑resistant then that something withstands high temperatures,a ceramic tile is heat‑resistant,a ceramic tile withstands high temperatures
+if something is noise‑cancelling then that something reduces ambient sound,headphones is noise‑cancelling,headphones reduces ambient sound
+if something is odorless then that something has no smell,nitrogen gas is odorless,nitrogen gas has no smell
+if something is shatterproof then that something does not break easily,tempered glass is shatterproof,tempered glass does not break easily
+if something is water‑soluble then that something dissolves in water,table salt is water‑soluble,table salt dissolves in water
+if something is shock‑absorbent then that something reduces impact forces,a foam pad is shock‑absorbent,a foam pad reduces impact forces
+if something is eco‑friendly then that something has minimal environmental impact,reusable bags is eco‑friendly,reusable bags has minimal environmental impact
+if something is antioxidant then that something neutralizes free radicals,vitamin C is antioxidant,vitamin C neutralizes free radicals
+if something is edible fungi then that something is safe for consumption,shiitake mushroom is edible fungi,shiitake mushroom is safe for consumption
+if something is allergenic then that something can trigger allergic reactions,peanuts is allergenic,peanuts can trigger allergic reactions
+if something is semi‑permeable then that something allows some substances to pass,a dialysis membrane is semi‑permeable,a dialysis membrane allows some substances to pass
+if something is bioluminescent then that something produces its own light,deep‑sea squid is bioluminescent,deep‑sea squid produces its own light
+if something is moisture‑wicking then that something draws sweat away,athletic fabric is moisture‑wicking,athletic fabric draws sweat away
+if something is rust‑resistant then that something does not easily corrode,galvanized steel is rust‑resistant,galvanized steel does not easily corrode
+if something is time‑sensitive then that something requires quick action,perishable food is time‑sensitive,perishable food requires quick action
+if something is non‑flammable then that something does not catch fire easily,carbon dioxide is non‑flammable,carbon dioxide does not catch fire easily
+if something is pet‑friendly then that something is safe for household animals,indoor plants like spider plant is pet‑friendly,indoor plants like spider plant is safe for household animals
+if something is tamper‑evident then that something shows signs of interference,pharmaceutical seals is tamper‑evident,pharmaceutical seals shows signs of interference
+if something is odor‑absorbing then that something captures unpleasant smells,activated charcoal is odor‑absorbing,activated charcoal captures unpleasant smells
+if something is lead‑free then that something contains no lead,modern plumbing solder is lead‑free,modern plumbing solder contains no lead
+if something is water‑repellent then that something sheds water quickly,waxed canvas is water‑repellent,waxed canvas sheds water quickly
+if something is high‑fidelity then that something reproduces sound accurately,studio monitors is high‑fidelity,studio monitors reproduces sound accurately
+if something is biocompatible then that something is safe for living tissue,surgical titanium is biocompatible,surgical titanium is safe for living tissue
+if something is earth‑abundant then that something is widely available in Earth’s crust,aluminum is earth‑abundant,aluminum is widely available in Earth’s crust
+if something is long‑lasting then that something has extended durability,LED bulbs is long‑lasting,LED bulbs has extended durability
+if something is predictable then that something behaves consistently,clockwork mechanism is predictable,clockwork mechanism behaves consistently
+if something is non‑allergenic then that something rarely causes allergies,hypoallergenic pillows is non‑allergenic,hypoallergenic pillows rarely causes allergies
+if something is vegan then that something contains no animal products,soy milk is vegan,soy milk contains no animal products
+if something is heat‑sensitive then that something changes with temperature,mood ring material is heat‑sensitive,mood ring material changes with temperature
+if something is weatherproof then that something withstands outdoor conditions,outdoor furniture is weatherproof,outdoor furniture withstands outdoor conditions
+if something is low‑maintenance then that something requires little upkeep,succulent plants is low‑maintenance,succulent plants requires little upkeep
+if something is self‑healing then that something can repair minor damage,special polymers is self‑healing,special polymers can repair minor damage
+if something is perishable then that something spoils quickly,fresh milk is perishable,fresh milk spoils quickly
+if something is volatile then that something evaporates quickly,acetone is volatile,acetone evaporates quickly
+if something is oxygen‑rich then that something contains a high level of oxygen,compressed medical air is oxygen‑rich,compressed medical air contains a high level of oxygen
+if something is humidity‑dependent then that something changes with moisture levels,wood flooring is humidity‑dependent,wood flooring changes with moisture levels
+if something is noise‑proof then that something blocks external sounds,studio isolation booth is noise‑proof,studio isolation booth blocks external sounds
