@@ -1,0 +1,101 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+sparrow,is a member of,birds,birds,have,feathers,sparrow,have,feathers
+cow,belongs to,mammals,mammals,produce,milk,cow,produce,milk
+salmon,is classified as,fish,fish,breathe through,gills,salmon,breathe through,gills
+iguana,is,reptiles,reptiles,regulate,body temperature externally,iguana,regulate,body temperature externally
+salamander,is one of,amphibians,amphibians,undergo,metamorphosis,salamander,undergo,metamorphosis
+beetle,is a kind of,insects,insects,have,six legs,beetle,have,six legs
+tarantula,is an example of,arachnids,arachnids,possess,eight legs,tarantula,possess,eight legs
+oak tree,can be considered,trees,trees,perform,photosynthesis,oak tree,perform,photosynthesis
+daisy,falls under,plants,plants,require,sunlight for growth,daisy,require,sunlight for growth
+Earth,is part of,planets,planets,orbit,a star,Earth,orbit,a star
+Europa,is a member of,moons,moons,orbit,a planet,Europa,orbit,a planet
+Sun,belongs to,stars,stars,emit,light,Sun,emit,light
+Milky Way,is classified as,galaxies,galaxies,contain,billions of stars,Milky Way,contain,billions of stars
+France,is,countries,countries,have,governments,France,have,governments
+Amazon River,is one of,rivers,rivers,flow into,oceans,Amazon River,flow into,oceans
+Mount Everest,is a kind of,mountains,mountains,reach,high elevations,Mount Everest,reach,high elevations
+apple,is an example of,fruits,fruits,contain,seeds,apple,contain,seeds
+carrot,can be considered,vegetables,vegetables,provide,nutrients,carrot,provide,nutrients
+laptop,falls under,computers,computers,process,information,laptop,process,information
+diesel engine,is part of,engines,engines,convert,fuel into motion,diesel engine,convert,fuel into motion
+sedan,is a member of,cars,cars,use,engines,sedan,use,engines
+lithium-ion battery,belongs to,batteries,batteries,store,energy,lithium-ion battery,store,energy
+Mount Etna,is classified as,volcanoes,volcanoes,erupt,lava,Mount Etna,erupt,lava
+cumulonimbus cloud,is,clouds,clouds,contain,water droplets,cumulonimbus cloud,contain,water droplets
+Sahara Desert,is one of,deserts,deserts,receive,little rainfall,Sahara Desert,receive,little rainfall
+Amazon Rainforest,is a kind of,forests,forests,house,diverse wildlife,Amazon Rainforest,house,diverse wildlife
+New York Public Library,is an example of,libraries,libraries,offer,books,New York Public Library,offer,books
+Harvard University,can be considered,universities,universities,provide,education,Harvard University,provide,education
+Socrates,falls under,philosophers,philosophers,ponder,existential questions,Socrates,ponder,existential questions
+Leonardo da Vinci,is part of,painters,painters,create,artworks,Leonardo da Vinci,create,artworks
+Adele,is a member of,singers,singers,perform,songs,Adele,perform,songs
+Usain Bolt,belongs to,athletes,athletes,compete in,sports,Usain Bolt,compete in,sports
+Gordon Ramsay,is classified as,chefs,chefs,prepare,meals,Gordon Ramsay,prepare,meals
+French baker,is,bakers,bakers,bake,bread,French baker,bake,bread
+Marie Curie,is one of,scientists,scientists,conduct,experiments,Marie Curie,conduct,experiments
+Neil Armstrong,is a kind of,astronauts,astronauts,travel to,space,Neil Armstrong,travel to,space
+Dr. Smith,is an example of,doctors,doctors,treat,patients,Dr. Smith,treat,patients
+Nurse Jones,can be considered,nurses,nurses,care for,patients,Nurse Jones,care for,patients
+Mr. Johnson,falls under,teachers,teachers,teach,students,Mr. Johnson,teach,students
+J.K. Rowling,is part of,writers,writers,write,books,J.K. Rowling,write,books
+Meryl Streep,is a member of,actors,actors,act in,films,Meryl Streep,act in,films
+Misty Copeland,belongs to,dancers,dancers,perform,routines,Misty Copeland,perform,routines
+Ansel Adams,is classified as,photographers,photographers,capture,images,Ansel Adams,capture,images
+bridge engineer,is,engineers,engineers,design,structures,bridge engineer,design,structures
+Frank Lloyd Wright,is one of,architects,architects,design,buildings,Frank Lloyd Wright,design,buildings
+local farmer,is a kind of,farmers,farmers,grow,crops,local farmer,grow,crops
+coal miner,is an example of,miners,miners,extract,minerals,coal miner,extract,minerals
+Escherichia coli,can be considered,bacteria,bacteria,multiply by,binary fission,Escherichia coli,multiply by,binary fission
+influenza virus,falls under,viruses,viruses,infect,cells,influenza virus,infect,cells
+shiitake mushroom,is part of,fungi,fungi,decompose,organic matter,shiitake mushroom,decompose,organic matter
+rooftop solar panel,is a member of,solar panels,solar panels,convert,sunlight into electricity,rooftop solar panel,convert,sunlight into electricity
+offshore wind turbine,belongs to,wind turbines,wind turbines,generate,electricity,offshore wind turbine,generate,electricity
+Hoover Dam,is classified as,hydroelectric dams,hydroelectric dams,produce,power,Hoover Dam,produce,power
+Beethoven,is,musicians,musicians,compose,music,Beethoven,compose,music
+Python developer,is one of,programmers,programmers,write,code,Python developer,write,code
+photon,is a kind of,photons,photons,travel at,the speed of light,photon,travel at,the speed of light
+valence electron,is an example of,electrons,electrons,carry,negative charge,valence electron,carry,negative charge
+hydrogen proton,can be considered,protons,protons,possess,positive charge,hydrogen proton,possess,positive charge
+cortical neuron,falls under,neurons,neurons,transmit,nerve impulses,cortical neuron,transmit,nerve impulses
+bicep muscle,is part of,muscles,muscles,contract,to produce movement,bicep muscle,contract,to produce movement
+femur bone,is a member of,bones,bones,support,the body,femur bone,support,the body
+human heart,belongs to,organs,organs,perform,functions,human heart,perform,functions
+plant cell,is classified as,cells,cells,contain,DNA,plant cell,contain,DNA
+muscle tissue,is,tissues,tissues,form,organs,muscle tissue,form,organs
+Pacific Ocean,is one of,oceans,oceans,cover,most of Earth's surface,Pacific Ocean,cover,most of Earth's surface
+Lake Baikal,is a kind of,lakes,lakes,hold,freshwater,Lake Baikal,hold,freshwater
+Greenland Ice Sheet,is an example of,glaciers,glaciers,store,freshwater,Greenland Ice Sheet,store,freshwater
+Route 66,can be considered,roads,roads,connect,cities,Route 66,connect,cities
+Golden Gate Bridge,falls under,bridges,bridges,span,obstacles,Golden Gate Bridge,span,obstacles
+Boeing 747,is part of,airplanes,airplanes,fly through,the sky,Boeing 747,fly through,the sky
+bullet train,is a member of,trains,trains,travel on,tracks,bullet train,travel on,tracks
+double-decker bus,belongs to,buses,buses,transport,passengers,double-decker bus,transport,passengers
+smartphone,is classified as,phones,phones,allow,communication,smartphone,allow,communication
+DSLR camera,is,cameras,cameras,record,images,DSLR camera,record,images
+electron microscope,is one of,microscopes,microscopes,magnify,tiny objects,electron microscope,magnify,tiny objects
+Hubble Telescope,is a kind of,telescopes,telescopes,observe,distant objects,Hubble Telescope,observe,distant objects
+chef's knife,is an example of,knives,knives,cut,materials,chef's knife,cut,materials
+claw hammer,can be considered,hammers,hammers,drive,nails,claw hammer,drive,nails
+circular saw,falls under,saws,saws,cut,wood,circular saw,cut,wood
+metric ruler,is part of,rulers,rulers,measure,length,metric ruler,measure,length
+mercury thermometer,is a member of,thermometers,thermometers,measure,temperature,mercury thermometer,measure,temperature
+aneroid barometer,belongs to,barometers,barometers,measure,air pressure,aneroid barometer,measure,air pressure
+analog clock,is classified as,clocks,clocks,measure,time,analog clock,measure,time
+wall calendar,is,calendars,calendars,track,dates,wall calendar,track,dates
+world map,is one of,maps,maps,show,locations,world map,show,locations
+magnetic compass,is a kind of,compasses,compasses,indicate,direction,magnetic compass,indicate,direction
+car GPS unit,is an example of,GPS devices,GPS devices,provide,navigation,car GPS unit,provide,navigation
+Oxford English Dictionary,can be considered,dictionaries,dictionaries,define,words,Oxford English Dictionary,define,words
+Britannica Encyclopedia,falls under,encyclopedias,encyclopedias,contain,information,Britannica Encyclopedia,contain,information
+National Geographic magazine,is part of,magazines,magazines,feature,articles,National Geographic magazine,feature,articles
+The New York Times,is a member of,newspapers,newspapers,report,news,The New York Times,report,news
+technology podcast,belongs to,podcasts,podcasts,deliver,audio content,technology podcast,deliver,audio content
+adventure video game,is classified as,video games,video games,offer,interactive entertainment,adventure video game,offer,interactive entertainment
+animated movie,is,movies,movies,tell,stories,animated movie,tell,stories
+Impressionist painting,is one of,paintings,paintings,depict,scenes,Impressionist painting,depict,scenes
+marble sculpture,is a kind of,sculptures,sculptures,represent,figures,marble sculpture,represent,figures
+haiku poem,is an example of,poems,poems,express,emotions,haiku poem,express,emotions
+pop song,can be considered,songs,songs,convey,melodies,pop song,convey,melodies
+Statue of Liberty,falls under,statues,statues,commemorate,figures,Statue of Liberty,commemorate,figures
+Mardi Gras festival,is part of,festivals,festivals,celebrate,events,Mardi Gras festival,celebrate,events
