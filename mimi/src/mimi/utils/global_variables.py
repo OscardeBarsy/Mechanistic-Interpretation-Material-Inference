@@ -6,8 +6,8 @@ from pathlib import Path
 # They are stored in a separate file to make it easier to change them if needed.
 
 # Path to the directory containing the syllogistic schemes
-IMAGE_DIR = Path("../images")
-DATASET_DIR = Path("../dataset")
+IMAGE_DIR = Path("/home/oscb/Mechanistic-Interpretation-Material-Inference/mimi/images")
+DATASET_DIR = Path("/home/oscb/Mechanistic-Interpretation-Material-Inference/mimi/data")
 
 
 # ----------------

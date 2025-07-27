@@ -1,4 +1,5 @@
-import torch as t
+import torch
+import torch.nn.functional as F
 from torch import Tensor
 from transformer_lens.hook_points import HookPoint
 from transformer_lens import utils, HookedTransformer, HookedTransformerConfig, FactoredMatrix, ActivationCache
@@ -8,7 +9,7 @@ import numpy as np
 
 ## Misc
 def normalise_tensor(tensor):
-    max_abs_val = t.max(t.abs(tensor))
+    max_abs_val = torch.max(torch.abs(tensor))
     normalised_tensor = tensor / max_abs_val
     return normalised_tensor
 
@@ -24,15 +25,18 @@ def resize_all(tensor):
     return temp
 
 def compute_logit_diff(logits, answer_tokens, array=False):
-    last = logits[:, -1, :]
-    answer_logits = last.gather(dim=-1, index=answer_tokens)
-    correct_logits, incorrect_logits = answer_logits.unbind(dim=-1)
-    answer_logit_diff = correct_logits - incorrect_logits
-
+    """
+    Computes logit scores for correct answers. Assumes answer_tokens is shape [batch_size].
+    """
+    last = logits[:, -1, :]  # shape: [batch_size, vocab_size]
+    answer_logits = last.gather(dim=-1, index=answer_tokens.unsqueeze(-1)).squeeze(-1)  # shape: [batch_size]
+    
     if array:
-        return answer_logit_diff.cpu().numpy()
-        
-    return answer_logit_diff.mean()
+        return answer_logits.cpu().numpy()
+    
+    return answer_logits.mean()
+
+
 
 def get_batched_logit_diff(minibatch_size, tokens, answer_tokens, model):
     avg_logit_diff = 0
@@ -48,11 +52,11 @@ def get_batched_logit_diff(minibatch_size, tokens, answer_tokens, model):
 
 def align_fine_tuning_gpt2(model, f_model, device):
     model.W_E.copy_(f_model.transformer.wte.weight)
-    are_close = t.allclose(model.W_E, f_model.transformer.wte.weight)
+    are_close = torch.allclose(model.W_E, f_model.transformer.wte.weight)
     print(f"Are the tensors close?(token embedding) {are_close}")
 
     model.W_pos.copy_(f_model.transformer.wpe.weight)
-    are_close = t.allclose(model.W_pos, f_model.transformer.wpe.weight)
+    are_close = torch.allclose(model.W_pos, f_model.transformer.wpe.weight)
     print(f"Are the tensors close?(position embedding) {are_close}")
 
     # number of layers
@@ -101,32 +105,32 @@ def align_fine_tuning_gpt2(model, f_model, device):
         model.blocks[i].ln2.b = temp_ln2_b
 
         are_close = []
-        are_close.append(t.allclose(model.W_Q[i], temp_Q, atol=1e-0))
-        are_close.append(t.allclose(model.W_K[i], temp_K, atol=1e-0))
-        are_close.append(t.allclose(model.W_V[i], temp_V, atol=1e-0))
-        are_close.append(t.allclose(model.b_Q[i], temp_Q_b, atol=1e-0))
-        are_close.append(t.allclose(model.b_K[i], temp_K_b, atol=1e-0))
-        are_close.append(t.allclose(model.b_V[i], temp_V_b, atol=1e-0))
-        are_close.append(t.allclose(model.W_in[i], temp_mlp_in, atol=1e-0))
-        are_close.append(t.allclose(model.W_out[i], temp_mlp_out, atol=1e-0))
-        are_close.append(t.allclose(model.b_in[i], temp_mlp_in_bias, atol=1e-0))
-        are_close.append(t.allclose(model.b_out[i], temp_mlp_out_bias, atol=1e-0))
-        are_close.append(t.allclose(model.blocks[i].ln1.w, temp_ln1_w, atol=1e-0))
-        are_close.append(t.allclose(model.blocks[i].ln1.b, temp_ln1_b, atol=1e-0))
-        are_close.append(t.allclose(model.blocks[i].ln2.w, temp_ln2_w, atol=1e-0))
-        are_close.append(t.allclose(model.blocks[i].ln2.b, temp_ln2_b, atol=1e-0))
+        are_close.append(torch.allclose(model.W_Q[i], temp_Q, atol=1e-0))
+        are_close.append(torch.allclose(model.W_K[i], temp_K, atol=1e-0))
+        are_close.append(torch.allclose(model.W_V[i], temp_V, atol=1e-0))
+        are_close.append(torch.allclose(model.b_Q[i], temp_Q_b, atol=1e-0))
+        are_close.append(torch.allclose(model.b_K[i], temp_K_b, atol=1e-0))
+        are_close.append(torch.allclose(model.b_V[i], temp_V_b, atol=1e-0))
+        are_close.append(torch.allclose(model.W_in[i], temp_mlp_in, atol=1e-0))
+        are_close.append(torch.allclose(model.W_out[i], temp_mlp_out, atol=1e-0))
+        are_close.append(torch.allclose(model.b_in[i], temp_mlp_in_bias, atol=1e-0))
+        are_close.append(torch.allclose(model.b_out[i], temp_mlp_out_bias, atol=1e-0))
+        are_close.append(torch.allclose(model.blocks[i].ln1.w, temp_ln1_w, atol=1e-0))
+        are_close.append(torch.allclose(model.blocks[i].ln1.b, temp_ln1_b, atol=1e-0))
+        are_close.append(torch.allclose(model.blocks[i].ln2.w, temp_ln2_w, atol=1e-0))
+        are_close.append(torch.allclose(model.blocks[i].ln2.b, temp_ln2_b, atol=1e-0))
         print(f"Are the tensors close?(layer {i}) {are_close}")
 
     # embedding W_E and W_U
     model.W_U.copy_(f_model.transformer.wte.weight.T)
-    t.allclose(model.W_E, model.W_U.T, atol=1e-0)
+    torch.allclose(model.W_E, model.W_U.T, atol=1e-0)
     print(f"Are the tensors close?(embedding W_E and W_U) {are_close}")
 
     # layer norm
     model.ln_final.w.copy_(f_model.transformer.ln_f.weight)
     model.ln_final.b.copy_(f_model.transformer.ln_f.bias)
 
-    t.allclose(model.ln_final.w, f_model.transformer.ln_f.weight, atol=1e-0), t.allclose(model.ln_final.b, f_model.transformer.ln_f.bias, atol=1e-0)
+    torch.allclose(model.ln_final.w, f_model.transformer.ln_f.weight, atol=1e-0), torch.allclose(model.ln_final.b, f_model.transformer.ln_f.bias, atol=1e-0)
     print(f"Are the tensors close?(layer norm) {are_close}")
 
     return model
@@ -145,7 +149,7 @@ def patching_residual_hook(corrupted_residual_component, hook, pos, clean_cache)
 def patching_residual(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, device):
     model.reset_hooks()
     seq_len = corrupted_tokens.size(1)
-    results = t.zeros(model.cfg.n_layers, seq_len, device=device, dtype=t.float32)
+    results = torch.zeros(model.cfg.n_layers, seq_len, device=device, dtype=torch.float32)
 
     for layer in tqdm(range(model.cfg.n_layers)):
         for position in range(seq_len):
@@ -163,7 +167,7 @@ def patching_attention_hook(corrupted_head_vector, hook, head_index, clean_cache
 
 def patching_attention(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, head_type, device):
     model.reset_hooks()
-    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
+    results = torch.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=torch.float32)
 
     for layer in tqdm(range(model.cfg.n_layers)):
         for head in range(model.cfg.n_heads):
@@ -194,7 +198,7 @@ def accumulated_mean_ablation(clean_head_vector, hook, head_list):
 
 def get_accumulated_ablation_score(model, labels, tokens, answer_tokens, head_list, clean_logit_diff, type, device):
     model.reset_hooks()
-    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
+    results = torch.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=torch.float32)
 
     if head_list == None:
       return clean_logit_diff, None, None
@@ -266,4 +270,55 @@ def sufficiency_check(model, labels, tokens, answer_tokens, clean_logit_diff, ty
 
 
 
+def build_label_cache(labels, tokenizer):
+    """Tokenize labels once."""
+    label_token_ids = [tokenizer.encode(l, add_special_tokens=False) for l in labels]
+    return label_token_ids
+
+@torch.inference_mode()
+def score_label_for_prompt(model, tokenizer, prompt_ids, label_ids, device):
+    input_ids = torch.tensor([prompt_ids + label_ids], device=device)
+
+    with torch.no_grad():
+        outputs = model(input_ids)
+        if hasattr(outputs, "logits"):
+            logits = outputs.logits
+        elif isinstance(outputs, (tuple, list)):
+            logits = outputs[0]
+        else:
+            logits = outputs   # already a tensor
+
+    prompt_len = len(prompt_ids)
+    label_len  = len(label_ids)
+
+    logits_to_score = logits[0, prompt_len-1 : prompt_len-1 + label_len, :]
+    log_probs = F.log_softmax(logits_to_score, dim=-1)
+
+    label_token_tensor = torch.tensor(label_ids, device=device)
+    token_log_probs = log_probs.gather(1, label_token_tensor.unsqueeze(1)).squeeze(1)
+
+    return float(token_log_probs.sum().item())
+
+def predict_label(prompt, model, tokenizer, labels, label_token_ids, device):
+    prompt_ids = tokenizer.encode(prompt, add_special_tokens=False)
+    scores = [
+        score_label_for_prompt(model, tokenizer, prompt_ids, lab_ids, device)
+        for lab_ids in label_token_ids
+    ]
+    best_idx = int(torch.tensor(scores).argmax().item())
+    return labels[best_idx], scores
+
+def evaluate_accuracy(prompts, labels, model, device):
+    tokenizer = model.tokenizer
+    label_token_ids = build_label_cache(labels, tokenizer)
+
+    correct = 0
+    for prompt, gold in zip(prompts,labels):
+        pred, _ = predict_label(prompt, model, tokenizer, labels, label_token_ids, device)
+        if pred.strip().lower() == gold.strip().lower():
+            correct += 1
+        else:
+            print(f"Predicted: {pred!r}, Actual: {gold!r}")
+            print("Original Sentence: " + prompt + " " + gold)
+    return correct / len(labels)
 

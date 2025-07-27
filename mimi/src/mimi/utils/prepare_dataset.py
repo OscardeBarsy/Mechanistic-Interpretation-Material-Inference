@@ -1,4 +1,5 @@
 from __future__ import annotations
+from enum import Enum
 
 
 
@@ -12,169 +13,134 @@ import copy
 import re
 import csv
 from itertools import permutations
-from global_variables import IMAGE_DIR, DATASET_DIR
-
-bc_path = DATASET_DIR / "belief-consistent.csv"
-bi_path = DATASET_DIR / "belief-inconsistent.csv"
+from mimi.utils.global_variables import IMAGE_DIR, DATASET_DIR
 
 
-SYLLOGISM_TEMPLATE = {
-    'AAA1': 'All[A] are[B]. All[B] are[C]. Therefore, all[A] are',
-    'EAE1': 'All[A] are[B]. No[B] are[C]. Therefore, no[A] are',
-    'AII1': 'Some[A] are[B]. All[B] are[C]. Therefore, some[A] are',
-    'EIO1': 'Some[A] are[B]. No[B] are[C]. Therefore, some[A] are not',
-    'EAE2': 'All[A] are[B]. No[C] are[B]. Therefore, no[A] are',
-    'AEE2': 'No[A] are[B]. All[C] are[B]. Therefore, no[A] are',
-    'EIO2': 'Some[A] are[B]. No[C] are[B]. Therefore, some[A] are not',
-    'AOO2': 'Some[A] are not[B]. All[C] are[B]. Therefore, some[A] are not',
-    'IAI3': 'All[B] are[A]. Some[B] are[C]. Therefore, some[A] are',
-    'AII3': 'Some[B] are[A]. All[B] are[C]. Therefore, some[A] are',
-    'OAO3': 'All[B] are[A]. Some[B] are not[C]. Therefore, some[A] are not',
-    'EIO3': 'Some[B] are[A]. No[B] are[C]. Therefore, some[A] are not',
-    'AEE4': 'No[B] are[A]. All[C] are[B]. Therefore, no[A] are',
-    'IAI4': 'All[B] are[A]. Some[B] are[C]. Therefore, some[A] are',
-    'EIO4': 'Some[B] are[A]. No[B] are[C]. Therefore, some[A] are not',
-}
-
-ALPHABET_LIST = [' A', ' B', ' C', ' D', ' E', ' F', ' G', ' H', ' I', ' J', ' K', ' L', ' M', ' N', ' O', ' P', ' Q', ' R', ' S', ' T', ' U', ' V', ' W', ' X', ' Y', ' Z']
-NUMBER_LIST = [' 1', ' 2', ' 3', ' 4', ' 5',' 6',' 7',' 8',' 9']
 
 
-def gen_symbolic_prompt(N, seed=42, template_type = 'CAT'):
-    random.seed(seed)
-    cnt = 0
-    prompts = []
-    while cnt < N:
-        template = SYLLOGISM_TEMPLATE[template_type]
-        A = B = C = ""
-        while len(set([A, B, C])) < 3:
-            A = random.choice(ALPHABET_LIST)
-            B = random.choice(ALPHABET_LIST)
-            C = random.choice(ALPHABET_LIST)
 
-        permutations_list = list(permutations([A, B, C]))
-        for perm in permutations_list:
-            prompt = {}
-            prompt["A"] = perm[0]
-            prompt["B"] = perm[1]
-            prompt["label"] = perm[2]
-            prompt["input"] = template.replace("[A]", perm[0]).replace("[B]", perm[1]).replace("[C]", perm[2])
-            prompts.append(prompt)
-        cnt += 1
-    return prompts
+class AMRType(str, Enum):
+    ARG_SUB = "argument_substitution"
+    PRED_SUB = "predicate_substitution"
+    FRAME_SUB = "frame_substitution"
+    COND_FRAME = "conditional_frame_insertion_substitution"
+    ARG_INS = "argument_insertion"
+    FRAME_CONJ = "frame_conjunction"
+    ARG_PRED_GEN = "argument_or_predicate_generalisation"
+    ARG_SUB_PROP = "argument_substitution_property_inheritance"
+    EXAMPLE = "example"
+    IFT = "if_then"
+    UNK = "unknown"
 
-def gen_numeric_prompt(N, seed=42, template_type = 'CAT'):
-    random.seed(seed)
-    cnt = 0
-    prompts = []
-   
-    while cnt < N:
-        template = SYLLOGISM_TEMPLATE[template_type]
-        A = B = C = ""
-        while len(set([A, B, C])) < 3:
-            A = random.choice(NUMBER_LIST)
-            B = random.choice(NUMBER_LIST)
-            C = random.choice(NUMBER_LIST)
-
-        permutations_list = list(permutations([A, B, C]))
-        for perm in permutations_list:
-            prompt = {}
-            prompt["A"] = perm[0]
-            prompt["B"] = perm[1]
-            prompt["input"] = template.replace("[A]", perm[0]).replace("[B]", perm[1]).replace("[C]", perm[2])
-            prompt["label"] = perm[2]
-            prompts.append(prompt)
-        cnt += 1
-    return prompts
-
-def gen_consistent_prompt(N, tokenizer, seed = 42,  template_type = 'CAT', sequence_length = 15):
-    prompts = []
-    with open(bc_path, mode='r') as file:
-        cnt = 0
-        csvFile = csv.reader(file)
-        next(csvFile)
-        for lines in csvFile:
-            prompt = {}
-            prompt["label"] = lines[1]
-            prompt["A"] = lines[2]
-            prompt["B"] = lines[3]
-            template = SYLLOGISM_TEMPLATE[template_type]
-            complete = template.replace('[A]', prompt["A"]).replace('[B]',prompt["B"]).replace('[C]', prompt["label"])
-            prompt["input"] = complete
-            prompts.append(prompt)
-            cnt += 1
-            if cnt == N:
-                break
-
-    return prompts
-
-def gen_inconsistent_prompt(N, tokenizer, seed = 42,  template_type = 'CAT', sequence_length = 15):
-    prompts = []
-    with open(bi_path, mode='r') as file:
-        cnt = 0
-        csvFile = csv.reader(file)
-        next(csvFile)
-        for lines in csvFile:
-            prompt = {}
-            prompt["label"] = lines[1]
-            prompt["A"] = lines[2]
-            prompt["B"] = lines[3]
-
-            template = SYLLOGISM_TEMPLATE[template_type]
-            complete = template.replace('[A]', prompt["A"]).replace('[B]',prompt["B"]).replace('[C]', prompt["label"])
-            prompt["input"] = complete
-            prompts.append(prompt)
-            cnt += 1
-            if cnt == N:
-                break
-    return prompts
+class Corruption(Enum):
+    NO = "no"
+    MID = "middle"
+    ALL = "all"
 
 
-class SyllogismDataset:
+
+class MaterialInferenceDataset:
+
     def __init__(
         self,
-        seed = 0,
-        N = 50,
-        type = 'symbolic',
-        device= 'mps',
-        template_type = 'CAT',
+        seed = 42,
+        N = 100,
+        type: AMRType = AMRType.ARG_SUB,
+        corruption: Corruption = Corruption.NO,
         tokenizer= None,
     ):
 
         self.N = N
         self.seed = seed
-        self.template_type = template_type
         self.tokenizer = AutoTokenizer.from_pretrained("gpt2")
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.device = device
         self.prepend_bos = False
+
+
+        self.df = pd.read_csv(f"{DATASET_DIR}/examples_100/{type.value}.csv")
 
         random.seed(self.seed)
         np.random.seed(self.seed)
 
-        if type == 'symbolic':
-            self.prompts = gen_symbolic_prompt(
-                self.N, self.seed, self.template_type
-            )
-        elif type == 'consistent':
-            self.prompts = gen_consistent_prompt( 
-                self.N, self.tokenizer, self.seed,  self.template_type, sequence_length = 15
-            )  
-        elif type == 'inconsistent':
-            self.prompts = gen_inconsistent_prompt(
-                self.N, self.tokenizer, self.seed, self.template_type, sequence_length = 15
-            )     
-        else:
-            self.prompts = gen_numeric_prompt(
-                self.N, self.seed, self.template_type
-            )            
-    
+        self.A = self.df["Premise1_Subject"]
+        self.B = self.df["Premise2_Subject"]
+        self.C = self.df["Premise2_Object"]
+
+
+        if corruption == Corruption.NO:
+            self.prompts = self.gen_prompt_label_pairs()
+
+        elif corruption == Corruption.MID:
+            self.prompts = self.corrupt_middle_term()
+
+        elif corruption == Corruption.ALL:
+            self.prompts = self.corrupt_all_terms()
+        
+        
+
+
         self.sentences = [
             prompt["input"] for prompt in self.prompts
         ]
         self.labels = [
             prompt["label"] for prompt in self.prompts
         ]
-        self.A = [prompt["A"] for prompt in self.prompts]
-        self.B = [prompt["B"] for prompt in self.prompts]
+        self.A = [prompt["a"] for prompt in self.prompts]
+        self.B = [prompt["b"] for prompt in self.prompts]
+
+
+    def gen_prompt_label_pairs(self):
+        prompts = []
+        samples = self.df.sample(n=self.N, random_state=self.seed)
+        for index, row in samples.iterrows():
+            prompt = self.get_prompt_label_pair_from_row(row)
+            prompts.append(prompt)
+        return prompts
+    
+    def get_prompt_label_pair_from_row(self, row):
+        a = row["Premise1_Subject"]
+        b = row["Premise2_Subject"]
+        c = row["Premise2_Object"]
+        return self.get_prompt_label_pair_from_row_and_abc(row, a, b, c)
+    
+    def get_prompt_label_pair_from_row_and_abc(self, row, a, b, c):
+
+        prompt = {}
+        premise_1 = a + " " + row["Premise1_Verb"]+ " " + b
+        premise_2 = b + " " + row["Premise2_Verb"] + " " + c
+        conclusion_set_up = a + " " + row["Conclusion_Verb"]
+
+        prompt["input"] = f"Since {premise_1} and {premise_2}, therefore {conclusion_set_up}"
+
+        prompt["a"] = a
+        prompt["b"] = b
+        prompt["label"] = c.strip().lower()
+
+
+        return prompt 
+
+    def get_filtered_sample(self, iterable, excluded = []):
+        sample_list = pd.Series(filter(lambda x: x not in excluded, iterable))
+        return sample_list.sample().iloc[0]
+
+    def corrupt_middle_term(self):
+        prompts = []
+        samples = self.df.sample(n=self.N, random_state=self.seed)
+        for index, row in samples.iterrows():
+            row["Premise2_Subject"] = self.get_filtered_sample(self.B, [row["Premise2_Subject"]])
+            prompt = self.get_prompt_label_pair_from_row(row)
+            prompts.append(prompt)
+        return prompts
+    
+    def corrupt_all_terms(self):
+        prompts = []
+        samples = self.df.sample(n=self.N, random_state=self.seed)
+        for index, row in samples.iterrows():
+            a = self.get_filtered_sample(self.A, [row["Premise1_Subject"]])
+            b = self.get_filtered_sample(self.B, [row["Premise2_Subject"]])
+            c = self.get_filtered_sample(self.C, [row["Premise2_Object"]])
+            prompt = self.get_prompt_label_pair_from_row_and_abc(row, a, b, c)
+            prompts.append(prompt)
+        return prompts
+    
 
