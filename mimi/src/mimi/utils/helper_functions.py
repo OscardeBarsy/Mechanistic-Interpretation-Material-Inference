@@ -23,32 +23,72 @@ def resize_all(tensor):
     temp = resize_tensor(temp, 9, 10)
     temp = resize_tensor(temp, 4, 5)
     return temp
-
 def compute_logit_diff(logits, answer_tokens, array=False):
-    """
-    Computes logit scores for correct answers. Assumes answer_tokens is shape [batch_size].
-    """
-    last = logits[:, -1, :]  # shape: [batch_size, vocab_size]
-    answer_logits = last.gather(dim=-1, index=answer_tokens.unsqueeze(-1)).squeeze(-1)  # shape: [batch_size]
-    
+    last = logits[:, -1, :]
+    answer_logits = last.gather(dim=-1, index=answer_tokens)
+    correct_logits, incorrect_logits = answer_logits.unbind(dim=-1)
+    answer_logit_diff = correct_logits - incorrect_logits
+
     if array:
-        return answer_logits.cpu().numpy()
-    
-    return answer_logits.mean()
+        return answer_logit_diff.cpu().numpy()
+        
+    return answer_logit_diff.mean()
+
+def compute_logit_diff_seqavg(logits_or_last, answer_token_seqs, array=False):
+    """
+    Accepts:
+      logits_or_last: [B, T, V] or [B, V] (CUDA or CPU)
+      answer_token_seqs: list of length B of (corr_ids_1D, inc_ids_1D), CPU Long
+    Returns:
+      mean diff (Tensor scalar) or per-example numpy if array=True
+    """
+    # Get last-step logits and move to CPU
+    if logits_or_last.dim() == 3:
+        last = logits_or_last[:, -1, :]
+    elif logits_or_last.dim() == 2:
+        last = logits_or_last
+    else:
+        raise ValueError(f"Expected [B,T,V] or [B,V], got shape {tuple(logits_or_last.shape)}")
+    last = last.detach()
+    if last.is_cuda:
+        last = last.cpu()
+
+    B, V = last.shape
+    diffs = []
+
+    for i, (corr_ids, inc_ids) in enumerate(answer_token_seqs):
+        corr_ids = torch.as_tensor(corr_ids, dtype=torch.long, device="cpu").view(-1)
+        inc_ids  = torch.as_tensor(inc_ids,  dtype=torch.long, device="cpu").view(-1)
+
+        # Early sanity checks (raise a clear error instead of a CUDA assert)
+        if corr_ids.numel() == 0 or inc_ids.numel() == 0:
+            raise ValueError(f"Empty token list at batch index {i}: "
+                             f"corr_len={corr_ids.numel()}, inc_len={inc_ids.numel()}")
+        if int(corr_ids.max()) >= V or int(inc_ids.max()) >= V or int(corr_ids.min()) < 0 or int(inc_ids.min()) < 0:
+            raise ValueError(
+                f"Token id out of vocab range at batch index {i}: "
+                f"max_corr={int(corr_ids.max())}, max_inc={int(inc_ids.max())}, V={V}"
+            )
+
+        corr_mean = last[i, corr_ids].mean()
+        inc_mean  = last[i, inc_ids].mean()
+        diffs.append(corr_mean - inc_mean)
+
+    diffs = torch.stack(diffs)  # [B]
+    return diffs.numpy() if array else diffs.mean()
 
 
 
-def get_batched_logit_diff(minibatch_size, tokens, answer_tokens, model):
+
+def get_batched_logit_diff(minibatch_size, tokens, answer_token_seqs, model):
     avg_logit_diff = 0
     for i in range(0, len(tokens), minibatch_size):
-        target_index = i
-        logit, _ = model.run_with_cache(tokens[target_index: target_index+minibatch_size])
-        at = answer_tokens[target_index: target_index+minibatch_size]
-        logit_diff = compute_logit_diff(logit, at)
-        avg_logit_diff += logit_diff
-        del logit
-        del logit_diff
-    return avg_logit_diff/(len(tokens)/minibatch_size)
+        logit, _ = model.run_with_cache(tokens[i : i+minibatch_size])
+        diffs = compute_logit_diff_seqavg(logit, answer_token_seqs[i : i+minibatch_size])
+        avg_logit_diff += diffs
+        del logit, diffs
+    return avg_logit_diff / (len(tokens) / minibatch_size)
+
 
 def align_fine_tuning_gpt2(model, f_model, device):
     model.W_E.copy_(f_model.transformer.wte.weight)
@@ -136,50 +176,122 @@ def align_fine_tuning_gpt2(model, f_model, device):
     return model
 
 ## Metric
-def metric_denoising( logits, answer_tokens, corrupted_logit_diff, clean_logit_diff):
-    patched_logit_diff = compute_logit_diff(logits, answer_tokens)
-    patching_effect = (patched_logit_diff - corrupted_logit_diff) / (clean_logit_diff  - corrupted_logit_diff)
-    return patching_effect
+def metric_denoising(logits_or_last, answer_token_seqs, corrupted_logit_diff, clean_logit_diff):
+    # Accept [B,T,V] or [B,V], and do indexing on CPU
+    if logits_or_last.dim() == 3:
+        last = logits_or_last[:, -1, :].detach()
+    elif logits_or_last.dim() == 2:
+        last = logits_or_last.detach()
+    else:
+        raise ValueError(f"Expected [B,T,V] or [B,V], got {tuple(logits_or_last.shape)}")
+
+    if last.is_cuda:
+        last = last.cpu()
+    patched_logit_diff = compute_logit_diff_seqavg(last, answer_token_seqs)
+    return (patched_logit_diff - corrupted_logit_diff) / (clean_logit_diff - corrupted_logit_diff)
+
 
 ## Intervention
-def patching_residual_hook(corrupted_residual_component, hook, pos, clean_cache):
-    corrupted_residual_component[:, pos, :] = clean_cache[hook.name][:, pos, :]
-    return corrupted_residual_component
+# ---- minibatched residual hook ----
+def patching_residual_hook_batch(corrupted_resid, hook, pos, clean_cache, batch_slice):
+    s, e = batch_slice
+    # corrupted_resid: [mb, seq_len, d_model]
+    # clean_cache[hook.name]: [B, seq_len, d_model]
+    corrupted_resid[:, pos, :] = clean_cache[hook.name][s:e, pos, :]
+    return corrupted_resid
 
-def patching_residual(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, device):
+# ---- minibatched residual patch driver ----
+def patching_residual(model, corrupted_tokens, clean_cache, patching_metric,
+                      answer_token_seqs, clean_logit_diff, corrupted_logit_diff,
+                      device, minibatch_size=16):
     model.reset_hooks()
-    seq_len = corrupted_tokens.size(1)
-    results = torch.zeros(model.cfg.n_layers, seq_len, device=device, dtype=torch.float32)
+    B, T = corrupted_tokens.size(0), corrupted_tokens.size(1)
+    results = torch.zeros(model.cfg.n_layers, T, device=device, dtype=torch.float32)
 
-    for layer in tqdm(range(model.cfg.n_layers)):
-        for position in range(seq_len):
-            hook_fn = partial(patching_residual_hook, pos=position, clean_cache=clean_cache)
-            patched_logits = model.run_with_hooks(
-                corrupted_tokens,
-                fwd_hooks = [(utils.get_act_name("resid_post", layer), hook_fn)],
-            )
-            results[layer, position] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
-    return results
+    spans = [(i, min(i+minibatch_size, B)) for i in range(0, B, minibatch_size)]
+
+    for layer in range(model.cfg.n_layers):
+        for pos in range(T):
+            accum = 0.0
+            for (s, e) in spans:
+                hook_fn = partial(
+                    patching_residual_hook_batch,
+                    pos=pos,
+                    clean_cache=clean_cache,
+                    batch_slice=(s, e),
+                )
+                # forward only this chunk
+                patched_logits = model.run_with_hooks(
+                    corrupted_tokens[s:e],
+                    fwd_hooks=[(utils.get_act_name("resid_post", layer), hook_fn)],
+                    return_type="logits",
+                )
+
+                # free GPU ASAP: keep only last-step logits on CPU
+                last = patched_logits[:, -1, :].detach().cpu()
+                del patched_logits
+                torch.cuda.empty_cache()
+
+                # metric_denoising accepts [mb,V] or [mb,T,V]
+                chunk_metric = patching_metric(
+                    last, answer_token_seqs[s:e], corrupted_logit_diff, clean_logit_diff
+                )
+
 
 def patching_attention_hook(corrupted_head_vector, hook, head_index, clean_cache):
     corrupted_head_vector[:, :, head_index] = clean_cache[hook.name][:, :, head_index]
     return corrupted_head_vector
 
-def patching_attention(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, head_type, device):
+def patching_attention_hook_batch(corrupted_head_vector, hook, head_index, clean_cache, batch_slice):
+    s, e = batch_slice
+    # corrupted_head_vector: [mb, seq_len, n_heads, d_head] for this layer
+    # clean_cache[hook.name]: [B,  seq_len, n_heads, d_head]
+    corrupted_head_vector[:, :, head_index] = clean_cache[hook.name][s:e, :, head_index]
+    return corrupted_head_vector
+
+def patching_attention(model, corrupted_tokens, clean_cache, patching_metric,
+                       answer_token_seqs, clean_logit_diff, corrupted_logit_diff,
+                       head_type, device, minibatch_size=16):
+    """
+    head_type: usually 'z' (result), 'pattern', etc.
+    minibatch_size: tune to fit your GPU (e.g., 8/16/32)
+    """
     model.reset_hooks()
     results = torch.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=torch.float32)
 
+    B = corrupted_tokens.size(0)
+    spans = [(i, min(i + minibatch_size, B)) for i in range(0, B, minibatch_size)]
+
     for layer in tqdm(range(model.cfg.n_layers)):
         for head in range(model.cfg.n_heads):
-            hook_fn = partial(patching_attention_hook, head_index=head, clean_cache=clean_cache)
-            patched_logits = model.run_with_hooks(
-                corrupted_tokens,
-                fwd_hooks = [(utils.get_act_name(head_type, layer), hook_fn)],
-                return_type="logits"
-            )
-            results[layer, head] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
+            accum = 0.0
+            for (s, e) in spans:
+                hook_fn = partial(
+                    patching_attention_hook_batch,
+                    head_index=head,
+                    clean_cache=clean_cache,
+                    batch_slice=(s, e),
+                )
+                # Forward only this chunk
+                patched_logits = model.run_with_hooks(
+                    corrupted_tokens[s:e],
+                    fwd_hooks=[(utils.get_act_name(head_type, layer), hook_fn)],
+                    return_type="logits",
+                )
+
+                # Reduce memory ASAP: go to last step on CPU here
+                last = patched_logits[:, -1, :].detach().cpu()
+                del patched_logits
+                torch.cuda.empty_cache()
+
+                # metric_denoising accepts [mb,V] now
+                chunk_metric = patching_metric(last, answer_token_seqs[s:e], corrupted_logit_diff, clean_logit_diff)
+                accum += float(chunk_metric) * (e - s)
+
+            results[layer, head] = accum / B
 
     return results
+
 
 ## Ablation
 def accumulated_zero_ablation(clean_head_vector, hook, head_list):
@@ -223,7 +335,7 @@ def get_accumulated_ablation_score(model, labels, tokens, answer_tokens, head_li
         return_type="logits"
     )
 
-    return compute_logit_diff(patched_logits, answer_tokens)
+    return compute_logit_diff_seqavg(patched_logits, answer_tokens)
 
 def necessity_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
     sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
