@@ -1,0 +1,101 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+water,boils at,100°C,water,is,a liquid,water,is,a liquid that boils at 100°C
+Earth,orbits,the Sun,Earth,is,a planet,Earth,is,a planet that orbits the Sun
+oxygen,supports,combustion,oxygen,is,a gas,oxygen,is,a gas that supports combustion
+honey bees,produce,honey,honey bees,are,insects,honey bees,are,insects that produce honey
+Mount Everest,is located in,the Himalayas,Mount Everest,is,a mountain,Mount Everest,is,a mountain that is located in the Himalayas
+the Moon,reflects,sunlight,the Moon,is,a natural satellite,the Moon,is,a natural satellite that reflects sunlight
+chlorophyll,absorbs,light for photosynthesis,chlorophyll,is,a pigment,chlorophyll,is,a pigment that absorbs light for photosynthesis
+whales,breathe,air,whales,are,mammals,whales,are,mammals that breathe air
+lightning,results from,electrical discharge,lightning,is,a weather phenomenon,lightning,is,a weather phenomenon that results from electrical discharge
+diamonds,are composed of,carbon,diamonds,are,gemstones,diamonds,are,gemstones that are composed of carbon
+quartz,contains,silicon dioxide,quartz,is,a mineral,quartz,is,a mineral that contains silicon dioxide
+gold,conducts,electricity,gold,is,a metal,gold,is,a metal that conducts electricity
+the Amazon River,flows through,Brazil,the Amazon River,is,a river,the Amazon River,is,a river that flows through Brazil
+kangaroos,carry,joeys in pouches,kangaroos,are,marsupials,kangaroos,are,marsupials that carry joeys in pouches
+carbon dioxide,is produced during,respiration,carbon dioxide,is,a gas,carbon dioxide,is,a gas that is produced during respiration
+volcanoes,erupt,molten rock,volcanoes,are,geological features,volcanoes,are,geological features that erupt molten rock
+the Sahara,spans,North Africa,the Sahara,is,a desert,the Sahara,is,a desert that spans North Africa
+bamboo,grows in,tropical regions,bamboo,is,a grass,bamboo,is,a grass that grows in tropical regions
+photosynthesis,converts,light into chemical energy,photosynthesis,is,a biological process,photosynthesis,is,a biological process that converts light into chemical energy
+electrons,carry,negative charge,electrons,are,subatomic particles,electrons,are,subatomic particles that carry negative charge
+the Pacific Ocean,covers,one-third of Earth's surface,the Pacific Ocean,is,an ocean,the Pacific Ocean,is,an ocean that covers one-third of Earth's surface
+the Eiffel Tower,stands in,Paris,the Eiffel Tower,is,a landmark,the Eiffel Tower,is,a landmark that stands in Paris
+coffee,contains,caffeine,coffee,is,a beverage,coffee,is,a beverage that contains caffeine
+DNA,stores,genetic information,DNA,is,a molecule,DNA,is,a molecule that stores genetic information
+neutron stars,form from,supernova explosions,neutron stars,are,stellar remnants,neutron stars,are,stellar remnants that form from supernova explosions
+the internet,connects,computers worldwide,the internet,is,a network,the internet,is,a network that connects computers worldwide
+wind turbines,convert,wind into electricity,wind turbines,are,energy devices,wind turbines,are,energy devices that convert wind into electricity
+caterpillars,metamorphose into,butterflies,caterpillars,are,larvae,caterpillars,are,larvae that metamorphose into butterflies
+aluminium,resists,corrosion,aluminium,is,a metal,aluminium,is,a metal that resists corrosion
+the Great Barrier Reef,stretches along,Australia's northeast coast,the Great Barrier Reef,is,a coral reef,the Great Barrier Reef,is,a coral reef that stretches along Australia's northeast coast
+deserts,receive,little precipitation,deserts,are,ecosystems,deserts,are,ecosystems that receive little precipitation
+penguins,live in,the Southern Hemisphere,penguins,are,birds,penguins,are,birds that live in the Southern Hemisphere
+gravity,pulls,objects toward each other,gravity,is,a fundamental force,gravity,is,a fundamental force that pulls objects toward each other
+maple syrup,is made from,maple sap,maple syrup,is,a sweetener,maple syrup,is,a sweetener that is made from maple sap
+Python,supports,multiple programming paradigms,Python,is,a programming language,Python,is,a programming language that supports multiple programming paradigms
+solar panels,capture,sunlight,solar panels,are,energy devices,solar panels,are,energy devices that capture sunlight
+mammals,nurse,their young,mammals,are,animals,mammals,are,animals that nurse their young
+sound,travels through,vibrations in a medium,sound,is,a wave,sound,is,a wave that travels through vibrations in a medium
+volleyball,involves,two teams separated by a net,volleyball,is,a sport,volleyball,is,a sport that involves two teams separated by a net
+termites,digest,wood,termites,are,insects,termites,are,insects that digest wood
+lava,emerges from,volcanic vents,lava,is,molten rock,lava,is,molten rock that emerges from volcanic vents
+rainbows,appear after,rain with sunlight,rainbows,are,optical phenomena,rainbows,are,optical phenomena that appear after rain with sunlight
+cheetahs,reach,high speeds,cheetahs,are,felines,cheetahs,are,felines that reach high speeds
+icebergs,break off from,glaciers,icebergs,are,floating ice masses,icebergs,are,floating ice masses that break off from glaciers
+compasses,point toward,magnetic north,compasses,are,navigation tools,compasses,are,navigation tools that point toward magnetic north
+the ozone layer,absorbs,ultraviolet radiation,the ozone layer,is,an atmospheric layer,the ozone layer,is,an atmospheric layer that absorbs ultraviolet radiation
+sunscreen,protects against,UV rays,sunscreen,is,a skincare product,sunscreen,is,a skincare product that protects against UV rays
+Saturn,is surrounded by,rings of ice and rock,Saturn,is,a planet,Saturn,is,a planet that is surrounded by rings of ice and rock
+mitochondria,generate,ATP,mitochondria,are,organelles,mitochondria,are,organelles that generate ATP
+silk,is produced by,silkworms,silk,is,a fiber,silk,is,a fiber that is produced by silkworms
+sharks,have,cartilaginous skeletons,sharks,are,fish,sharks,are,fish that have cartilaginous skeletons
+coral,builds,reefs,coral,is,a marine organism,coral,is,a marine organism that builds reefs
+Jupiter,has,the Great Red Spot,Jupiter,is,a planet,Jupiter,is,a planet that has the Great Red Spot
+aspirin,reduces,pain,aspirin,is,a medication,aspirin,is,a medication that reduces pain
+rice,feeds,billions of people,rice,is,a staple crop,rice,is,a staple crop that feeds billions of people
+the Nile River,flows into,the Mediterranean Sea,the Nile River,is,a river,the Nile River,is,a river that flows into the Mediterranean Sea
+enzymes,catalyze,biochemical reactions,enzymes,are,proteins,enzymes,are,proteins that catalyze biochemical reactions
+batteries,store,electrical energy,batteries,are,energy storage devices,batteries,are,energy storage devices that store electrical energy
+copper,transmits,electricity,copper,is,a metal,copper,is,a metal that transmits electricity
+telescopes,magnify,distant objects,telescopes,are,optical instruments,telescopes,are,optical instruments that magnify distant objects
+moss,thrives in,damp environments,moss,is,a non‑vascular plant,moss,is,a non‑vascular plant that thrives in damp environments
+satellites,orbit,Earth,satellites,are,artificial objects,satellites,are,artificial objects that orbit Earth
+potatoes,grow underground as,tubers,potatoes,are,vegetables,potatoes,are,vegetables that grow underground as tubers
+butterflies,undergo,metamorphosis,butterflies,are,insects,butterflies,are,insects that undergo metamorphosis
+glaciers,store,freshwater,glaciers,are,ice masses,glaciers,are,ice masses that store freshwater
+birds,have,feathers,birds,are,animals,birds,are,animals that have feathers
+sodium chloride,forms,table salt,sodium chloride,is,a compound,sodium chloride,is,a compound that forms table salt
+lithium‑ion batteries,power,smartphones,lithium‑ion batteries,are,rechargeable batteries,lithium‑ion batteries,are,rechargeable batteries that power smartphones
+oak trees,produce,acorns,oak trees,are,plants,oak trees,are,plants that produce acorns
+algae,perform,photosynthesis,algae,are,simple organisms,algae,are,simple organisms that perform photosynthesis
+Mars,has,two moons,Mars,is,a planet,Mars,is,a planet that has two moons
+coral reefs,host,diverse marine life,coral reefs,are,ecosystems,coral reefs,are,ecosystems that host diverse marine life
+frogs,live in,aquatic and terrestrial habitats,frogs,are,amphibians,frogs,are,amphibians that live in aquatic and terrestrial habitats
+the Milky Way,contains,billions of stars,the Milky Way,is,a galaxy,the Milky Way,is,a galaxy that contains billions of stars
+chocolate,is made from,cacao beans,chocolate,is,a food,chocolate,is,a food that is made from cacao beans
+rubies,owe color to,chromium traces,rubies,are,gemstones,rubies,are,gemstones that owe color to chromium traces
+steel,is made by,alloying iron with carbon,steel,is,a metal alloy,steel,is,a metal alloy that is made by alloying iron with carbon
+waterfalls,occur where,rivers drop over cliffs,waterfalls,are,landforms,waterfalls,are,landforms that occur where rivers drop over cliffs
+bamboo shoots,grow rapidly at,several centimeters per day,bamboo shoots,are,plant structures,bamboo shoots,are,plant structures that grow rapidly at several centimeters per day
+comets,possess,tails of gas and dust,comets,are,celestial bodies,comets,are,celestial bodies that possess tails of gas and dust
+bees,pollinate,flowers,bees,are,insects,bees,are,insects that pollinate flowers
+helium,has,the lowest boiling point,helium,is,a gas,helium,is,a gas that has the lowest boiling point
+microchips,contain,millions of transistors,microchips,are,electronic components,microchips,are,electronic components that contain millions of transistors
+mushrooms,reproduce via,spores,mushrooms,are,fungi,mushrooms,are,fungi that reproduce via spores
+swallows,migrate,long distances seasonally,swallows,are,birds,swallows,are,birds that migrate long distances seasonally
+crocodiles,have,powerful jaws,crocodiles,are,reptiles,crocodiles,are,reptiles that have powerful jaws
+the Grand Canyon,was carved by,the Colorado River,the Grand Canyon,is,a landform,the Grand Canyon,is,a landform that was carved by the Colorado River
+hydrogen,fuels,the Sun's fusion,hydrogen,is,an element,hydrogen,is,an element that fuels the Sun's fusion
+lightning rods,divert,electrical strikes,lightning rods,are,safety devices,lightning rods,are,safety devices that divert electrical strikes
+mountains,rise from,tectonic activity,mountains,are,landforms,mountains,are,landforms that rise from tectonic activity
+the Dead Sea,lies below,sea level,the Dead Sea,is,a lake,the Dead Sea,is,a lake that lies below sea level
+fireflies,produce,bioluminescent light,fireflies,are,insects,fireflies,are,insects that produce bioluminescent light
+tungsten,possesses,a high melting point,tungsten,is,a metal,tungsten,is,a metal that possesses a high melting point
+Pluto,orbits,the Sun,Pluto,is,a dwarf planet,Pluto,is,a dwarf planet that orbits the Sun
+nanometers,measure,wavelengths of light,nanometers,are,units,nanometers,are,units that measure wavelengths of light
+yeast,ferments,sugars,yeast,is,a microorganism,yeast,is,a microorganism that ferments sugars
+coral bleaching,results from,thermal stress,coral bleaching,is,a phenomenon,coral bleaching,is,a phenomenon that results from thermal stress
+magnets,attract,ferromagnetic materials,magnets,are,objects,magnets,are,objects that attract ferromagnetic materials
+rainforests,contain,high biodiversity,rainforests,are,biomes,rainforests,are,biomes that contain high biodiversity
+the Silk Road,connected,Asia and Europe,the Silk Road,was,a trade route,the Silk Road,was,a trade route that connected Asia and Europe

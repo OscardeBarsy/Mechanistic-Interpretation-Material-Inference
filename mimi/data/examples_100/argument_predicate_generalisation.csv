@@ -1,0 +1,97 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+rock,is,a hard material,granite,is,a hard material,granite,is a kind of,rock
+metal,is,a good conductor of heat,copper,is,a good conductor of heat,copper,is a type of,metal
+planet,is,a celestial body orbiting a star,Earth,is,a celestial body orbiting a star,Earth,is a form of,planet
+bird,is,an animal that has feathers,sparrow,is,an animal that has feathers,sparrow,belongs to,bird
+fruit,is,a sweet edible plant product,apple,is,a sweet edible plant product,apple,falls under,fruit
+tree,is,a woody plant,oak,is,a woody plant,oak,is classified as,tree
+insect,is,a six‑legged animal,ant,is,a six‑legged animal,ant,is included in,insect
+fish,is,a gill‑breathing aquatic animal,salmon,is,a gill‑breathing aquatic animal,salmon,is a member of,fish
+mammal,is,a warm‑blooded vertebrate,dolphin,is,a warm‑blooded vertebrate,dolphin,comes under,mammal
+flower,is,a plant that produces blossoms,rose,is,a plant that produces blossoms,rose,is an example of,flower
+vehicle,is,a means of transport,car,is,a means of transport,car,is a kind of,vehicle
+shape,is,a two‑dimensional figure,square,is,a two‑dimensional figure,square,is a type of,shape
+continent,is,a large landmass,Africa,is,a large landmass,Africa,is a form of,continent
+river,is,a flowing body of water,Nile,is,a flowing body of water,Nile,belongs to,river
+language,is,a system of communication,English,is,a system of communication,English,falls under,language
+instrument,is,a musical device,guitar,is,a musical device,guitar,is classified as,instrument
+computer,is,an electronic device that processes data,laptop,is,an electronic device that processes data,laptop,is included in,computer
+color,is,a perceivable wavelength of light,red,is,a perceivable wavelength of light,red,is a member of,color
+mineral,is,a naturally occurring solid substance,quartz,is,a naturally occurring solid substance,quartz,comes under,mineral
+element,is,a pure chemical substance,oxygen,is,a pure chemical substance,oxygen,is an example of,element
+galaxy,is,a system of stars,Milky Way,is,a system of stars,Milky Way,is a kind of,galaxy
+reptile,is,a cold‑blooded vertebrate,lizard,is,a cold‑blooded vertebrate,lizard,is a type of,reptile
+volcano,is,a mountain that erupts magma,Mount Fuji,is,a mountain that erupts magma,Mount Fuji,is a form of,volcano
+amphibian,is,an animal that lives on land and water,frog,is,an animal that lives on land and water,frog,belongs to,amphibian
+beverage,is,a drinkable liquid,coffee,is,a drinkable liquid,coffee,falls under,beverage
+disease,is,an illness that affects living organisms,influenza,is,an illness that affects living organisms,influenza,is classified as,disease
+constellation,is,a pattern of stars,Orion,is,a pattern of stars,Orion,is included in,constellation
+primate,is,a mammal with grasping hands,chimpanzee,is,a mammal with grasping hands,chimpanzee,is a member of,primate
+herb,is,a plant used for flavoring food,basil,is,a plant used for flavoring food,basil,comes under,herb
+gemstone,is,a precious mineral used in jewelry,diamond,is,a precious mineral used in jewelry,diamond,is an example of,gemstone
+season,is,a period of the year with distinct weather,winter,is,a period of the year with distinct weather,winter,is a kind of,season
+cloud,is,a visible mass of water droplets in the sky,cumulus cloud,is,a visible mass of water droplets in the sky,cumulus cloud,is a type of,cloud
+dinosaur,is,an extinct reptile from the Mesozoic era,Tyrannosaurus rex,is,an extinct reptile from the Mesozoic era,Tyrannosaurus rex,is a form of,dinosaur
+satellite,is,an artificial object orbiting Earth,Hubble Space Telescope,is,an artificial object orbiting Earth,Hubble Space Telescope,belongs to,satellite
+tissue,is,a group of similar cells,muscle tissue,is,a group of similar cells,muscle tissue,falls under,tissue
+equation,is,a mathematical statement of equality,E=mc^2,is,a mathematical statement of equality,E=mc^2,is classified as,equation
+programming language,is,a formal language for computing,Python,is,a formal language for computing,Python,is included in,programming language
+chocolate,is,a sweet food made from cacao beans,dark chocolate,is,a sweet food made from cacao beans,dark chocolate,is a member of,chocolate
+climate zone,is,a region with characteristic weather patterns,tropical climate,is,a region with characteristic weather patterns,tropical climate,comes under,climate zone
+martial art,is,a combat practice for self‑defense,karate,is,a combat practice for self‑defense,karate,is an example of,martial art
+rodent,is,a mammal with continuously growing incisors,mouse,is,a mammal with continuously growing incisors,mouse,is a kind of,rodent
+crustacean,is,an arthropod with a hard shell,crab,is,an arthropod with a hard shell,crab,is a type of,crustacean
+poem,is,a piece of literature written in verse,sonnet,is,a piece of literature written in verse,sonnet,is a form of,poem
+ecosystem,is,a community of interacting organisms,rainforest ecosystem,is,a community of interacting organisms,rainforest ecosystem,belongs to,ecosystem
+renewable energy source,is,a source of power that replenishes naturally,solar power,is,a source of power that replenishes naturally,solar power,falls under,renewable energy source
+metal alloy,is,a mixture of metals,bronze,is,a mixture of metals,bronze,is classified as,metal alloy
+cereal grain,is,a grass cultivated for edible seeds,wheat,is,a grass cultivated for edible seeds,wheat,is included in,cereal grain
+sea mammal,is,a mammal that lives in the ocean,blue whale,is,a mammal that lives in the ocean,blue whale,is a member of,sea mammal
+pharmaceutical drug,is,a substance used for medical treatment,aspirin,is,a substance used for medical treatment,aspirin,comes under,pharmaceutical drug
+gas giant,is,a large planet composed mainly of gases,Jupiter,is,a large planet composed mainly of gases,Jupiter,is an example of,gas giant
+cat,is,a carnivorous mammal,lion,is,a carnivorous mammal,lion,is a kind of,cat
+programming paradigm,is,a style of computer programming,object‑oriented programming,is,a style of computer programming,object‑oriented programming,is a type of,programming paradigm
+flightless bird,is,a bird incapable of flight,ostrich,is,a bird incapable of flight,ostrich,is a form of,flightless bird
+literary genre,is,a category of literary composition,science fiction,is,a category of literary composition,science fiction,belongs to,literary genre
+operating system,is,software that manages computer hardware,Linux,is,software that manages computer hardware,Linux,falls under,operating system
+cloud computing service model,is,a way of providing computing services,Software as a Service,is,a way of providing computing services,Software as a Service,is classified as,cloud computing service model
+star cluster,is,a group of stars bound by gravity,Pleiades,is,a group of stars bound by gravity,Pleiades,is included in,star cluster
+fundamental force,is,an interaction that cannot be reduced,gravity,is,an interaction that cannot be reduced,gravity,is a member of,fundamental force
+programming library,is,a collection of pre‑written code,NumPy,is,a collection of pre‑written code,NumPy,comes under,programming library
+probability distribution,is,a function that describes likelihoods,normal distribution,is,a function that describes likelihoods,normal distribution,is an example of,probability distribution
+DNA base,is,a nucleotide in DNA,adenine,is,a nucleotide in DNA,adenine,is a kind of,DNA base
+chemical reaction type,is,a process that changes chemical substances,combustion,is,a process that changes chemical substances,combustion,is a type of,chemical reaction type
+chess piece,is,a game piece in chess,queen,is,a game piece in chess,queen,is a form of,chess piece
+polygon,is,a closed plane figure with straight sides,pentagon,is,a closed plane figure with straight sides,pentagon,belongs to,polygon
+metric unit,is,a standard of measurement in the metric system,meter,is,a standard of measurement in the metric system,meter,falls under,metric unit
+art movement,is,a style in art history,Impressionism,is,a style in art history,Impressionism,is classified as,art movement
+web browser,is,a software application for accessing the web,Firefox,is,a software application for accessing the web,Firefox,is included in,web browser
+HTTP method,is,a request type in HTTP,GET,is,a request type in HTTP,GET,is a member of,HTTP method
+renewable material,is,a material that can regenerate quickly,bamboo,is,a material that can regenerate quickly,bamboo,comes under,renewable material
+endangered species,is,a species at risk of extinction,giant panda,is,a species at risk of extinction,giant panda,is an example of,endangered species
+official language,is,a language designated as official by a country,French,is,a language designated as official by a country,French,is a kind of,official language
+economic system,is,a system for production and distribution of goods,capitalism,is,a system for production and distribution of goods,capitalism,is a type of,economic system
+photography technique,is,a method used in taking photos,long exposure,is,a method used in taking photos,long exposure,is a form of,photography technique
+sorting algorithm,is,a step‑by‑step procedure for ordering data,quicksort,is,a step‑by‑step procedure for ordering data,quicksort,belongs to,sorting algorithm
+smartphone brand,is,a company that manufactures smartphones,Samsung,is,a company that manufactures smartphones,Samsung,falls under,smartphone brand
+renewable energy technology,is,a technology that harnesses renewable energy,wind turbine,is,a technology that harnesses renewable energy,wind turbine,is classified as,renewable energy technology
+sea,is,a large body of saltwater partially enclosed by land,Mediterranean Sea,is,a large body of saltwater partially enclosed by land,Mediterranean Sea,is included in,sea
+mountain range,is,a series of mountains connected by high ground,Andes,is,a series of mountains connected by high ground,Andes,is a member of,mountain range
+desert,is,a dry barren area with little rainfall,Sahara,is,a dry barren area with little rainfall,Sahara,comes under,desert
+leafy vegetable,is,an edible plant leaf eaten as a vegetable,lettuce,is,an edible plant leaf eaten as a vegetable,lettuce,is an example of,leafy vegetable
+mythological creature,is,an imaginary being from mythology,dragon,is,an imaginary being from mythology,dragon,is a kind of,mythological creature
+organ,is,a part of an organism that performs a function,heart,is,a part of an organism that performs a function,heart,is a type of,organ
+data structure,is,a way of storing data in computers,linked list,is,a way of storing data in computers,linked list,is a form of,data structure
+climate pattern,is,a recurring fluctuation in climate,El Niño,is,a recurring fluctuation in climate,El Niño,belongs to,climate pattern
+search engine,is,a software system for searching the web,Google,is,a software system for searching the web,Google,falls under,search engine
+word class,is,a category of words in grammar,noun,is,a category of words in grammar,noun,is classified as,word class
+domestic animal,is,an animal bred and kept by humans,cow,is,an animal bred and kept by humans,cow,is included in,domestic animal
+historical period,is,a span of time in history,Renaissance,is,a span of time in history,Renaissance,is a member of,historical period
+economic indicator,is,a statistic that indicates economic activity,GDP,is,a statistic that indicates economic activity,GDP,comes under,economic indicator
+geological era,is,a unit of geologic time,Paleozoic,is,a unit of geologic time,Paleozoic,is an example of,geological era
+waterway,is,a navigable body of water,Panama Canal,is,a navigable body of water,Panama Canal,is a kind of,waterway
+phylum,is,a taxonomic rank below kingdom,Chordata,is,a taxonomic rank below kingdom,Chordata,is a type of,phylum
+cell organelle,is,a specialized structure within a cell,mitochondrion,is,a specialized structure within a cell,mitochondrion,is a form of,cell organelle
+literary device,is,a technique used in writing,metaphor,is,a technique used in writing,metaphor,belongs to,literary device
+natural satellite,is,a celestial body that orbits a planet,Moon,is,a celestial body that orbits a planet,Moon,falls under,natural satellite
+encryption algorithm,is,a method for encoding information,AES,is,a method for encoding information,AES,is classified as,encryption algorithm

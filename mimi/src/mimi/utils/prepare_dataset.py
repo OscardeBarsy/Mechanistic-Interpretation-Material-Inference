@@ -19,6 +19,7 @@ from mimi.utils.global_variables import IMAGE_DIR, DATASET_DIR
 
 
 
+
 class AMRType(str, Enum):
     ARG_SUB = "argument_substitution"
     PRED_SUB = "predicate_substitution"
@@ -26,8 +27,8 @@ class AMRType(str, Enum):
     COND_FRAME = "conditional_frame_insertion_substitution"
     ARG_INS = "argument_insertion"
     FRAME_CONJ = "frame_conjunction"
-    ARG_PRED_GEN = "argument_or_predicate_generalisation"
-    ARG_SUB_PROP = "argument_substitution_property_inheritance"
+    ARG_PRED_GEN = "argument_predicate_generalisation"
+    ARG_SUB_PROP = "property_inheritance"
     EXAMPLE = "example"
     IFT = "if_then"
     UNK = "unknown"
@@ -87,6 +88,7 @@ class MaterialInferenceDataset:
         ]
         self.A = [prompt["a"] for prompt in self.prompts]
         self.B = [prompt["b"] for prompt in self.prompts]
+        self.B2 = [prompt["b2"] for prompt in self.prompts]
 
 
     def gen_prompt_label_pairs(self):
@@ -97,24 +99,27 @@ class MaterialInferenceDataset:
             prompts.append(prompt)
         return prompts
     
-    def get_prompt_label_pair_from_row(self, row):
+    def get_prompt_label_pair_from_row(self, row, b2 = None):
         a = row["Premise1_Subject"]
         b = row["Premise2_Subject"]
         c = row["Premise2_Object"]
-        return self.get_prompt_label_pair_from_row_and_abc(row, a, b, c)
+        return self.get_prompt_label_pair_from_row_and_abc(row, a, b, c, b2 = b2)
     
-    def get_prompt_label_pair_from_row_and_abc(self, row, a, b, c):
+    def get_prompt_label_pair_from_row_and_abc(self, row, a, b, c, b2 = None):
 
         prompt = {}
+        if not b2:
+            b2 = b
         premise_1 = a + " " + row["Premise1_Verb"]+ " " + b
-        premise_2 = b + " " + row["Premise2_Verb"] + " " + c
+        premise_2 = b2 + " " + row["Premise2_Verb"] + " " + c
         conclusion_set_up = a + " " + row["Conclusion_Verb"]
 
         prompt["input"] = f"Since {premise_1} and {premise_2}, therefore {conclusion_set_up}"
 
         prompt["a"] = a
         prompt["b"] = b
-        prompt["label"] = c.strip().lower()
+        prompt["b2"] = b2
+        prompt["label"] = row["Conclusion_Object"]
 
 
         return prompt 
@@ -127,8 +132,8 @@ class MaterialInferenceDataset:
         prompts = []
         samples = self.df.sample(n=self.N, random_state=self.seed)
         for index, row in samples.iterrows():
-            row["Premise2_Subject"] = self.get_filtered_sample(self.B, [row["Premise2_Subject"]])
-            prompt = self.get_prompt_label_pair_from_row(row)
+            b2 = self.get_filtered_sample(self.B, [row["Premise2_Subject"]])
+            prompt = self.get_prompt_label_pair_from_row(row, b2 = b2)
             prompts.append(prompt)
         return prompts
     

@@ -1,15 +1,197 @@
-import torch
-import torch.nn.functional as F
+import torch as t
 from torch import Tensor
 from transformer_lens.hook_points import HookPoint
 from transformer_lens import utils, HookedTransformer, HookedTransformerConfig, FactoredMatrix, ActivationCache
 from tqdm import tqdm
 from functools import partial
 import numpy as np
+import torch.nn.functional as F
+from torch.nn.utils.rnn import pad_sequence
+from typing import Dict, List, Tuple
+import torch as t
+import re
+from collections import defaultdict
+
+def get_max_label_token_lengths(dataset):
+    """
+    Compute the maximum token length for each symbolic label across the dataset,
+    accounting for variable tokenization of a, b, and c (and verbs).
+
+    Returns:
+        dict: { label: max_len }
+              Labels: ["BEGIN","s_1","s_1 -> m_1","m_1","m_1 -> m_2",
+                       "m_2","m_2 -> p","p","p -> s_2","s_2","END"]
+    """
+    tokenizer = dataset.tokenizer
+    labels = [
+        "BEGIN",
+        "s_1",
+        "s_1 -> m_1",
+        "m_1",
+        "m_1 -> m_2",
+        "m_2",
+        "m_2 -> p",
+        "p",
+        "p -> s_2",
+        "s_2",
+        "END"
+    ]
+
+    max_len = {lab: 0 for lab in labels}
+
+    # Regex to extract a, v1, b, v2, c, v3 based on your prompt builder
+    # Example prompt:
+    # "Since A VERB1 B and B VERB2 C, therefore A VERB3"
+    pat = re.compile(
+        r"^Since\s+(.+?)\s+(.+?)\s+(.+?)\s+and\s+(.+?)\s+(.+?)\s+(.+?),\s+therefore\s+\1\s+(.+?)$"
+    )
+
+    # Helper to get token length
+    def tlen(text): 
+        return len(tokenizer(text, add_special_tokens=False)["input_ids"])
+    
+    max_len["BEGIN"] = tlen("Since")
+    max_len["m_1 -> m_2"] = tlen(" and ")
+    max_len["p -> s_2"] = tlen(", therefore")
+
+    for prompt in dataset.sentences:
+        m = pat.match(prompt)
+        if not m:
+            # If any prompt deviates, skip or raise — here we skip gracefully
+            # You can print or log the prompt to debug if needed.
+            continue
+
+        a, v1, b, b2, v2, c, v3 = m.groups()
+
+
+        # s_1: a
+        max_len["s_1"] = max(max_len["s_1"], tlen(a))
+
+        # s_1 -> m_1: v1
+        max_len["s_1 -> m_1"] = max(max_len["s_1 -> m_1"], tlen(v1))
+
+        # m_1: b
+        max_len["m_1"] = max(max_len["m_1"], tlen(b))
+
+        # m_2: b2
+        max_len["m_2"] = max(max_len["m_2"], tlen(b2))
+
+        # m_2 -> p: ", therefore" (comma + space + word)
+        max_len["m_2 -> p"] = max(max_len["m_2 -> p"], tlen(v2))
+
+        # p: a
+        max_len["p"] = max(max_len["p"], tlen(c))
+
+        
+
+        # s_2: c  (your earlier code maps s_2 to c again)
+        max_len["s_2"] = max(max_len["s_2"], tlen(a))
+
+        # END: no EOS added with add_special_tokens=False; keep 0 or set to 1 if you want a column
+        max_len["END"] = max(max_len["END"], tlen(v3))
+
+    return max_len
+
+def build_label_spans(max_len_by_label: Dict[str, int], labels: List[str]) -> Dict[str, Tuple[int, int]]:
+    """
+    Given max token lengths per label and an ordered label list, return
+    cumulative [start, end) spans for each label along the sequence axis.
+    """
+    spans = {}
+    cur = 0
+    for lab in labels:
+        L = int(max_len_by_label.get(lab, 0))
+        spans[lab] = (cur, cur + L)
+        cur += L
+    return spans
+
+
+def compress_by_label_spans(
+    tensor: t.Tensor,
+    spans: Dict[str, Tuple[int, int]],
+    labels: List[str],
+    mode: str = "mean",
+) -> t.Tensor:
+    """
+    Aggregate a sequence-by-layer tensor into label rows using spans.
+
+    Accepts `tensor` with shape:
+        - [seq_len, n_layers]  OR
+        - [n_layers, seq_len]  (will be transposed internally)
+
+    Returns:
+        compressed: [len(labels), n_layers] (CPU tensor)
+    """
+    assert mode in {"mean", "sum"}
+    x = tensor
+    if x.dim() != 2:
+        raise ValueError("Expected a 2D tensor (seq_len x n_layers or n_layers x seq_len).")
+
+    
+
+    seq_len, n_layers = x.shape
+    out = []
+
+    for lab in labels:
+        s, e = spans[lab]
+        s_clamped = max(0, min(s, seq_len))
+        e_clamped = max(0, min(e, seq_len))
+
+        if e_clamped <= s_clamped:
+            # No tokens allocated for this label → zeros row
+            out.append(t.zeros(n_layers, dtype=x.dtype, device=x.device))
+        else:
+            seg = x[s_clamped:e_clamped, :]  # [seg_len, n_layers]
+            agg = seg.mean(dim=0) if mode == "mean" else seg.sum(dim=0)
+            out.append(agg)
+
+    compressed = t.stack(out, dim=0)   # [11, n_layers]
+    return compressed.detach().cpu()  
+
+
+def get_answer_token_sequences(labels: list[str], second_labels: list[str], tokenizer, max_len=None) -> t.Tensor:
+    """
+    Returns a tensor of shape [batch_size, 2, label_len] containing tokenized
+    correct and incorrect labels, padded to the same length.
+
+    Args:
+        labels: List of correct label strings.
+        second_labels: List of incorrect label strings.
+        tokenizer: HuggingFace tokenizer.
+        max_len: Optional fixed label length to pad/truncate to.
+
+    Returns:
+        Tensor of shape [batch_size, 2, label_len]
+    """
+    assert len(labels) == len(second_labels), "Mismatched label lengths"
+
+    token_pairs = []
+
+    for correct, incorrect in zip(labels, second_labels):
+        correct_ids = tokenizer(correct, add_special_tokens=False, return_tensors="pt")["input_ids"][0]
+        incorrect_ids = tokenizer(incorrect, add_special_tokens=False, return_tensors="pt")["input_ids"][0]
+        token_pairs.append([correct_ids, incorrect_ids])  # don't stack yet
+
+    # Flatten, pad, reshape
+    flat = [x for pair in token_pairs for x in pair]  # [batch * 2]
+    padded = pad_sequence(flat, batch_first=True, padding_value=tokenizer.pad_token_id)  # [batch*2, max_len]
+    padded = padded.view(len(labels), 2, -1)  # [batch, 2, max_len]
+
+    if max_len is not None:
+        cur_len = padded.size(-1)
+        if cur_len > max_len:
+            padded = padded[:, :, :max_len]
+        elif cur_len < max_len:
+            pad_width = max_len - cur_len
+            pad_tensor = t.full((padded.size(0), 2, pad_width), tokenizer.pad_token_id, dtype=padded.dtype)
+            padded = t.cat([padded, pad_tensor], dim=-1)
+
+    return padded
+
 
 ## Misc
 def normalise_tensor(tensor):
-    max_abs_val = torch.max(torch.abs(tensor))
+    max_abs_val = t.max(t.abs(tensor))
     normalised_tensor = tensor / max_abs_val
     return normalised_tensor
 
@@ -23,80 +205,62 @@ def resize_all(tensor):
     temp = resize_tensor(temp, 9, 10)
     temp = resize_tensor(temp, 4, 5)
     return temp
-def compute_logit_diff(logits, answer_tokens, array=False):
-    last = logits[:, -1, :]
-    answer_logits = last.gather(dim=-1, index=answer_tokens)
-    correct_logits, incorrect_logits = answer_logits.unbind(dim=-1)
-    answer_logit_diff = correct_logits - incorrect_logits
+
+def compute_logit_diff(logits: t.Tensor, answer_token_seqs: t.Tensor, array=False):
+    """
+    Computes normalized logit difference for multi-token answer sequences.
+
+    Args:
+        logits: Tensor of shape [batch, seq_len, vocab_size] — from model forward pass.
+        answer_token_seqs: Tensor of shape [batch, 2, label_len] — correct and incorrect label token IDs.
+        array: If True, return individual logit differences per sample; else, return the mean.
+
+    Returns:
+        Float (mean logit diff) or array of diffs, depending on `array`.
+    """
+    # Get relevant logits at the end of the sequence (i.e., the label tokens)
+    label_len = answer_token_seqs.size(-1)
+    logits_to_score = logits[:, -label_len:, :]  # [batch, label_len, vocab_size]
+    log_probs = F.log_softmax(logits_to_score, dim=-1)  # [batch, label_len, vocab_size]
+
+    # Extract correct and incorrect label token sequences
+    correct_labels = answer_token_seqs[:, 0, :]  # [batch, label_len]
+    incorrect_labels = answer_token_seqs[:, 1, :]  # [batch, label_len]
+
+    # Gather log-probs for the correct and incorrect tokens
+    correct_log_probs = log_probs.gather(2, correct_labels.unsqueeze(-1)).squeeze(-1)  # [batch, label_len]
+    incorrect_log_probs = log_probs.gather(2, incorrect_labels.unsqueeze(-1)).squeeze(-1)  # [batch, label_len]
+
+    # Normalize: take mean log-prob over the label length
+    correct_mean = correct_log_probs.mean(dim=1)  # [batch]
+    incorrect_mean = incorrect_log_probs.mean(dim=1)  # [batch]
+
+    logit_diff = correct_mean - incorrect_mean  # [batch]
 
     if array:
-        return answer_logit_diff.cpu().numpy()
-        
-    return answer_logit_diff.mean()
+        return logit_diff.cpu().numpy()
 
-def compute_logit_diff_seqavg(logits_or_last, answer_token_seqs, array=False):
-    """
-    Accepts:
-      logits_or_last: [B, T, V] or [B, V] (CUDA or CPU)
-      answer_token_seqs: list of length B of (corr_ids_1D, inc_ids_1D), CPU Long
-    Returns:
-      mean diff (Tensor scalar) or per-example numpy if array=True
-    """
-    # Get last-step logits and move to CPU
-    if logits_or_last.dim() == 3:
-        last = logits_or_last[:, -1, :]
-    elif logits_or_last.dim() == 2:
-        last = logits_or_last
-    else:
-        raise ValueError(f"Expected [B,T,V] or [B,V], got shape {tuple(logits_or_last.shape)}")
-    last = last.detach()
-    if last.is_cuda:
-        last = last.cpu()
+    return logit_diff.mean()
 
-    B, V = last.shape
-    diffs = []
-
-    for i, (corr_ids, inc_ids) in enumerate(answer_token_seqs):
-        corr_ids = torch.as_tensor(corr_ids, dtype=torch.long, device="cpu").view(-1)
-        inc_ids  = torch.as_tensor(inc_ids,  dtype=torch.long, device="cpu").view(-1)
-
-        # Early sanity checks (raise a clear error instead of a CUDA assert)
-        if corr_ids.numel() == 0 or inc_ids.numel() == 0:
-            raise ValueError(f"Empty token list at batch index {i}: "
-                             f"corr_len={corr_ids.numel()}, inc_len={inc_ids.numel()}")
-        if int(corr_ids.max()) >= V or int(inc_ids.max()) >= V or int(corr_ids.min()) < 0 or int(inc_ids.min()) < 0:
-            raise ValueError(
-                f"Token id out of vocab range at batch index {i}: "
-                f"max_corr={int(corr_ids.max())}, max_inc={int(inc_ids.max())}, V={V}"
-            )
-
-        corr_mean = last[i, corr_ids].mean()
-        inc_mean  = last[i, inc_ids].mean()
-        diffs.append(corr_mean - inc_mean)
-
-    diffs = torch.stack(diffs)  # [B]
-    return diffs.numpy() if array else diffs.mean()
-
-
-
-
-def get_batched_logit_diff(minibatch_size, tokens, answer_token_seqs, model):
+def get_batched_logit_diff(minibatch_size, tokens, answer_tokens, model):
     avg_logit_diff = 0
     for i in range(0, len(tokens), minibatch_size):
-        logit, _ = model.run_with_cache(tokens[i : i+minibatch_size])
-        diffs = compute_logit_diff_seqavg(logit, answer_token_seqs[i : i+minibatch_size])
-        avg_logit_diff += diffs
-        del logit, diffs
-    return avg_logit_diff / (len(tokens) / minibatch_size)
-
+        target_index = i
+        logit, _ = model.run_with_cache(tokens[target_index: target_index+minibatch_size])
+        at = answer_tokens[target_index: target_index+minibatch_size]
+        logit_diff = compute_logit_diff(logit, at)
+        avg_logit_diff += logit_diff
+        del logit
+        del logit_diff
+    return avg_logit_diff/(len(tokens)/minibatch_size)
 
 def align_fine_tuning_gpt2(model, f_model, device):
     model.W_E.copy_(f_model.transformer.wte.weight)
-    are_close = torch.allclose(model.W_E, f_model.transformer.wte.weight)
+    are_close = t.allclose(model.W_E, f_model.transformer.wte.weight)
     print(f"Are the tensors close?(token embedding) {are_close}")
 
     model.W_pos.copy_(f_model.transformer.wpe.weight)
-    are_close = torch.allclose(model.W_pos, f_model.transformer.wpe.weight)
+    are_close = t.allclose(model.W_pos, f_model.transformer.wpe.weight)
     print(f"Are the tensors close?(position embedding) {are_close}")
 
     # number of layers
@@ -145,153 +309,81 @@ def align_fine_tuning_gpt2(model, f_model, device):
         model.blocks[i].ln2.b = temp_ln2_b
 
         are_close = []
-        are_close.append(torch.allclose(model.W_Q[i], temp_Q, atol=1e-0))
-        are_close.append(torch.allclose(model.W_K[i], temp_K, atol=1e-0))
-        are_close.append(torch.allclose(model.W_V[i], temp_V, atol=1e-0))
-        are_close.append(torch.allclose(model.b_Q[i], temp_Q_b, atol=1e-0))
-        are_close.append(torch.allclose(model.b_K[i], temp_K_b, atol=1e-0))
-        are_close.append(torch.allclose(model.b_V[i], temp_V_b, atol=1e-0))
-        are_close.append(torch.allclose(model.W_in[i], temp_mlp_in, atol=1e-0))
-        are_close.append(torch.allclose(model.W_out[i], temp_mlp_out, atol=1e-0))
-        are_close.append(torch.allclose(model.b_in[i], temp_mlp_in_bias, atol=1e-0))
-        are_close.append(torch.allclose(model.b_out[i], temp_mlp_out_bias, atol=1e-0))
-        are_close.append(torch.allclose(model.blocks[i].ln1.w, temp_ln1_w, atol=1e-0))
-        are_close.append(torch.allclose(model.blocks[i].ln1.b, temp_ln1_b, atol=1e-0))
-        are_close.append(torch.allclose(model.blocks[i].ln2.w, temp_ln2_w, atol=1e-0))
-        are_close.append(torch.allclose(model.blocks[i].ln2.b, temp_ln2_b, atol=1e-0))
+        are_close.append(t.allclose(model.W_Q[i], temp_Q, atol=1e-0))
+        are_close.append(t.allclose(model.W_K[i], temp_K, atol=1e-0))
+        are_close.append(t.allclose(model.W_V[i], temp_V, atol=1e-0))
+        are_close.append(t.allclose(model.b_Q[i], temp_Q_b, atol=1e-0))
+        are_close.append(t.allclose(model.b_K[i], temp_K_b, atol=1e-0))
+        are_close.append(t.allclose(model.b_V[i], temp_V_b, atol=1e-0))
+        are_close.append(t.allclose(model.W_in[i], temp_mlp_in, atol=1e-0))
+        are_close.append(t.allclose(model.W_out[i], temp_mlp_out, atol=1e-0))
+        are_close.append(t.allclose(model.b_in[i], temp_mlp_in_bias, atol=1e-0))
+        are_close.append(t.allclose(model.b_out[i], temp_mlp_out_bias, atol=1e-0))
+        are_close.append(t.allclose(model.blocks[i].ln1.w, temp_ln1_w, atol=1e-0))
+        are_close.append(t.allclose(model.blocks[i].ln1.b, temp_ln1_b, atol=1e-0))
+        are_close.append(t.allclose(model.blocks[i].ln2.w, temp_ln2_w, atol=1e-0))
+        are_close.append(t.allclose(model.blocks[i].ln2.b, temp_ln2_b, atol=1e-0))
         print(f"Are the tensors close?(layer {i}) {are_close}")
 
     # embedding W_E and W_U
     model.W_U.copy_(f_model.transformer.wte.weight.T)
-    torch.allclose(model.W_E, model.W_U.T, atol=1e-0)
+    t.allclose(model.W_E, model.W_U.T, atol=1e-0)
     print(f"Are the tensors close?(embedding W_E and W_U) {are_close}")
 
     # layer norm
     model.ln_final.w.copy_(f_model.transformer.ln_f.weight)
     model.ln_final.b.copy_(f_model.transformer.ln_f.bias)
 
-    torch.allclose(model.ln_final.w, f_model.transformer.ln_f.weight, atol=1e-0), torch.allclose(model.ln_final.b, f_model.transformer.ln_f.bias, atol=1e-0)
+    t.allclose(model.ln_final.w, f_model.transformer.ln_f.weight, atol=1e-0), t.allclose(model.ln_final.b, f_model.transformer.ln_f.bias, atol=1e-0)
     print(f"Are the tensors close?(layer norm) {are_close}")
 
     return model
 
 ## Metric
-def metric_denoising(logits_or_last, answer_token_seqs, corrupted_logit_diff, clean_logit_diff):
-    # Accept [B,T,V] or [B,V], and do indexing on CPU
-    if logits_or_last.dim() == 3:
-        last = logits_or_last[:, -1, :].detach()
-    elif logits_or_last.dim() == 2:
-        last = logits_or_last.detach()
-    else:
-        raise ValueError(f"Expected [B,T,V] or [B,V], got {tuple(logits_or_last.shape)}")
-
-    if last.is_cuda:
-        last = last.cpu()
-    patched_logit_diff = compute_logit_diff_seqavg(last, answer_token_seqs)
-    return (patched_logit_diff - corrupted_logit_diff) / (clean_logit_diff - corrupted_logit_diff)
-
+def metric_denoising( logits, answer_tokens, corrupted_logit_diff, clean_logit_diff):
+    patched_logit_diff = compute_logit_diff(logits, answer_tokens)
+    patching_effect = (patched_logit_diff - corrupted_logit_diff) / (clean_logit_diff  - corrupted_logit_diff)
+    return patching_effect
 
 ## Intervention
-# ---- minibatched residual hook ----
-def patching_residual_hook_batch(corrupted_resid, hook, pos, clean_cache, batch_slice):
-    s, e = batch_slice
-    # corrupted_resid: [mb, seq_len, d_model]
-    # clean_cache[hook.name]: [B, seq_len, d_model]
-    corrupted_resid[:, pos, :] = clean_cache[hook.name][s:e, pos, :]
-    return corrupted_resid
+def patching_residual_hook(corrupted_residual_component, hook, pos, clean_cache):
+    corrupted_residual_component[:, pos, :] = clean_cache[hook.name][:, pos, :]
+    return corrupted_residual_component
 
-# ---- minibatched residual patch driver ----
-def patching_residual(model, corrupted_tokens, clean_cache, patching_metric,
-                      answer_token_seqs, clean_logit_diff, corrupted_logit_diff,
-                      device, minibatch_size=16):
+def patching_residual(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, device):
     model.reset_hooks()
-    B, T = corrupted_tokens.size(0), corrupted_tokens.size(1)
-    results = torch.zeros(model.cfg.n_layers, T, device=device, dtype=torch.float32)
+    seq_len = corrupted_tokens.size(1)
+    results = t.zeros(model.cfg.n_layers, seq_len, device=device, dtype=t.float32)
 
-    spans = [(i, min(i+minibatch_size, B)) for i in range(0, B, minibatch_size)]
-
-    for layer in range(model.cfg.n_layers):
-        for pos in range(T):
-            accum = 0.0
-            for (s, e) in spans:
-                hook_fn = partial(
-                    patching_residual_hook_batch,
-                    pos=pos,
-                    clean_cache=clean_cache,
-                    batch_slice=(s, e),
-                )
-                # forward only this chunk
-                patched_logits = model.run_with_hooks(
-                    corrupted_tokens[s:e],
-                    fwd_hooks=[(utils.get_act_name("resid_post", layer), hook_fn)],
-                    return_type="logits",
-                )
-
-                # free GPU ASAP: keep only last-step logits on CPU
-                last = patched_logits[:, -1, :].detach().cpu()
-                del patched_logits
-                torch.cuda.empty_cache()
-
-                # metric_denoising accepts [mb,V] or [mb,T,V]
-                chunk_metric = patching_metric(
-                    last, answer_token_seqs[s:e], corrupted_logit_diff, clean_logit_diff
-                )
-
+    for layer in tqdm(range(model.cfg.n_layers)):
+        for position in range(seq_len):
+            hook_fn = partial(patching_residual_hook, pos=position, clean_cache=clean_cache)
+            patched_logits = model.run_with_hooks(
+                corrupted_tokens,
+                fwd_hooks = [(utils.get_act_name("resid_post", layer), hook_fn)],
+            )
+            results[layer, position] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
+    return results
 
 def patching_attention_hook(corrupted_head_vector, hook, head_index, clean_cache):
     corrupted_head_vector[:, :, head_index] = clean_cache[hook.name][:, :, head_index]
     return corrupted_head_vector
 
-def patching_attention_hook_batch(corrupted_head_vector, hook, head_index, clean_cache, batch_slice):
-    s, e = batch_slice
-    # corrupted_head_vector: [mb, seq_len, n_heads, d_head] for this layer
-    # clean_cache[hook.name]: [B,  seq_len, n_heads, d_head]
-    corrupted_head_vector[:, :, head_index] = clean_cache[hook.name][s:e, :, head_index]
-    return corrupted_head_vector
-
-def patching_attention(model, corrupted_tokens, clean_cache, patching_metric,
-                       answer_token_seqs, clean_logit_diff, corrupted_logit_diff,
-                       head_type, device, minibatch_size=16):
-    """
-    head_type: usually 'z' (result), 'pattern', etc.
-    minibatch_size: tune to fit your GPU (e.g., 8/16/32)
-    """
+def patching_attention(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, head_type, device):
     model.reset_hooks()
-    results = torch.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=torch.float32)
-
-    B = corrupted_tokens.size(0)
-    spans = [(i, min(i + minibatch_size, B)) for i in range(0, B, minibatch_size)]
+    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
 
     for layer in tqdm(range(model.cfg.n_layers)):
         for head in range(model.cfg.n_heads):
-            accum = 0.0
-            for (s, e) in spans:
-                hook_fn = partial(
-                    patching_attention_hook_batch,
-                    head_index=head,
-                    clean_cache=clean_cache,
-                    batch_slice=(s, e),
-                )
-                # Forward only this chunk
-                patched_logits = model.run_with_hooks(
-                    corrupted_tokens[s:e],
-                    fwd_hooks=[(utils.get_act_name(head_type, layer), hook_fn)],
-                    return_type="logits",
-                )
-
-                # Reduce memory ASAP: go to last step on CPU here
-                last = patched_logits[:, -1, :].detach().cpu()
-                del patched_logits
-                torch.cuda.empty_cache()
-
-                # metric_denoising accepts [mb,V] now
-                chunk_metric = patching_metric(last, answer_token_seqs[s:e], corrupted_logit_diff, clean_logit_diff)
-                accum += float(chunk_metric) * (e - s)
-
-            results[layer, head] = accum / B
+            hook_fn = partial(patching_attention_hook, head_index=head, clean_cache=clean_cache)
+            patched_logits = model.run_with_hooks(
+                corrupted_tokens,
+                fwd_hooks = [(utils.get_act_name(head_type, layer), hook_fn)],
+                return_type="logits"
+            )
+            results[layer, head] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
 
     return results
-
 
 ## Ablation
 def accumulated_zero_ablation(clean_head_vector, hook, head_list):
@@ -310,7 +402,7 @@ def accumulated_mean_ablation(clean_head_vector, hook, head_list):
 
 def get_accumulated_ablation_score(model, labels, tokens, answer_tokens, head_list, clean_logit_diff, type, device):
     model.reset_hooks()
-    results = torch.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=torch.float32)
+    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
 
     if head_list == None:
       return clean_logit_diff, None, None
@@ -335,7 +427,7 @@ def get_accumulated_ablation_score(model, labels, tokens, answer_tokens, head_li
         return_type="logits"
     )
 
-    return compute_logit_diff_seqavg(patched_logits, answer_tokens)
+    return compute_logit_diff(patched_logits, answer_tokens)
 
 def necessity_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
     sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
@@ -382,55 +474,4 @@ def sufficiency_check(model, labels, tokens, answer_tokens, clean_logit_diff, ty
 
 
 
-def build_label_cache(labels, tokenizer):
-    """Tokenize labels once."""
-    label_token_ids = [tokenizer.encode(l, add_special_tokens=False) for l in labels]
-    return label_token_ids
-
-@torch.inference_mode()
-def score_label_for_prompt(model, tokenizer, prompt_ids, label_ids, device):
-    input_ids = torch.tensor([prompt_ids + label_ids], device=device)
-
-    with torch.no_grad():
-        outputs = model(input_ids)
-        if hasattr(outputs, "logits"):
-            logits = outputs.logits
-        elif isinstance(outputs, (tuple, list)):
-            logits = outputs[0]
-        else:
-            logits = outputs   # already a tensor
-
-    prompt_len = len(prompt_ids)
-    label_len  = len(label_ids)
-
-    logits_to_score = logits[0, prompt_len-1 : prompt_len-1 + label_len, :]
-    log_probs = F.log_softmax(logits_to_score, dim=-1)
-
-    label_token_tensor = torch.tensor(label_ids, device=device)
-    token_log_probs = log_probs.gather(1, label_token_tensor.unsqueeze(1)).squeeze(1)
-
-    return float(token_log_probs.sum().item())
-
-def predict_label(prompt, model, tokenizer, labels, label_token_ids, device):
-    prompt_ids = tokenizer.encode(prompt, add_special_tokens=False)
-    scores = [
-        score_label_for_prompt(model, tokenizer, prompt_ids, lab_ids, device)
-        for lab_ids in label_token_ids
-    ]
-    best_idx = int(torch.tensor(scores).argmax().item())
-    return labels[best_idx], scores
-
-def evaluate_accuracy(prompts, labels, model, device):
-    tokenizer = model.tokenizer
-    label_token_ids = build_label_cache(labels, tokenizer)
-
-    correct = 0
-    for prompt, gold in zip(prompts,labels):
-        pred, _ = predict_label(prompt, model, tokenizer, labels, label_token_ids, device)
-        if pred.strip().lower() == gold.strip().lower():
-            correct += 1
-        else:
-            print(f"Predicted: {pred!r}, Actual: {gold!r}")
-            print("Original Sentence: " + prompt + " " + gold)
-    return correct / len(labels)
 

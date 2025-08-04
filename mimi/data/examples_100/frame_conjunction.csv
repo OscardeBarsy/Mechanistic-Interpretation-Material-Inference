@@ -1,0 +1,101 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+dogs,are,domesticated animals,cats,are,domesticated animals,dogs and cats,are,domesticated animals
+apples,contain,vitamin C,oranges,contain,vitamin C,apples and oranges,contain,vitamin C
+hydrogen,is,a chemical element,oxygen,is,a chemical element,hydrogen and oxygen,are,chemical elements
+Earth,is,a planet,Mars,is,a planet,Earth and Mars,are,planets
+French,is,a Romance language,Spanish,is,a Romance language,French and Spanish,are,Romance languages
+Amazon River,is,a major river,Nile River,is,a major river,Amazon River and Nile River,are,major rivers
+Beethoven,composed,classical music,Mozart,composed,classical music,Beethoven and Mozart,composed,classical music
+chess,is,a board game,checkers,is,a board game,chess and checkers,are,board games
+gold,is,a precious metal,silver,is,a precious metal,gold and silver,are,precious metals
+oak,is,a type of tree,pine,is,a type of tree,oak and pine,are,types of trees
+salmon,is,a freshwater fish,trout,is,a freshwater fish,salmon and trout,are,freshwater fish
+winter,is,a season,summer,is,a season,winter and summer,are,seasons
+algebra,is,a branch of mathematics,geometry,is,a branch of mathematics,algebra and geometry,are,branches of mathematics
+basketball,is,a team sport,soccer,is,a team sport,basketball and soccer,are,team sports
+Mount Everest,is,a mountain peak,K2,is,a mountain peak,Mount Everest and K2,are,mountain peaks
+Jupiter,is,a gas giant,Saturn,is,a gas giant,Jupiter and Saturn,are,gas giants
+wheat,is,a cereal crop,rice,is,a cereal crop,wheat and rice,are,cereal crops
+eagle,is,a bird of prey,hauk,is,a bird of prey,eagle and hawk,are,birds of prey
+democracy,is,a form of government,monarchy,is,a form of government,democracy and monarchy,are,forms of government
+Suzuki,is,a Japanese car manufacturer,Toyota,is,a Japanese car manufacturer,Suzuki and Toyota,are,Japanese car manufacturers
+carbon,is,an element essential for life,oxygen,is,an element essential for life,carbon and oxygen,are,elements essential for life
+violin,is,a string instrument,cello,is,a string instrument,violin and cello,are,string instruments
+copper,is,a conductive metal,iron,is,a conductive metal,copper and iron,are,conductive metals
+proton,is,a subatomic particle,electron,is,a subatomic particle,proton and electron,are,subatomic particles
+Africa,is,a continent,Asia,is,a continent,Africa and Asia,are,continents
+Amazon Rainforest,is,a UNESCO World Heritage Site,Great Barrier Reef,is,a UNESCO World Heritage Site,Amazon Rainforest and Great Barrier Reef,are,UNESCO World Heritage Sites
+Python,is,a programming language,Java,is,a programming language,Python and Java,are,programming languages
+magnesium,is,an essential mineral,calcium,is,an essential mineral,magnesium and calcium,are,essential minerals
+Shakespeare,wrote,English literature,Dickens,wrote,English literature,Shakespeare and Dickens,wrote,English literature
+leaf,is,a plant part,root,is,a plant part,leaf and root,are,plant parts
+insulin,regulates,blood sugar,glucagon,regulates,blood sugar,insulin and glucagon,regulate,blood sugar
+Beethoven's Fifth Symphony,is,a classical composition,Mozart's Requiem,is,a classical composition,Beethoven's Fifth Symphony and Mozart's Requiem,are,classical compositions
+Windows,is,an operating system,Linux,is,an operating system,Windows and Linux,are,operating systems
+heart,is,a vital organ,liver,is,a vital organ,heart and liver,are,vital organs
+ant,is,an insect,bee,is,an insect,ant and bee,are,insects
+iPhone,is,a smartphone product line,Galaxy S,is,a smartphone product line,iPhone and Galaxy S,are,smartphone product lines
+Fahrenheit,is,a temperature scale,Celsius,is,a temperature scale,Fahrenheit and Celsius,are,temperature scales
+NBA,is,a professional sports league,NFL,is,a professional sports league,NBA and NFL,are,professional sports leagues
+moonlight,provides,natural light,sunlight,provides,natural light,moonlight and sunlight,provide,natural light
+copper,is,a transition metal,nickel,is,a transition metal,copper and nickel,are,transition metals
+rose,is,a flowering plant,tulip,is,a flowering plant,rose and tulip,are,flowering plants
+xylem,transports,nutrients in plants,phloem,transports,nutrients in plants,xylem and phloem,transport,nutrients in plants
+Google,is,a search engine,Bing,is,a search engine,Google and Bing,are,search engines
+Picasso,painted,masterpieces,Da Vinci,painted,masterpieces,Picasso and Da Vinci,painted,masterpieces
+Mercury,is,a terrestrial planet,Venus,is,a terrestrial planet,Mercury and Venus,are,terrestrial planets
+Tesla,manufactures,cars,Ford,manufactures,cars,Tesla and Ford,manufacture,cars
+Sahara,is,a desert,Gobi,is,a desert,Sahara and Gobi,are,deserts
+bitcoin,is,a cryptocurrency,ethereum,is,a cryptocurrency,bitcoin and ethereum,are,cryptocurrencies
+red,is,a primary color,blue,is,a primary color,red and blue,are,primary colors
+cricket,is,a bat-and-ball sport,baseball,is,a bat-and-ball sport,cricket and baseball,are,bat-and-ball sports
+Amazon Web Services,provides,cloud services,Microsoft Azure,provides,cloud services,Amazon Web Services and Microsoft Azure,provide,cloud services
+soccer ball,is,sports equipment,basketball,is,sports equipment,soccer ball and basketball,are,sports equipment
+copper pipe,is,a construction material,iron rod,is,a construction material,copper pipe and iron rod,are,construction materials
+helium,is,a noble gas,neon,is,a noble gas,helium and neon,are,noble gases
+quartz,is,a mineral,diamond,is,a mineral,quartz and diamond,are,minerals
+Spotify,is,a music streaming service,Apple Music,is,a music streaming service,Spotify and Apple Music,are,music streaming services
+HTML,is,a markup language,CSS,is,a markup language,HTML and CSS,are,markup languages
+honey,is,a natural sweetener,maple syrup,is,a natural sweetener,honey and maple syrup,are,natural sweeteners
+start codon,signals,gene boundaries,stop codon,signals,gene boundaries,start codon and stop codon,signal,gene boundaries
+decimal,is,a numeral system,binary,is,a numeral system,decimal and binary,are,numeral systems
+eukaryotes,are,cell types,prokaryotes,are,cell types,eukaryotes and prokaryotes,are,cell types
+latitude,indicates,geographic coordinates,longitude,indicates,geographic coordinates,latitude and longitude,indicate,geographic coordinates
+Swift,is,an iOS programming language,Objective-C,is,an iOS programming language,Swift and Objective-C,are,iOS programming languages
+Amazon River Basin,is,a tropical basin,Congo Basin,is,a tropical basin,Amazon River Basin and Congo Basin,are,tropical basins
+Fibonacci sequence,is,a number sequence,prime numbers,are,number sequences,Fibonacci sequence and prime numbers,are,number sequences
+glucose,is,a simple sugar,fructose,is,a simple sugar,glucose and fructose,are,simple sugars
+helium,is,a lifting gas,hydrogen,is,a lifting gas,helium and hydrogen,are,lifting gases
+lead,is,a soft metal,tin,is,a soft metal,lead and tin,are,soft metals
+rugby,is,a contact sport,tackle football,is,a contact sport,rugby and tackle football,are,contact sports
+Saturn's rings,are,astronomical features,Jupiter's Great Red Spot,is,an astronomical feature,Saturn's rings and Jupiter's Great Red Spot,are,astronomical features
+megabyte,is,a data unit,gigabyte,is,a data unit,megabyte and gigabyte,are,data units
+density,is,a physical property,mass,is,a physical property,density and mass,are,physical properties
+sourdough,is,a type of bread,rye,is,a type of bread,sourdough and rye,are,types of bread
+stainless steel,is,a corrosion-resistant metal,aluminum,is,a corrosion-resistant metal,stainless steel and aluminum,are,corrosion-resistant metals
+Neptune,is,an ice giant,Uranus,is,an ice giant,Neptune and Uranus,are,ice giants
+Wi-Fi,is,a wireless technology,Bluetooth,is,a wireless technology,Wi-Fi and Bluetooth,are,wireless technologies
+pH scale,is,a measurement scale,Richter scale,is,a measurement scale,pH scale and Richter scale,are,measurement scales
+lion,is,a big cat,tiger,is,a big cat,lion and tiger,are,big cats
+Kindle,is,an e-reader,Nook,is,an e-reader,Kindle and Nook,are,e-readers
+Norway,is,a Nordic country,Sweden,is,a Nordic country,Norway and Sweden,are,Nordic countries
+Greek yogurt,is,a dairy product,cottage cheese,is,a dairy product,Greek yogurt and cottage cheese,are,dairy products
+Pythagorean theorem,is,a mathematical theorem,Fermat's Last Theorem,is,a mathematical theorem,Pythagorean theorem and Fermat's Last Theorem,are,mathematical theorems
+straw,is,dried plant material,hay,is,dried plant material,straw and hay,are,dried plant materials
+caffeine,is,a stimulant,nicotine,is,a stimulant,caffeine and nicotine,are,stimulants
+Excel,is,a spreadsheet program,Google Sheets,is,a spreadsheet program,Excel and Google Sheets,are,spreadsheet programs
+acclimation,is,a biological process,adaptation,is,a biological process,acclimation and adaptation,are,biological processes
+helium-3,is,a nuclear fuel,uranium-235,is,a nuclear fuel,helium-3 and uranium-235,are,nuclear fuels
+Galaxy Tab,is,a tablet device,iPad,is,a tablet device,Galaxy Tab and iPad,are,tablet devices
+D major,is,a musical key,C minor,is,a musical key,D major and C minor,are,musical keys
+hydrogen bond,is,a chemical bond,ionic bond,is,a chemical bond,hydrogen bond and ionic bond,are,chemical bonds
+Sudoku,is,a logic puzzle,crossword,is,a logic puzzle,Sudoku and crossword,are,logic puzzles
+dopamine,is,a neurotransmitter,serotonin,is,a neurotransmitter,dopamine and serotonin,are,neurotransmitters
+solar eclipse,is,a celestial event,lunar eclipse,is,a celestial event,solar eclipse and lunar eclipse,are,celestial events
+lizard,is,a reptile,snake,is,a reptile,lizard and snake,are,reptiles
+Canadian dollar,is,a currency,Australian dollar,is,a currency,Canadian dollar and Australian dollar,are,currencies
+bit,is,an information unit,byte,is,an information unit,bit and byte,are,information units
+kilowatt-hour,is,an energy unit,joule,is,an energy unit,kilowatt-hour and joule,are,energy units
+snowfall,is,a form of precipitation,rainfall,is,a form of precipitation,snowfall and rainfall,are,forms of precipitation
+chili pepper,is,a spice,black pepper,is,a spice,chili pepper and black pepper,are,spices
+JPEG,is,an image format,PNG,is,an image format,JPEG and PNG,are,image formats

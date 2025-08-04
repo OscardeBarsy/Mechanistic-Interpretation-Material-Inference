@@ -1,0 +1,101 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+if something is,renewable,then that something is not a fossil fuel,wood,is,a renewable resource,wood,is not,a fossil fuel
+if an object is,opaque,then that object cannot be seen through,walls,are,opaque,walls,cannot,be seen through
+if a substance is,flammable,then that substance will burn easily,gasoline,is,flammable,gasoline,will,burn easily
+if a plant is,photosynthetic,then that plant produces its own food using sunlight,algae,is,photosynthetic,algae,produces,its own food using sunlight
+if a material is,ferromagnetic,then that material is attracted to magnets,iron,is,ferromagnetic,iron,is,attracted to magnets
+if a thing is,edible,then that thing is safe to eat,strawberries,are,edible,strawberries,is,safe to eat
+if a chemical is,toxic,then that chemical is harmful if ingested,cyanide,is,toxic,cyanide,is,harmful if ingested
+if a substance is,soluble in water,then that substance dissolves in water,salt,is,soluble in water,salt,dissolves,in water
+if a material is,lightweight,then that material is easy to carry,aluminum,is,lightweight,aluminum,is,easy to carry
+if a solution is,acidic,then that solution has a pH below 7,lemon juice,is,acidic,lemon juice,has,a pH below 7
+if a solution is,alkaline,then that solution has a pH above 7,soapy water,is,alkaline,soapy water,has,a pH above 7
+if a material is,biodegradable,then that material breaks down naturally over time,paper,is,biodegradable,paper,breaks down,naturally over time
+if a material is,transparent,then that material allows light to pass through,glass,is,transparent,glass,allows,light to pass through
+if an object is,aerodynamic,then that object experiences little air resistance,a sports car,is,aerodynamic,a sports car,experiences,little air resistance
+if a material is,combustible,then that material can catch fire,dry leaves,is,combustible,dry leaves,can,catch fire
+if an animal is,amphibious,then that animal can live both in water and on land,frogs,are,amphibious,frogs,can,live both in water and on land
+if a creature is,nocturnal,then that creature is active at night,bats,are,nocturnal,bats,is,active at night
+if an animal is,herbivorous,then that animal eats plants,cows,are,herbivorous,cows,eats,plants
+if an animal is,domesticated,then that animal lives closely with humans,dogs,are,domesticated,dogs,lives,closely with humans
+if a species is,endangered,then that species is at risk of extinction,tigers,are,endangered,tigers,is,at risk of extinction
+if a substance is,gaseous,then that substance exists as a gas at room temperature,oxygen,is,gaseous,oxygen,exists,as a gas at room temperature
+if a molecule is,polar,then that molecule has partial positive and negative charges,water,is,polar,water,has,partial positive and negative charges
+if a material is,synthetic,then that material is man‑made,nylon,is,synthetic,nylon,is,man‑made
+if a battery is,rechargeable,then that battery can be charged again after use,lithium‑ion batteries,can be,rechargeable,lithium‑ion batteries,can be,charged again after use
+if a material is,conductive,then that material conducts electricity,copper wire,is,conductive,copper wire,conducts,electricity
+if a plant is,poisonous,then that plant can cause illness or death,belladonna,can be,poisonous,belladonna,can,cause illness or death
+if a species is,invasive,then that species spreads rapidly and disrupts ecosystems,kudzu,is,invasive,kudzu,spreads,rapidly and disrupts ecosystems
+if a material is,elastic,then that material returns to its original shape after stretching,rubber,is,elastic,rubber,returns,to its original shape after stretching
+if a material is,porous,then that material contains tiny holes that allow liquids or air to pass,sponges,are,porous,sponges,contains,tiny holes that allow liquids or air to pass
+if an element is,radioactive,then that element emits ionizing radiation,uranium,is,radioactive,uranium,emits,ionizing radiation
+if a metal is,precious,then that metal is highly valuable and rare,gold,is,precious,gold,is,highly valuable and rare
+if a material is,brittle,then that material breaks easily when stressed,glass,is,brittle,glass,breaks,easily when stressed
+if a pathogen is,infectious,then that pathogen can spread disease,influenza virus,is,infectious,influenza virus,can,spread disease
+if an animal is,venomous,then that animal injects toxin when biting or stinging,cobras,are,venomous,cobras,injects,toxin when biting or stinging
+if a bird is,migratory,then that bird moves seasonally from one region to another,swallows,are,migratory,swallows,moves,seasonally from one region to another
+if a material is,recyclable,then that material can be processed and reused,aluminum cans,can be,recyclable,aluminum cans,can be,processed and reused
+if a device is,digital,then that device uses binary data,computers,are,digital,computers,uses,binary data
+if a device is,wireless,then that device operates without physical cables,Bluetooth headsets,is,wireless,Bluetooth headsets,operates,without physical cables
+if a region is,mountainous,then that region has many mountains,Nepal,is,mountainous,Nepal,has,many mountains
+if an animal is,aquatic,then that animal lives primarily in water,dolphins,are,aquatic,dolphins,lives,primarily in water
+if an animal is,terrestrial,then that animal lives on land,elephants,are,terrestrial,elephants,lives,on land
+if a body is,celestial,then that body exists in outer space,stars,are,celestial,stars,exists,in outer space
+if an agent is,viral,then that agent cannot reproduce without a host,HIV,can be,viral,HIV,cannot,reproduce without a host
+if an organism is,fungal,then that organism obtains nutrients by decomposing organic matter,mushrooms,are,fungal,mushrooms,obtains,nutrients by decomposing organic matter
+if an organism is,bacterial,then that organism is a single‑celled prokaryote,E. coli,is,bacterial,E. coli,is,a single‑celled prokaryote
+if a material is,metallic,then that material contains metal elements,steel,is,metallic,steel,contains,metal elements
+if a material is,plastic,then that material is made of polymers,polyethylene,is,plastic,polyethylene,is,made of polymers
+if a material is,ceramic,then that material is made of fired clay,porcelain,is,ceramic,porcelain,is,made of fired clay
+if a solid is,amorphous,then that solid lacks a crystal structure,glass,is,amorphous,glass,lacks,a crystal structure
+if a solid is,crystalline,then that solid has an ordered lattice structure,quartz,is,crystalline,quartz,has,an ordered lattice structure
+if a compound is,aromatic,then that compound contains conjugated ring structures,benzene,is,aromatic,benzene,contains,conjugated ring structures
+if a substance is,hydrophobic,then that substance repels water,oil,is,hydrophobic,oil,repels,water
+if a substance is,hydrophilic,then that substance attracts water molecules,salt,is,hydrophilic,salt,attracts,water molecules
+if an object is,magnetic,then that object produces a magnetic field,neodymium magnets,is,magnetic,neodymium magnets,produces,a magnetic field
+if a drug is,antibiotic,then that drug inhibits bacterial growth,penicillin,is,antibiotic,penicillin,inhibits,bacterial growth
+if a material is,thermoplastic,then that material softens when heated,PVC,is,thermoplastic,PVC,softens,when heated
+if a polymer is,thermosetting,then that polymer hardens permanently when heated,epoxy resin,is,thermosetting,epoxy resin,hardens,permanently when heated
+if a material is,semiconductive,then that material has electrical conductivity between conductors and insulators,silicon,is,semiconductive,silicon,has,electrical conductivity between conductors and insulators
+if a substance is,allergenic,then that substance triggers allergic reactions,pollen,is,allergenic,pollen,triggers,allergic reactions
+if a species is,endemic,then that species is native to a particular region,koalas,are,endemic,koalas,is,native to a particular region
+if a species is,extinct,then that species no longer exists,dodo birds,is,extinct,dodo birds,no longer,exists
+if a chemical is,photosensitive,then that chemical changes upon exposure to light,silver halide,is,photosensitive,silver halide,changes,upon exposure to light
+if an organism is,thermophilic,then that organism thrives at high temperatures,Thermus aquaticus,is,thermophilic,Thermus aquaticus,thrives,at high temperatures
+if a reaction is,endothermic,then that reaction absorbs heat,ammonium nitrate dissolution,is,endothermic,ammonium nitrate dissolution,absorbs,heat
+if a reaction is,exothermic,then that reaction releases heat,combustion of methane,is,exothermic,combustion of methane,releases,heat
+if an organism is,luminous,then that organism emits light,fireflies,are,luminous,fireflies,emits,light
+if a material is,buoyant,then that material floats in water,cork,is,buoyant,cork,floats,in water
+if a metal is,rust‑resistant,then that metal does not corrode easily,stainless steel,is,rust‑resistant,stainless steel,does not,corrode easily
+if a fabric is,waterproof,then that fabric does not allow water to penetrate,raincoats,are,waterproof,raincoats,does not,allow water to penetrate
+if a material is,heat‑resistant,then that material withstands high temperatures,ceramic tiles,is,heat‑resistant,ceramic tiles,withstands,high temperatures
+if an organism is,bioluminescent,then that organism produces light through biochemical reactions,jellyfish,is,bioluminescent,jellyfish,produces,light through biochemical reactions
+if a plant is,perennial,then that plant lives for more than two years,oak trees,is,perennial,oak trees,lives,for more than two years
+if a plant is,annual,then that plant completes its life cycle in one year,marigolds,are,annual,marigolds,completes,its life cycle in one year
+if a plant is,deciduous,then that plant sheds its leaves annually,maple trees,is,deciduous,maple trees,sheds,its leaves annually
+if a plant is,evergreen,then that plant retains its leaves year‑round,pines,are,evergreen,pines,retains,its leaves year‑round
+if an animal is,carnivorous,then that animal eats meat,lions,are,carnivorous,lions,eats,meat
+if an animal is,omnivorous,then that animal eats both plants and animals,bears,are,omnivorous,bears,eats,both plants and animals
+if an organism is,anaerobic,then that organism lives without oxygen,Clostridium bacteria,is,anaerobic,Clostridium bacteria,lives,without oxygen
+if an organism is,aerobic,then that organism requires oxygen to survive,humans,are,aerobic,humans,requires,oxygen to survive
+if a metal is,ductile,then that metal can be drawn into wires,copper,can be,ductile,copper,can be,drawn into wires
+if a metal is,malleable,then that metal can be hammered into sheets,gold,can be,malleable,gold,can be,hammered into sheets
+if an organism is,fossilized,then that organism has turned into stone over time,trilobite remains,is,fossilized,trilobite remains,has,turned into stone over time
+if a container is,pressurized,then that container is under high pressure,aerosol cans,is,pressurized,aerosol cans,is,under high pressure
+if an aircraft is,supersonic,then that aircraft travels faster than the speed of sound,fighter jets,is,supersonic,fighter jets,travels,faster than the speed of sound
+if a grain is,gluten‑free,then that grain contains no gluten,rice,is,gluten‑free,rice,contains,no gluten
+if a product is,organic,then that product is produced without synthetic chemicals,organic apples,is,organic,organic apples,is,produced without synthetic chemicals
+if a piece is,ergonomic,then that piece is designed for efficiency and comfort,office chairs,is,ergonomic,office chairs,is,designed for efficiency and comfort
+if a device is,solar‑powered,then that device operates using energy from the sun,solar panels,is,solar‑powered,solar panels,operates,using energy from the sun
+if a compound is,antioxidant,then that compound prevents oxidation,vitamin C,is,antioxidant,vitamin C,prevents,oxidation
+if a food is,low‑calorie,then that food contains few calories,celery,is,low‑calorie,celery,contains,few calories
+if a food is,high‑protein,then that food is rich in protein,eggs,are,high‑protein,eggs,is,rich in protein
+if a material is,insulating,then that material resists heat flow,fiberglass,is,insulating,fiberglass,resists,heat flow
+if a chemical is,oxidizing,then that chemical accepts electrons in reactions,potassium permanganate,is,oxidizing,potassium permanganate,accepts,electrons in reactions
+if a chemical is,reducing,then that chemical donates electrons in reactions,hydrazine,is,reducing,hydrazine,donates,electrons in reactions
+if a substance is,ultraviolet‑absorbing,then that substance blocks harmful UV rays,sunscreen,is,ultraviolet‑absorbing,sunscreen,blocks,harmful UV rays
+if a material is,shock‑absorbing,then that material reduces impact forces,foam padding,is,shock‑absorbing,foam padding,reduces,impact forces
+if a structure is,soundproof,then that structure prevents sound from passing through,acoustic panels,is,soundproof,acoustic panels,prevents,sound from passing through
+if a material is,hypoallergenic,then that material rarely causes allergic reactions,silicone,is,hypoallergenic,silicone,rarely causes,allergic reactions
+if a device is,programmable,then that device can be configured by software,microcontrollers,can be,programmable,microcontrollers,can be,configured by software
+if an object is,inflatable,then that object can be filled with air to expand,life rafts,can be,inflatable,life rafts,can be,filled with air to expand

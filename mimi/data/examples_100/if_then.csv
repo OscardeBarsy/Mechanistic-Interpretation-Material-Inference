@@ -1,0 +1,101 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+plants,require,sunlight,dense cloud cover,blocks,sunlight,if dense cloud cover exists,then plants perform less,photosynthesis
+a car engine,needs,fuel,an empty fuel tank,contains,no fuel,if the fuel tank is empty,then the engine will not,start
+fire,requires,oxygen,a foam extinguisher,deprives,oxygen,if a foam extinguisher is applied,then the fire is,extinguished
+human bones,contain,calcium,a diet low in calcium,provides,insufficient calcium,if the diet lacks calcium,then bones become,weaker
+ice,melts at,0°C,raising the temperature,increases,temperature above 0°C,if the temperature rises above 0°C,then ice will,melt
+metal,expands when,heated,high heat,applies,heat,if high heat is applied,then metal,expands
+photosynthesis,produces,oxygen,absence of light,prevents,photosynthesis,if there is no light,then oxygen production,drops
+bacteria,multiply in,warm conditions,refrigeration,lowers,temperature,if food is refrigerated,then bacterial growth,slows
+sound,travels through,air,vacuum,lacks,air,if there is a vacuum,then sound cannot,propagate
+seed germination,requires,water,dry soil,provides,no water,if the soil is dry,then seeds fail to,germinate
+solar panels,convert,sunlight to electricity,night time,provides,no sunlight,if it is night,then solar panels produce,no electricity
+electric circuits,need,a closed loop,an open switch,breaks,the circuit,if the switch is open,then current will not,flow
+enzymes,function at,optimal pH,strong acids,alter,pH levels,if strong acids are added,then enzyme activity,decreases
+photosensitive film,records,light patterns,complete darkness,offers,no light,if there is complete darkness,then the film captures,nothing
+parachutes,use,air resistance,thin atmosphere,reduces,air resistance,if the atmosphere is thin,then parachutes become,less effective
+photosynthesis,requires,chlorophyll,autumn leaf senescence,breaks down,chlorophyll,if chlorophyll is degraded,then photosynthesis,declines
+satellite communication,depends on,line-of-sight signals,mountainous terrain,obstructs,line-of-sight,if terrain obstructs line-of-sight,then satellite communication,fails
+electric vehicles,store energy in,batteries,extreme cold,reduces,battery capacity,if temperatures are extremely cold,then electric vehicle range,drops
+human vision,relies on,photoreceptors,vitamin A deficiency,damages,photoreceptors,if vitamin A is deficient,then vision,impairs
+Wi-Fi routers,transmit,radio waves,thick concrete walls,absorb,radio waves,if signals pass through thick concrete,then Wi-Fi strength,weakens
+combustion engines,emit,carbon dioxide,catalytic converters,reduce,carbon dioxide emission,if catalytic converters are fitted,then engines emit less,carbon dioxide
+renal filtration,depends on,blood pressure,severe dehydration,lowers,blood pressure,if blood pressure drops,then kidney filtration,slows
+sound waves,reflect off,hard surfaces,acoustic foam panels,absorb,sound waves,if acoustic foam is installed,then sound reflections,decrease
+yeast,ferments,sugar,oxygen absence,creates,anaerobic conditions,if oxygen is absent,then yeast produces,alcohol
+radioactive decay,emits,ionizing radiation,lead shielding,blocks,ionizing radiation,if lead shielding surrounds the source,then exposure to radiation,reduces
+computer processors,generate,heat,thermal paste,improves,heat transfer,if thermal paste is applied,then processor temperature,drops
+glaciers,reflect,sunlight,soot deposition,darkens,ice surfaces,if glaciers are covered with soot,then sunlight reflection,decreases
+cacti,store,water,prolonged drought,depletes,stored water,if drought persists,then cacti eventually,wilt
+electric motors,need,magnetic fields,demagnetized coils,fail to create,magnetic fields,if coils are demagnetized,then the motor,stops
+photographic lenses,focus,light,scratched glass,scatters,light,if lens glass is scratched,then image clarity,degrades
+root hairs,absorb,minerals,soil salinity,reduces,mineral uptake,if soil is highly saline,then plants struggle to,absorb minerals
+batteries,store,chemical energy,corrosion,damages,battery terminals,if terminals corrode,then battery capacity,falls
+fog,forms when,air cools to dew point,warm winds,raise,air temperature,if warm winds arrive,then fog,dissipates
+iron,rusts when,exposed to moisture,oil coating,repels,water,if oil coating is applied,then iron rusting is,prevented
+photosystem II,splits,water molecules,intense UV radiation,damages,photosystems,if photosystems are damaged,then water splitting,stops
+rainbows,require,sunlight and raindrops,dry clear sky,lacks,raindrops,if the sky is dry,then a rainbow cannot,form
+crops,absorb,nitrate,soil bacteria,convert,ammonia to nitrate,if soil bacteria are absent,then crops receive less,nitrate
+fluorescent bulbs,contain,mercury vapor,mercury leak,reduces,vapor pressure,if mercury escapes,then bulb brightness,drops
+nuclear fission,releases,neutrons,control rods,absorb,neutrons,if control rods are inserted,then reactor power,decreases
+snowflakes,crystallize from,water vapor,temperatures above 0°C,melt,ice crystals,if temperature rises above freezing,then snowflakes,melt
+heart muscles,contract via,electrical signals,ventricular fibrillation,disrupts,electrical signals,if fibrillation occurs,then heart pumping,fails
+digital cameras,capture,light,lens cap,blocks,light,if the lens cap is on,then the camera records,darkness
+wind turbines,generate,electricity,calm weather,provides,no wind,if weather is calm,then wind turbines produce,no electricity
+compasses,align with,magnetic fields,nearby magnets,distort,magnetic fields,if magnets are nearby,then compass readings,deviate
+candle flames,consume,wax vapor,strong wind,blows away,wax vapor,if strong wind blows,then candle flames,extinguish
+sunscreen,absorbs,UV radiation,sweating,washes off,sunscreen,if sweating occurs,then UV protection,reduces
+refrigerators,remove,heat from interiors,dust-clogged coils,impede,heat release,if condenser coils are dusty,then refrigerator efficiency,drops
+shooting stars,originate from,meteoroids,thick atmosphere,burns,meteoroids,if meteoroids enter thick atmosphere,then shooting stars,appear
+bread dough,rises with,carbon dioxide,dead yeast,produces,no carbon dioxide,if the yeast is dead,then dough will not,rise
+satellite orbits,are maintained by,gravity,gravitational anomalies,alter,gravity field,if gravity weakens significantly,then satellites may,drift
+photosynthetic algae,produce,oxygen,water pollution,reduces,algae population,if water is polluted,then oxygen production,declines
+sprinters,require,explosive energy,muscle fatigue,limits,energy output,if muscles fatigue,then sprint speed,drops
+paper,burns in,open flame,water,extinguishes,flame,if paper is soaked,then it will not,burn
+bicycles,balance due to,angular momentum,slow speed,reduces,angular momentum,if speed is too low,then bicycles may,topple
+icloud data sync,requires,internet connectivity,airplane mode,disables,internet,if airplane mode is on,then iCloud cannot,sync
+photos,are stored in,flash memory,power failure during write,corrupts,flash memory sectors,if power fails while writing,then photos may become,corrupted
+magnetic storage,relies on,magnetic domains,strong magnets,realign,domains,if strong magnets are nearby,then stored data,erases
+athletes,perform well with,adequate hydration,dehydration,reduces,hydration levels,if athletes are dehydrated,then performance,declines
+laser cutters,focus,coherent light,dirty lenses,scatter,light,if the lens is dirty,then cutting precision,degrades
+chalk messages,adhere to,rough surfaces,rain,washes away,chalk,if it rains,then chalk messages,disappear
+DNA replication,needs,DNA polymerase,high fever,denatures,polymerase,if polymerase is denatured,then DNA replication,halts
+xylem vessels,transport,water,air bubbles,block,xylem flow,if air embolism occurs,then water transport,stops
+gene expression,depends on,transcription factors,mutations,alter,transcription factors,if transcription factors mutate,then gene expression,changes
+bridge cables,bear,tension,metal fatigue,weakens,cables,if metal fatigue advances,then bridge stability,declines
+air conditioners,use,refrigerant,refrigerant leak,reduces,coolant amount,if refrigerant leaks,then cooling efficiency,drops
+orchestra timing,relies on,the conductor,absence of conductor,removes,central cue,if the conductor is absent,then orchestra timing,suffers
+influenza spread,occurs via,respiratory droplets,face masks,block,droplets,if masks are worn,then influenza transmission,reduces
+seeds,disperse through,wind,deforestation,changes,wind patterns,if forests are removed,then seed dispersal,alters
+glass,shatters under,sudden stress,tempering,strengthens,glass,if glass is tempered,then shattering risk,lowers
+locomotive wheels,grip,rails,oil spill,reduces,friction,if oil is on rails,then wheel traction,drops
+skin,synthesizes,vitamin D,sunlight exposure,provides,UVB rays,if sunlight exposure is low,then vitamin D synthesis,decreases
+bamboo,grows,rapidly,frost,damage,new shoots,if frost hits bamboo,then growth,slows
+solar eclipses,occur when,moon blocks sun,cloud cover,obscures,view,if sky is cloudy,then eclipse visibility,diminishes
+bacterial enzymes,break down,antibiotics,gene transfer,spreads,enzyme genes,if genes spread,then antibiotic resistance,increases
+solar cells,produce,electricity,dust accumulation,covers,solar cells,if dust accumulates,then electricity output,drops
+coffee,contains,caffeine,decaffeination,removes,caffeine,if coffee is decaffeinated,then caffeine intake,reduces
+tectonic plates,move along,fault lines,friction,resists,motion,if friction is overcome,then earthquakes,occur
+germination,needs,oxygen,waterlogging,limits,oxygen availability,if soil is waterlogged,then seed germination,fails
+lightning,creates,nitric oxide,nitric oxide,converts,to nitrates in rain,if lightning occurs,then soil nitrate,increases
+oil paints,dry by,oxidation,low oxygen environment,slows,oxidation,if oxygen is low,then oil paint drying,slows
+clocks,measure,time,dead batteries,provide,no power,if batteries are dead,then clocks stop,ticking
+plants,transpire,water vapor,high humidity,reduces,rate of transpiration,if humidity is high,then transpiration,decreases
+photos,fade under,sunlight,UV-blocking glass,filters,sunlight,if UV-blocking glass is used,then photo fading,slows
+fish gills,extract,oxygen from water,polluted water,lowers,dissolved oxygen,if water is polluted,then fish respiration,suffers
+car tires,grip,road,worn tread,reduces,grip,if tire tread is worn,then braking distance,increases
+photosynthesis,fixes,carbon dioxide,stomatal closure,limits,CO₂ intake,if stomata close,then carbon fixation,drops
+cheese,ripens with,bacteria action,pasteurization,kills,bacteria,if milk is pasteurized,then cheese ripening,slows
+blood clotting,requires,vitamin K,vitamin K deficiency,reduces,clotting factors,if vitamin K is deficient,then blood clotting,impairs
+plane lift,depends on,airflow over wings,icing,disrupts,airflow,if wings are iced,then lift,reduces
+batteries,supply,direct current,inverters,convert,direct current to alternating,if inverters are used,then AC power,is provided
+infrared cameras,detect,heat signatures,thermal insulation,masks,heat signatures,if insulation is added,then infrared detection,fails
+penguin feathers,trap,air for insulation,oil spills,coat,feathers,if feathers are oiled,then insulation,decreases
+machinery,functions with,lubrication,dust contamination,thickens,lubricant,if lubricant is dirty,then machinery wear,increases
+cooling towers,evaporate,water,high humidity,reduces,evaporation rate,if humidity is high,then cooling efficiency,falls
+bee pollination,requires,flower visits,pesticides,kill,bees,if pesticides are used excessively,then pollination,declines
+electric arc welding,needs,inert gas shielding,air drafts,disperse,shielding gas,if air drafts blow,then weld quality,drops
+microwave ovens,heat,water molecules,metal containers,reflect,microwaves,if metal is placed inside,then heating,halts
+rust prevention,uses,galvanization,scratches,expose,bare iron,if galvanizing layer is scratched,then rusting,starts
+photosynthetic rate,rises with,light intensity,thick forest canopy,reduces,light intensity,if canopy is dense,then photosynthetic rate,drops
+protein synthesis,requires,ribosomes,ribosome inhibitors,block,ribosomes,if inhibitors are present,then protein synthesis,ceases

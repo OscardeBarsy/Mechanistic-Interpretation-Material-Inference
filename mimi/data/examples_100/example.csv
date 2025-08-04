@@ -1,0 +1,101 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+a gas giant,is a type of,planet,Jupiter,is a,gas giant,Jupiter,embodies,planet
+a terrestrial planet,is a form of,planet,Earth,is classified as,terrestrial planet,Earth,illustrates,planet
+a citrus fruit,belongs to the group,fruit,orange,is one example of a,citrus fruit,orange,embodies,fruit
+a berry,is categorized as a,fruit,strawberry,is one example of a,berry,strawberry,is a specific case of,fruit
+a raptor,is part of the category,bird,bald eagle,is a,raptor,bald eagle,is an example of,bird
+a passerine,is a type of,bird,house sparrow,is classified as,passerine,house sparrow,illustrates,bird
+a marsupial,is categorized as a,mammal,koala,is a,marsupial,koala,is a specific case of,mammal
+a primate,is classified as a,mammal,chimpanzee,can be considered a,primate,chimpanzee,illustrates,mammal
+an electric car,is included in,vehicle,Tesla Model S,is an instance of,electric car,Tesla Model S,serves as an example of,vehicle
+a motorcycle,is a kind of,vehicle,Ducati Monster,belongs to,motorcycle,Ducati Monster,embodies,vehicle
+a string instrument,is part of the category,musical instrument,violin,is a member of,string instrument,violin,demonstrates,musical instrument
+a percussion instrument,belongs to the group,musical instrument,snare drum,is classified as,percussion instrument,snare drum,serves as an example of,musical instrument
+a coffee,falls under,beverage,espresso,is one example of a,coffee,espresso,is an example of,beverage
+a soda,is part of the category,beverage,Coca‑Cola,is one example of a,soda,Coca‑Cola,demonstrates,beverage
+a Romance language,falls under,language family,Spanish,is an instance of,Romance language,Spanish,serves as an example of,language family
+a Germanic language,is a kind of,language family,English,represents a,Germanic language,English,is a specific case of,language family
+a novel,is a type of,literary genre,Pride and Prejudice,can be considered a,novel,Pride and Prejudice,is an example of,literary genre
+a play,is categorized as a,literary genre,Hamlet,is an instance of,play,Hamlet,serves as an example of,literary genre
+a skyscraper,falls under,building,Burj Khalifa,is classified as,skyscraper,Burj Khalifa,embodies,building
+a bridge,is a type of,civil structure,Golden Gate Bridge,is a,bridge,Golden Gate Bridge,embodies,civil structure
+a noble gas,is classified as a,chemical element group,helium,is an instance of,noble gas,helium,is an example of,chemical element group
+an alkali metal,is classified as a,chemical element group,sodium,is one example of a,alkali metal,sodium,represents,chemical element group
+a racket sport,is a form of,sport,tennis,represents a,racket sport,tennis,embodies,sport
+a team sport,falls under,sport,football,belongs to,team sport,football,demonstrates,sport
+a red dwarf,falls under,star,Proxima Centauri,is classified as,red dwarf,Proxima Centauri,embodies,star
+a supergiant star,is a form of,star,Betelgeuse,is one example of a,supergiant star,Betelgeuse,is a specific case of,star
+a zodiac constellation,belongs to the group,constellation,Leo,is classified as,zodiac constellation,Leo,illustrates,constellation
+a southern constellation,is included in,constellation,Crux,can be considered a,southern constellation,Crux,demonstrates,constellation
+a rainforest,is categorized as a,ecosystem,Amazon Rainforest,is classified as,rainforest,Amazon Rainforest,embodies,ecosystem
+a desert,falls under,ecosystem,Sahara Desert,is a,desert,Sahara Desert,illustrates,ecosystem
+a CPU,is a kind of,computer component,Intel Core i9,is a member of,CPU,Intel Core i9,represents,computer component
+a GPU,is a form of,computer component,NVIDIA GeForce RTX 4090,is one example of a,GPU,NVIDIA GeForce RTX 4090,illustrates,computer component
+a sculpture,falls under,art form,Michelangelo's David,is classified as,sculpture,Michelangelo's David,embodies,art form
+a painting,is included in,art form,Mona Lisa,can be considered a,painting,Mona Lisa,embodies,art form
+a viral infection,is included in,disease,influenza,belongs to,viral infection,influenza,demonstrates,disease
+a bacterial infection,belongs to the group,disease,tuberculosis,is classified as,bacterial infection,tuberculosis,embodies,disease
+a gemstone,is categorized as a,mineral,diamond,is an instance of,gemstone,diamond,embodies,mineral
+a metal ore,is part of the category,mineral,bauxite,can be considered a,metal ore,bauxite,demonstrates,mineral
+a religious holiday,is classified as a,holiday,Christmas,belongs to,religious holiday,Christmas,is a specific case of,holiday
+a national holiday,is included in,holiday,Independence Day,is one example of a,national holiday,Independence Day,serves as an example of,holiday
+a neuron,is a kind of,cell type,motor neuron,is one example of a,neuron,motor neuron,illustrates,cell type
+a blood cell,belongs to the group,cell type,red blood cell,can be considered a,blood cell,red blood cell,is a specific case of,cell type
+a fold mountain range,is a type of,mountain range,Himalayas,can be considered a,fold mountain range,Himalayas,represents,mountain range
+a volcanic mountain range,is included in,mountain range,Andes,is an instance of,volcanic mountain range,Andes,is a specific case of,mountain range
+a functional programming,is a kind of,programming paradigm,Haskell,is one example of a,functional programming,Haskell,embodies,programming paradigm
+an object‑oriented programming,is categorized as a,programming paradigm,Java,is an instance of,object‑oriented programming,Java,serves as an example of,programming paradigm
+a conifer,falls under,tree,pine tree,is one example of a,conifer,pine tree,demonstrates,tree
+a deciduous tree,is part of the category,tree,oak tree,belongs to,deciduous tree,oak tree,represents,tree
+an exothermic reaction,is a kind of,chemical reaction,combustion,is an instance of,exothermic reaction,combustion,is a specific case of,chemical reaction
+an endothermic reaction,belongs to the group,chemical reaction,photosynthesis,is one example of a,endothermic reaction,photosynthesis,serves as an example of,chemical reaction
+a decapod,is a form of,crustacean,lobster,is classified as,decapod,lobster,illustrates,crustacean
+an isopod,falls under,crustacean,woodlouse,belongs to,isopod,woodlouse,is a specific case of,crustacean
+a cartilaginous fish,is categorized as a,fish,great white shark,is a,cartilaginous fish,great white shark,is a specific case of,fish
+a bony fish,falls under,fish,Atlantic salmon,represents a,bony fish,Atlantic salmon,is an example of,fish
+a spiral galaxy,is a type of,galaxy,Milky Way,is a member of,spiral galaxy,Milky Way,serves as an example of,galaxy
+an elliptical galaxy,is a form of,galaxy,Messier 87,is classified as,elliptical galaxy,Messier 87,is an example of,galaxy
+an island continent,is classified as a,continent,Australia,is one example of a,island continent,Australia,is an example of,continent
+a delta,is included in,landform,Nile Delta,is one example of a,delta,Nile Delta,serves as an example of,landform
+a renewable energy source,is categorized as a,energy source,solar power,belongs to,renewable energy source,solar power,illustrates,energy source
+a fossil fuel,is included in,energy source,coal,belongs to,fossil fuel,coal,demonstrates,energy source
+an ionic bond,is categorized as a,chemical bond,sodium chloride,can be considered a,ionic bond,sodium chloride,illustrates,chemical bond
+a covalent bond,is categorized as a,chemical bond,water molecule,is classified as,covalent bond,water molecule,embodies,chemical bond
+a mixed economy,is a form of,economic system,United States economy,can be considered a,mixed economy,United States economy,embodies,economic system
+a command economy,falls under,economic system,North Korea economy,represents a,command economy,North Korea economy,is a specific case of,economic system
+a prime number,is included in,mathematical concept,13,is one example of a,prime number,13,illustrates,mathematical concept
+an irrational number,is classified as a,mathematical concept,square root of 2,is one example of a,irrational number,square root of 2,demonstrates,mathematical concept
+a dragon,is a kind of,mythological creature,Smaug,is classified as,dragon,Smaug,is a specific case of,mythological creature
+a phoenix,is classified as a,mythological creature,Fawkes,is a,phoenix,Fawkes,is an example of,mythological creature
+a revolution,is a kind of,historical event,French Revolution,is classified as,revolution,French Revolution,is an example of,historical event
+a world war,is a kind of,historical event,World War II,is a member of,world war,World War II,is an example of,historical event
+a scripting language,is categorized as a,programming language,JavaScript,is classified as,scripting language,JavaScript,demonstrates,programming language
+a compiled language,is included in,programming language,C++,is classified as,compiled language,C++,is a specific case of,programming language
+an Impressionism,belongs to the group,art movement,Water Lilies,represents a,Impressionism,Water Lilies,illustrates,art movement
+a Cubism,is included in,art movement,Les Demoiselles d'Avignon,can be considered a,Cubism,Les Demoiselles d'Avignon,illustrates,art movement
+a classical music,is a type of,musical genre,Beethoven Symphony No.5,is one example of a,classical music,Beethoven Symphony No.5,embodies,musical genre
+a jazz,is part of the category,musical genre,Take Five,is a member of,jazz,Take Five,represents,musical genre
+a frog,is part of the category,amphibian,poison dart frog,represents a,frog,poison dart frog,serves as an example of,amphibian
+a turtle,is a kind of,reptile,green sea turtle,is one example of a,turtle,green sea turtle,is an example of,reptile
+a butterfly,is part of the category,insect,monarch butterfly,is a member of,butterfly,monarch butterfly,serves as an example of,insect
+a spider,is a type of,arachnid,tarantula,is classified as,spider,tarantula,illustrates,arachnid
+a big cat,is classified as a,mammal,lion,represents a,big cat,lion,illustrates,mammal
+a hoofed mammal,is part of the category,mammal,horse,belongs to,hoofed mammal,horse,demonstrates,mammal
+a weathering,is included in,geological process,acid rain weathering limestone,is classified as,weathering,acid rain weathering limestone,serves as an example of,geological process
+a hurricane,is a type of,meteorological phenomenon,Hurricane Katrina,represents a,hurricane,Hurricane Katrina,serves as an example of,meteorological phenomenon
+an inflation rate,is categorized as a,economic indicator,Consumer Price Index change,is one example of a,inflation rate,Consumer Price Index change,is an example of,economic indicator
+a force,is categorized as a,physical quantity,gravitational force,is a,force,gravitational force,is an example of,physical quantity
+a lepton,is classified as a,subatomic particle,electron,belongs to,lepton,electron,represents,subatomic particle
+a baryon,is included in,subatomic particle,proton,represents a,baryon,proton,illustrates,subatomic particle
+a fat‑soluble vitamin,is part of the category,vitamin,vitamin D,is a,fat‑soluble vitamin,vitamin D,illustrates,vitamin
+a water‑soluble vitamin,is part of the category,vitamin,vitamin C,is a,water‑soluble vitamin,vitamin C,represents,vitamin
+a relational database,is a form of,database model,PostgreSQL,represents a,relational database,PostgreSQL,demonstrates,database model
+a NoSQL database,is part of the category,database model,MongoDB,represents a,NoSQL database,MongoDB,illustrates,database model
+a digestive organ,is classified as a,human organ,stomach,is an instance of,digestive organ,stomach,illustrates,human organ
+a respiratory organ,is a kind of,human organ,lungs,is a,respiratory organ,lungs,embodies,human organ
+a Gothic architecture,falls under,architectural style,Notre‑Dame Cathedral,is a,Gothic architecture,Notre‑Dame Cathedral,is an example of,architectural style
+a Modernist architecture,is included in,architectural style,Fallingwater,belongs to,Modernist architecture,Fallingwater,is an example of,architectural style
+a civil engineering,is categorized as a,engineering discipline,Brooklyn Bridge,is one example of a,civil engineering,Brooklyn Bridge,serves as an example of,engineering discipline
+an electrical engineering,belongs to the group,engineering discipline,iPhone motherboard,is one example of a,electrical engineering,iPhone motherboard,is a specific case of,engineering discipline
+an angiosperm,is a type of,seed plant,rose,is classified as,angiosperm,rose,represents,seed plant
+a gymnosperm,is a type of,seed plant,Norway spruce,is classified as,gymnosperm,Norway spruce,is a specific case of,seed plant

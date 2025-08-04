@@ -1,0 +1,101 @@
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+photosynthesis,requires,sunlight,sunlight,is abundant in,daytime,photosynthesis,occurs,daytime
+cellular respiration,needs,oxygen,oxygen,is found in,Earth's atmosphere,cellular respiration,takes place,Earth's atmosphere
+combustion of wood,depends on,oxygen,oxygen,exists in,open air,combustion of wood,happens,open air
+diamond formation,utilizes,high pressure,high pressure,is plentiful in,Earth's mantle,diamond formation,can occur,Earth's mantle
+coral reef growth,relies on,warm water,warm water,thrives in,tropical seas,coral reef growth,is possible,tropical seas
+cloud formation,demands,water vapor,water vapor,accumulates in,humid air,cloud formation,is facilitated,humid air
+snow formation,calls for,freezing temperatures,freezing temperatures,is concentrated in,high altitude clouds,snow formation,can be sustained,high altitude clouds
+fossilization,is powered by,sediment,sediment,is present in,river deltas,fossilization,unfolds,river deltas
+volcanic eruption,is driven by,magma,magma,is widespread in,subduction zones,volcanic eruption,can proceed,subduction zones
+glacier movement,necessitates,ice,ice,occurs in,polar regions,glacier movement,is enabled,polar regions
+tsunami generation,requires,seawater,seawater,is abundant in,oceans,tsunami generation,occurs,oceans
+star formation,needs,hydrogen gas,hydrogen gas,is found in,molecular clouds,star formation,takes place,molecular clouds
+black hole formation,depends on,massive stars,massive stars,exists in,young star clusters,black hole formation,happens,young star clusters
+desertification,utilizes,low rainfall,low rainfall,is plentiful in,arid regions,desertification,can occur,arid regions
+protein synthesis,relies on,amino acids,amino acids,thrives in,ribosomes,protein synthesis,is possible,ribosomes
+cell division,demands,ATP,ATP,accumulates in,mitochondria,cell division,is facilitated,mitochondria
+seed germination,calls for,moisture,moisture,is concentrated in,damp soil,seed germination,can be sustained,damp soil
+plant transpiration,is powered by,water,water,is present in,xylem vessels,plant transpiration,unfolds,xylem vessels
+butterfly metamorphosis,is driven by,energy reserves,energy reserves,is widespread in,the chrysalis,butterfly metamorphosis,can proceed,the chrysalis
+fermentation,necessitates,sugar,sugar,occurs in,grape must,fermentation,is enabled,grape must
+cheese maturation,requires,beneficial bacteria,beneficial bacteria,is abundant in,aging cellars,cheese maturation,occurs,aging cellars
+bread rising,needs,yeast,yeast,is found in,dough,bread rising,takes place,dough
+water evaporation,depends on,heat,heat,exists in,warm surfaces,water evaporation,happens,warm surfaces
+condensation,utilizes,cooling,cooling,is plentiful in,dew point temperatures,condensation,can occur,dew point temperatures
+rusting of iron,relies on,oxygen,oxygen,thrives in,humid environments,rusting of iron,is possible,humid environments
+soil erosion,demands,flowing water,flowing water,accumulates in,riverbanks,soil erosion,is facilitated,riverbanks
+rock weathering,calls for,temperature fluctuations,temperature fluctuations,is concentrated in,mountain slopes,rock weathering,can be sustained,mountain slopes
+antibiotic resistance,is powered by,gene mutations,gene mutations,is present in,bacterial plasmids,antibiotic resistance,unfolds,bacterial plasmids
+ozone formation,is driven by,ultraviolet radiation,ultraviolet radiation,is widespread in,stratosphere,ozone formation,can proceed,stratosphere
+greenhouse warming,necessitates,greenhouse gases,greenhouse gases,occurs in,lower atmosphere,greenhouse warming,is enabled,lower atmosphere
+hydroelectric power generation,requires,flowing water,flowing water,is abundant in,dams,hydroelectric power generation,occurs,dams
+wind power generation,needs,wind,wind,is found in,coastal plains,wind power generation,takes place,coastal plains
+solar power generation,depends on,sunlight,sunlight,exists in,photovoltaic panels,solar power generation,happens,photovoltaic panels
+nuclear fission,utilizes,uranium‑235,uranium‑235,is plentiful in,nuclear reactors,nuclear fission,can occur,nuclear reactors
+nuclear fusion,relies on,hydrogen isotopes,hydrogen isotopes,thrives in,core of the sun,nuclear fusion,is possible,core of the sun
+nerve impulse conduction,demands,sodium ions,sodium ions,accumulates in,neuronal axons,nerve impulse conduction,is facilitated,neuronal axons
+muscle contraction,calls for,calcium ions,calcium ions,is concentrated in,sarcoplasmic reticulum,muscle contraction,can be sustained,sarcoplasmic reticulum
+antibody production,is powered by,antigens,antigens,is present in,lymph nodes,antibody production,unfolds,lymph nodes
+blood clotting,is driven by,platelets,platelets,is widespread in,damaged blood vessels,blood clotting,can proceed,damaged blood vessels
+algae photosynthesis,necessitates,sunlight,sunlight,occurs in,photic zone,algae photosynthesis,is enabled,photic zone
+lactic acid fermentation,requires,glucose,glucose,is abundant in,muscle cells,lactic acid fermentation,occurs,muscle cells
+seafloor spreading,needs,magma,magma,is found in,mid‑ocean ridges,seafloor spreading,takes place,mid‑ocean ridges
+aurora formation,depends on,charged particles,charged particles,exists in,polar skies,aurora formation,happens,polar skies
+tornado development,utilizes,warm moist air,warm moist air,is plentiful in,the Great Plains,tornado development,can occur,the Great Plains
+hurricane formation,relies on,warm ocean water,warm ocean water,thrives in,tropical Atlantic,hurricane formation,is possible,tropical Atlantic
+earthquake occurrence,demands,tectonic stress,tectonic stress,accumulates in,fault lines,earthquake occurrence,is facilitated,fault lines
+lightning production,calls for,electrical charge separation,electrical charge separation,is concentrated in,thunderclouds,lightning production,can be sustained,thunderclouds
+circadian rhythm regulation,is powered by,light signals,light signals,is present in,the suprachiasmatic nucleus,circadian rhythm regulation,unfolds,the suprachiasmatic nucleus
+vitamin D synthesis,is driven by,UVB radiation,UVB radiation,is widespread in,human skin,vitamin D synthesis,can proceed,human skin
+leaf color change,necessitates,shorter daylight,shorter daylight,occurs in,autumn,leaf color change,is enabled,autumn
+maple sap flow,requires,thaw temperatures,thaw temperatures,is abundant in,spring mornings,maple sap flow,occurs,spring mornings
+gene expression,needs,transcription factors,transcription factors,is found in,cell nuclei,gene expression,takes place,cell nuclei
+mitochondrial ATP production,depends on,glucose,glucose,exists in,mitochondria,mitochondrial ATP production,happens,mitochondria
+cyanobacteria photosynthesis,utilizes,sunlight,sunlight,is plentiful in,freshwater lakes,cyanobacteria photosynthesis,can occur,freshwater lakes
+hibernation,relies on,fat stores,fat stores,thrives in,winter dens,hibernation,is possible,winter dens
+evapotranspiration,demands,solar energy,solar energy,accumulates in,forest canopies,evapotranspiration,is facilitated,forest canopies
+rainbow formation,calls for,sunlight,sunlight,is concentrated in,rain showers,rainbow formation,can be sustained,rain showers
+fog formation,is powered by,cooling air,cooling air,is present in,valleys,fog formation,unfolds,valleys
+dew formation,is driven by,lost heat,lost heat,is widespread in,grass surfaces,dew formation,can proceed,grass surfaces
+hail formation,necessitates,strong updrafts,strong updrafts,occurs in,cumulonimbus clouds,hail formation,is enabled,cumulonimbus clouds
+salt crystallization,requires,evaporation,evaporation,is abundant in,salt pans,salt crystallization,occurs,salt pans
+sand dune movement,needs,wind,wind,is found in,deserts,sand dune movement,takes place,deserts
+tidal energy generation,depends on,tidal currents,tidal currents,exists in,narrow fjords,tidal energy generation,happens,narrow fjords
+geothermal power generation,utilizes,heat,heat,is plentiful in,volcanic areas,geothermal power generation,can occur,volcanic areas
+cave formation,relies on,acidic water,acidic water,thrives in,limestone bedrock,cave formation,is possible,limestone bedrock
+stalactite growth,demands,dripping mineral water,dripping mineral water,accumulates in,cave ceilings,stalactite growth,is facilitated,cave ceilings
+stalagmite growth,calls for,dripping mineral water,dripping mineral water,is concentrated in,cave floors,stalagmite growth,can be sustained,cave floors
+amber preservation,is powered by,tree resin,tree resin,is present in,ancient forests,amber preservation,unfolds,ancient forests
+paper recycling,is driven by,waste paper,waste paper,is widespread in,recycling facilities,paper recycling,can proceed,recycling facilities
+plastic recycling,necessitates,plastic waste,plastic waste,occurs in,sorting centers,plastic recycling,is enabled,sorting centers
+metal corrosion,requires,oxygen,oxygen,is abundant in,marine environments,metal corrosion,occurs,marine environments
+carbon sequestration,needs,carbon dioxide,carbon dioxide,is found in,forest biomass,carbon sequestration,takes place,forest biomass
+soil carbon storage,depends on,organic matter,organic matter,exists in,peatlands,soil carbon storage,happens,peatlands
+methane production,utilizes,organic matter,organic matter,is plentiful in,wetlands,methane production,can occur,wetlands
+bioluminescence,relies on,luciferin,luciferin,thrives in,firefly lanterns,bioluminescence,is possible,firefly lanterns
+chlorophyll synthesis,demands,magnesium,magnesium,accumulates in,plant leaves,chlorophyll synthesis,is facilitated,plant leaves
+protein denaturation,calls for,heat,heat,is concentrated in,boiling water,protein denaturation,can be sustained,boiling water
+enzyme catalysis,is powered by,substrates,substrates,is present in,active sites,enzyme catalysis,unfolds,active sites
+DNA replication,is driven by,nucleotides,nucleotides,is widespread in,cell nuclei,DNA replication,can proceed,cell nuclei
+RNA transcription,necessitates,RNA polymerase,RNA polymerase,occurs in,cell nuclei,RNA transcription,is enabled,cell nuclei
+cellular differentiation,requires,gene regulation,gene regulation,is abundant in,developing embryos,cellular differentiation,occurs,developing embryos
+photosystem II electron transport,needs,photons,photons,is found in,thylakoid membranes,photosystem II electron transport,takes place,thylakoid membranes
+ozone depletion,depends on,chlorofluorocarbons,chlorofluorocarbons,exists in,upper atmosphere,ozone depletion,happens,upper atmosphere
+acid rain formation,utilizes,sulfur dioxide,sulfur dioxide,is plentiful in,industrial emissions,acid rain formation,can occur,industrial emissions
+albedo effect,relies on,solar radiation,solar radiation,thrives in,ice sheets,albedo effect,is possible,ice sheets
+fruit ripening,demands,ethylene gas,ethylene gas,accumulates in,storage rooms,fruit ripening,is facilitated,storage rooms
+seed dispersal,calls for,wind,wind,is concentrated in,open fields,seed dispersal,can be sustained,open fields
+hydrothermal vent circulation,is powered by,geothermal heat,geothermal heat,is present in,ocean ridges,hydrothermal vent circulation,unfolds,ocean ridges
+oil formation,is driven by,organic sediment,organic sediment,is widespread in,deep seabeds,oil formation,can proceed,deep seabeds
+coal formation,necessitates,plant debris,plant debris,occurs in,ancient swamps,coal formation,is enabled,ancient swamps
+natural gas formation,requires,hydrocarbons,hydrocarbons,is abundant in,shale formations,natural gas formation,occurs,shale formations
+peat accumulation,needs,waterlogged conditions,waterlogged conditions,is found in,bogs,peat accumulation,takes place,bogs
+methane hydrate formation,depends on,methane,methane,exists in,permafrost,methane hydrate formation,happens,permafrost
+crystal growth,utilizes,mineral‑rich water,mineral‑rich water,is plentiful in,geodes,crystal growth,can occur,geodes
+silk production by spiders,relies on,proteins,proteins,thrives in,silk glands,silk production by spiders,is possible,silk glands
+pearl formation,demands,calcium carbonate,calcium carbonate,accumulates in,oyster mantles,pearl formation,is facilitated,oyster mantles
+honey production,calls for,nectar,nectar,is concentrated in,beehives,honey production,can be sustained,beehives
+sap resin secretion,is powered by,tree resin,tree resin,is present in,pine forests,sap resin secretion,unfolds,pine forests
+mantle convection,is driven by,heat,heat,is widespread in,Earth's mantle,mantle convection,can proceed,Earth's mantle
+aurora australis,necessitates,charged particles,charged particles,occurs in,southern polar skies,aurora australis,is enabled,southern polar skies
