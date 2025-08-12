@@ -126,7 +126,8 @@ class MaterialInferenceDataset:
 
     def get_filtered_sample(self, iterable, excluded = []):
         sample_list = pd.Series(filter(lambda x: x not in excluded, iterable))
-        return sample_list.sample().iloc[0]
+        sample = sample_list.sample().iloc[0]
+        return sample.split()[0]
 
     def corrupt_middle_term(self):
         prompts = []
