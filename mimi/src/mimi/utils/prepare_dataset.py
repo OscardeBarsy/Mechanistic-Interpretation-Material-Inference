@@ -55,6 +55,7 @@ class MaterialInferenceDataset:
         self.seed = seed
         self.tokenizer = AutoTokenizer.from_pretrained("gpt2")
         self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.tokenizer.padding_side = "right" 
         self.prepend_bos = False
 
 
@@ -110,16 +111,19 @@ class MaterialInferenceDataset:
         prompt = {}
         if not b2:
             b2 = b
-        premise_1 = a + " " + row["Premise1_Verb"]+ " " + b
-        premise_2 = b2 + " " + row["Premise2_Verb"] + " " + c
-        conclusion_set_up = a + " " + row["Conclusion_Verb"]
+        premise_1 = a + " "  + row["Premise1_Verb"]+ " "  + b
+        premise_2 = b2 + " "  + row["Premise2_Verb"]+ " "  + c
+        conclusion_set_up = a + " " + row["Conclusion_Verb"] 
 
         prompt["input"] = f"Since {premise_1} and {premise_2}, therefore {conclusion_set_up}"
 
         prompt["a"] = a
         prompt["b"] = b
         prompt["b2"] = b2
-        prompt["label"] = row["Conclusion_Object"]
+        prompt["v1"] = row["Premise1_Verb"]
+        prompt["v2"] = row["Premise2_Verb"]
+        prompt["v3"] = row["Conclusion_Verb"]
+        prompt["label"] =  row["Conclusion_Object"]
 
 
         return prompt 

@@ -12,7 +12,321 @@ import torch as t
 import re
 from collections import defaultdict
 
-def get_max_label_token_lengths(dataset):
+
+import torch as t
+import torch.nn.functional as F
+
+@t.inference_mode()
+def avg_logprob_for_label(model, tokenizer, prompt: str, label: str, device) -> float:
+    """
+    Average log-probability of `label` given `prompt`, using teacher forcing.
+    """
+    prompt_ids = tokenizer.encode(prompt, add_special_tokens=False)
+    label_ids  = tokenizer.encode(label,  add_special_tokens=False)
+    if len(label_ids) == 0:
+        return 0.0
+
+    # Run on prompt+label; logits[t] predicts token at t+1
+    input_ids = t.tensor([prompt_ids + label_ids], device=device)
+    logits = model(input_ids).logits  # [1, T_total, V]
+
+    pl = len(prompt_ids)
+    L  = len(label_ids)
+
+    # Positions that predict the label tokens
+    # first label token predicted at index pl-1, then pl,...,pl+L-2
+    to_score = logits[0, pl-1 : pl-1+L, :]              # [L, V]
+    log_probs = F.log_softmax(to_score, dim=-1)         # [L, V]
+
+    label_ids_t = t.tensor(label_ids, device=device)    # [L]
+    tok_logp = log_probs.gather(1, label_ids_t[:, None]).squeeze(1)  # [L]
+
+    return float(tok_logp.mean().item())
+
+
+from torch.nn.utils.rnn import pad_sequence
+@t.inference_mode()
+def batch_avg_logprob_for_labels(model, tokenizer, prompts, labels, device, batch_size=16):
+    """
+    Returns a scalar float: the mean (over examples) of the average
+    log-probabilities of each label given its prompt (teacher forcing).
+    """
+    assert len(prompts) == len(labels)
+    pad_id = tokenizer.pad_token_id
+    if pad_id is None:
+        pad_id = tokenizer.eos_token_id
+
+    out_vals = []
+
+    for s in range(0, len(prompts), batch_size):
+        P  = prompts[s:s+batch_size]
+        Ls = labels[s:s+batch_size]
+
+        # tokenize
+        prom_ids = [t.tensor(tokenizer.encode(p,  add_special_tokens=False), dtype=t.long) for p in P]
+        labl_ids = [t.tensor(tokenizer.encode(lb, add_special_tokens=False), dtype=t.long) for lb in Ls]
+
+        # concat prompt+label per example
+        concat = [t.cat([pi, li], dim=0) for pi, li in zip(prom_ids, labl_ids)]
+        prompt_lens = t.tensor([len(pi) for pi in prom_ids], device=device, dtype=t.long)
+        label_lens  = t.tensor([len(li) for li in labl_ids], device=device, dtype=t.long)
+
+        # pad to batch
+        input_ids = pad_sequence(concat, batch_first=True, padding_value=pad_id).to(device)  # [B, T_max]
+        outputs = model(input_ids)
+        if hasattr(outputs, "logits"):
+            logits = outputs.logits
+        elif isinstance(outputs, (tuple, list)):
+            logits = outputs[0]
+        else:
+            logits = outputs
+        log_probs = F.log_softmax(logits, dim=-1)  # [B, T_max, V]
+
+        B, T_max, _ = log_probs.shape
+        L_max = max(1, int(label_lens.max().item()))
+
+        # pad label ids to L_max to index cleanly
+        label_pad = pad_sequence(labl_ids, batch_first=True, padding_value=pad_id).to(device)  # [B, L_max]
+
+        # positions to read for each label token: start = pl-1, then +0..L_i-1
+        arange_L = t.arange(L_max, device=device)[None, :].expand(B, -1)   # [B, L_max]
+        starts   = (prompt_lens - 1).unsqueeze(1)                           # [B, 1]
+        pos_idx  = (starts + arange_L).clamp(min=0, max=T_max-1)            # [B, L_max]
+
+        # mask only real label tokens (ignore padded positions)
+        mask = arange_L < label_lens.unsqueeze(1)                           # [B, L_max]
+
+        # gather log-probs of the correct next tokens
+        b_idx    = t.arange(B, device=device).unsqueeze(1).expand_as(pos_idx)  # [B, L_max]
+        tok_logp = log_probs[b_idx, pos_idx, label_pad]                        # [B, L_max]
+
+        # zero out pads, then average over real label length
+        tok_logp    = tok_logp * mask
+        denom       = label_lens.clamp_min(1).to(tok_logp.dtype)               # [B]
+        per_ex_mean = tok_logp.sum(dim=1) / denom                               # [B]
+
+        out_vals.append(per_ex_mean.detach().cpu())
+
+    all_vals = t.cat(out_vals, dim=0)  # [N]
+    return float(all_vals.mean().item())
+
+# -----------------------------------------------------------
+# 1) Core: compute sequence log-prob for the *correct* label
+#    (optionally masking pad tokens)
+# -----------------------------------------------------------
+def compute_seq_logprob(
+    logits: t.Tensor,
+    answer_token_seqs: t.Tensor,
+    *,
+    reduction: str = "mean",     # "mean" over tokens; could be "sum" if you prefer
+    array: bool = False,         # return per-item values if True, else batch mean
+    pad_token_id: int = None,
+):
+    """
+    Compute (masked) average log-probability of the *correct* label sequence.
+
+    Args:
+        logits: [batch, seq_len, vocab_size]
+        answer_token_seqs:
+            Either [batch, 2, label_len] (correct, incorrect) as produced by
+            `get_answer_token_sequences`, or [batch, label_len] (only correct).
+        reduction: "mean" (default) or "sum" over the label tokens.
+        array: if True, return a 1D tensor [batch] of per-item values; else return batch mean (scalar).
+        pad_token_id: if provided, positions equal to this id are masked out.
+
+    Returns:
+        Scalar (batch mean) or a 1D tensor [batch] if array=True.
+    """
+    assert reduction in {"mean", "sum"}
+
+    # Accept both shapes: [B, 2, L] or [B, L]
+    if answer_token_seqs.dim() == 3:
+        # Use only the correct sequence channel
+        correct_labels = answer_token_seqs[:, 0, :]          # [B, L]
+    else:
+        correct_labels = answer_token_seqs                    # [B, L]
+
+    B, L = correct_labels.shape
+    # Slice the last L positions from logits (labels are aligned to the end)
+    logits_to_score = logits[:, -L:, :]                      # [B, L, V]
+    log_probs = F.log_softmax(logits_to_score, dim=-1)       # [B, L, V]
+
+    gathered = log_probs.gather(2, correct_labels.unsqueeze(-1)).squeeze(-1)  # [B, L]
+
+    if pad_token_id is not None:
+        mask = (correct_labels != pad_token_id)              # [B, L]
+        # avoid division by zero; if a row is fully padded, we define its mean as 0
+        lengths = mask.sum(dim=1).clamp_min(1)               # [B]
+        gathered = gathered * mask                           # zero-out pads
+        if reduction == "mean":
+            per_item = gathered.sum(dim=1) / lengths         # [B]
+        else:
+            per_item = gathered.sum(dim=1)                   # [B]
+    else:
+        if reduction == "mean":
+            per_item = gathered.mean(dim=1)                  # [B]
+        else:
+            per_item = gathered.sum(dim=1)                   # [B]
+
+    if array:
+        return per_item
+    return per_item.mean()
+
+
+# -----------------------------------------------------------
+# 2) Batched helper (used to be get_batched_logit_diff)
+# -----------------------------------------------------------
+def get_batched_logprob(minibatch_size, tokens, answer_tokens, model, pad_token_id=None):
+    """
+    Returns the average sequence log-prob (correct label only) over the dataset.
+    """
+    avg = 0.0
+    n = 0
+    for i in range(0, len(tokens), minibatch_size):
+        logits, _ = model.run_with_cache(tokens[i:i+minibatch_size])
+        at = answer_tokens[i:i+minibatch_size]
+        val = compute_seq_logprob(logits, at, pad_token_id=pad_token_id)  # scalar
+        # accumulate numerically stable
+        batch_size = at.size(0)
+        avg = (avg * n + float(val) * batch_size) / (n + batch_size)
+        n += batch_size
+        del logits, val
+    return avg
+
+
+## Intervention layer wise / focusing on layer wise position of input tokens
+
+def patching_residual_hook(corrupted_residual_component, hook, pos, clean_cache):
+    corrupted_residual_component[:, pos, :] = clean_cache[hook.name][:, pos, :]
+    return corrupted_residual_component
+
+@t.inference_mode()
+def patching_residual(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, device):
+    model.reset_hooks()
+    seq_len = corrupted_tokens.size(1)
+    results = t.zeros(model.cfg.n_layers, seq_len, device=device, dtype=t.float32)
+
+    for layer in tqdm(range(model.cfg.n_layers)):
+        for position in range(seq_len):
+            hook_fn = partial(patching_residual_hook, pos=position, clean_cache=clean_cache)
+            patched_logits = model.run_with_hooks(
+                corrupted_tokens,
+                fwd_hooks = [(utils.get_act_name("resid_post", layer), hook_fn)],
+            )
+            results[layer, position] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
+    return results
+
+## Intervention head wise / focusing on each head in the model
+def patching_attention_hook(corrupted_head_vector, hook, head_index, clean_cache):
+    corrupted_head_vector[:, :, head_index] = clean_cache[hook.name][:, :, head_index]
+    return corrupted_head_vector
+
+@t.inference_mode()
+def patching_attention(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, head_type, device):
+    model.reset_hooks()
+    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
+
+    for layer in tqdm(range(model.cfg.n_layers)):
+        for head in range(model.cfg.n_heads):
+            hook_fn = partial(patching_attention_hook, head_index=head, clean_cache=clean_cache)
+            patched_logits = model.run_with_hooks(
+                corrupted_tokens,
+                fwd_hooks = [(utils.get_act_name(head_type, layer), hook_fn)],
+                return_type="logits"
+            )
+            results[layer, head] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
+
+    return results
+
+## Ablation
+def accumulated_zero_ablation(clean_head_vector, hook, head_list):
+    heads_to_patch = [head for layer, head in head_list if layer == hook.layer()]
+    if len(heads_to_patch) == 0:
+        return clean_head_vector
+    clean_head_vector[:, :, heads_to_patch, :] = 0
+    return clean_head_vector
+
+def accumulated_mean_ablation(clean_head_vector, hook, head_list):
+    heads_to_patch = [head for layer, head in head_list if layer == hook.layer()]
+    if len(heads_to_patch) == 0:
+        return clean_head_vector
+    clean_head_vector[:, :, heads_to_patch, :] = clean_head_vector.mean(dim=0, keepdim=True)[:, :, heads_to_patch, :]
+    return clean_head_vector
+
+def get_accumulated_ablation_score(model, labels, tokens, answer_tokens, head_list, clean_logit_diff, type, device):
+    model.reset_hooks()
+    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
+
+    if head_list == None:
+      return clean_logit_diff, None, None
+
+    if type == 'mean':
+        hook_fn = accumulated_mean_ablation
+    else:
+        hook_fn = accumulated_zero_ablation
+
+    head_type = 'z'
+    head_layers = set(next(zip(*head_list)))
+    hook_names = [utils.get_act_name(head_type, layer) for layer in head_layers]
+    hook_names_filter = lambda name: name in hook_names
+
+    hook_fn = partial(
+        hook_fn,
+        head_list=head_list
+    )
+    patched_logits = model.run_with_hooks(
+        tokens,
+        fwd_hooks = [(hook_names_filter, hook_fn)],
+        return_type="logits"
+    )
+
+    return compute_logit_diff(patched_logits, answer_tokens)
+
+def necessity_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
+    sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
+    target_head = []
+    scores = []
+
+    for head in tqdm(sequence):
+        target_head.append(head)
+        score = get_accumulated_ablation_score(
+            model, labels, tokens, answer_tokens, target_head, clean_logit_diff, type, device
+        )
+        scores.append(score)
+
+    scores = [clean_logit_diff] + scores
+    for i in range(len(scores)):
+        scores[i] = scores[i].cpu()
+        scores[i] = scores[i].cpu()
+    return scores
+
+def sufficiency_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
+    sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
+    all_heads = [(i, j) for i in range(24) for j in range(16)]
+    all_score = get_accumulated_ablation_score(
+        model, labels, tokens, answer_tokens, all_heads, clean_logit_diff, type, device
+    )
+    target_head = []
+    scores = []
+
+    for head in tqdm(sequence[::-1]):
+        all_heads_temp = all_heads.copy()
+        target_head.append(head)
+        for th in target_head:
+            if th in all_heads_temp:
+                all_heads_temp.remove(th)
+        score = get_accumulated_ablation_score(
+            model, labels, tokens, answer_tokens, all_heads_temp, clean_logit_diff, type, device
+        )
+        scores.append(score)
+
+    scores = [all_score] + scores
+    for i in range(len(scores)):
+        scores[i] = scores[i].cpu()
+    return scores
+
+
+def get_label_token_lengths(dataset):
     """
     Compute the maximum token length for each symbolic label across the dataset,
     accounting for variable tokenization of a, b, and c (and verbs).
@@ -42,9 +356,6 @@ def get_max_label_token_lengths(dataset):
     # Regex to extract a, v1, b, v2, c, v3 based on your prompt builder
     # Example prompt:
     # "Since A VERB1 B and B VERB2 C, therefore A VERB3"
-    pat = re.compile(
-        r"^Since\s+(.+?)\s+(.+?)\s+(.+?)\s+and\s+(.+?)\s+(.+?)\s+(.+?),\s+therefore\s+\1\s+(.+?)$"
-    )
 
     # Helper to get token length
     def tlen(text): 
@@ -53,44 +364,55 @@ def get_max_label_token_lengths(dataset):
     max_len["BEGIN"] = tlen("Since")
     max_len["m_1 -> m_2"] = tlen(" and ")
     max_len["p -> s_2"] = tlen(", therefore")
+    max_len["END"] = tlen(" => ")
 
-    for prompt in dataset.sentences:
-        m = pat.match(prompt)
-        if not m:
-            # If any prompt deviates, skip or raise — here we skip gracefully
-            # You can print or log the prompt to debug if needed.
-            continue
 
-        a, v1, b, b2, v2, c, v3 = m.groups()
+    prompt_lens = []
+
+    for prompt in dataset.prompts:
+
+        prompt_len = {lab: 0 for lab in labels}
+        prompt_len["BEGIN"] = tlen("Since ")
+        prompt_len["m_1 -> m_2"] = tlen(" and ")
+        prompt_len["p -> s_2"] = tlen(", therefore ")
+
 
 
         # s_1: a
-        max_len["s_1"] = max(max_len["s_1"], tlen(a))
+        prompt_len["s_1"] = tlen(prompt["a"]+ " ")
+        max_len["s_1"] = max(max_len["s_1"],prompt_len["s_1"])
 
         # s_1 -> m_1: v1
-        max_len["s_1 -> m_1"] = max(max_len["s_1 -> m_1"], tlen(v1))
+        prompt_len["s_1 -> m_1"] =tlen(prompt["v1"]+ " ")
+        max_len["s_1 -> m_1"] = max(max_len["s_1 -> m_1"], prompt_len["s_1 -> m_1"])
 
         # m_1: b
-        max_len["m_1"] = max(max_len["m_1"], tlen(b))
+        prompt_len["m_1"] =  tlen(prompt["b"])
+        max_len["m_1"] = max(max_len["m_1"], prompt_len["m_1"])
 
         # m_2: b2
-        max_len["m_2"] = max(max_len["m_2"], tlen(b2))
+        prompt_len["m_2"] =  tlen(prompt["b2"]+ " ")
+        max_len["m_2"] = max(max_len["m_2"], prompt_len["m_2"])
 
         # m_2 -> p: ", therefore" (comma + space + word)
-        max_len["m_2 -> p"] = max(max_len["m_2 -> p"], tlen(v2))
+        prompt_len["m_2 -> p"] = tlen(prompt["v2"]+ " ")
+        max_len["m_2 -> p"] = max(max_len["m_2 -> p"], prompt_len["m_2 -> p"])
 
         # p: a
-        max_len["p"] = max(max_len["p"], tlen(c))
+        prompt_len["p"] = tlen(prompt["label"])
+        max_len["p"] = max(max_len["p"], prompt_len["p"])
 
         
 
         # s_2: c  (your earlier code maps s_2 to c again)
-        max_len["s_2"] = max(max_len["s_2"], tlen(a))
+        prompt_len["s_2"] = tlen(prompt["a"])
+        max_len["s_2"] = max(max_len["s_2"], prompt_len["s_2"])
 
         # END: no EOS added with add_special_tokens=False; keep 0 or set to 1 if you want a column
-        max_len["END"] = max(max_len["END"], tlen(v3))
+        prompt_len["END"] = tlen(" => ")
+        prompt_lens.append(prompt_len)
 
-    return max_len
+    return prompt_lens, max_len
 
 def build_label_spans(max_len_by_label: Dict[str, int], labels: List[str]) -> Dict[str, Tuple[int, int]]:
     """
@@ -147,6 +469,66 @@ def compress_by_label_spans(
 
     compressed = t.stack(out, dim=0)   # [11, n_layers]
     return compressed.detach().cpu()  
+
+
+import torch as t
+
+def make_pad_keymask(tokens: t.Tensor, pad_token_id: int):
+    if not isinstance(pad_token_id, int):
+        raise TypeError(f"pad_token_id must be int, got {type(pad_token_id)}")
+    if tokens.ndim == 1:  # allow [T]
+        tokens = tokens.unsqueeze(0)
+    is_pad = (tokens == pad_token_id)                 # [B, T], bool
+    return is_pad[:, None, None, :]                   # [B, 1, 1, T]
+
+def make_attn_mask_hook(key_pad_mask: t.Tensor):
+    def hook(scores, hook):
+        mask = key_pad_mask.to(scores.device)         # scores: [B,H,Q,K]
+        return scores.masked_fill(mask, 0.0)  # mask pad **keys**
+    return hook
+
+def run_ignoring_pad(model, tokens: t.Tensor, pad_token_id: int):
+    key_pad_mask = make_pad_keymask(tokens, pad_token_id)  # [B,1,1,T]
+    hook_fn = make_attn_mask_hook(key_pad_mask)
+    fwd_hooks = [(f"blocks.{l}.attn.hook_attn_scores", hook_fn)
+                 for l in range(model.cfg.n_layers)]
+    # Apply hooks here, then run_with_cache
+    with model.hooks(fwd_hooks=fwd_hooks):
+        logits, cache = model.run_with_cache(tokens)
+    return logits, cache
+
+
+def get_adjusted_token_sequences(dataset, max_len) -> t.Tensor:
+
+
+    tokenizer = dataset.tokenizer
+    tokenised_sentences = []
+
+    begin_tokens = tokenizer("Since ", add_special_tokens=False)["input_ids"]
+    first_transition_tokens = tokenizer(" and ", add_special_tokens=False)["input_ids"]
+    second_transition_tokens = tokenizer(", therefore ", add_special_tokens=False)["input_ids"]
+    #end_tokens = tokenizer(" => ", add_special_tokens=False)["input_ids"]
+
+    for prompt in dataset.prompts:
+        tokenised_sentence = []
+        tokenised_sentence += begin_tokens
+        tokenised_sentence += tokenizer(prompt["a"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
+        tokenised_sentence += tokenizer(prompt["v1"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1 -> m_1"], truncation=True)["input_ids"]
+        tokenised_sentence += tokenizer(prompt["b"], add_special_tokens=False,padding="max_length",max_length=max_len["m_1"], truncation=True)["input_ids"]
+        tokenised_sentence += first_transition_tokens
+        tokenised_sentence += tokenizer(prompt["b2"], add_special_tokens=False,padding="max_length",max_length=max_len["m_2"], truncation=True)["input_ids"]
+        tokenised_sentence += tokenizer(prompt["v2"], add_special_tokens=False,padding="max_length",max_length=max_len["m_2 -> p"], truncation=True)["input_ids"]
+        tokenised_sentence += tokenizer(prompt["label"], add_special_tokens=False,padding="max_length",max_length=max_len["p"], truncation=True)["input_ids"]
+        tokenised_sentence += second_transition_tokens
+        tokenised_sentence += tokenizer(prompt["a"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
+        tokenised_sentence += tokenizer(prompt["v3"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
+
+
+        tokenised_sentences.append(tokenised_sentence)  # don't stack yet
+
+    tokens = t.tensor(tokenised_sentences, dtype=t.long)  # [B, T_fixed]
+    return tokens
+
 
 
 def get_answer_token_sequences(labels: list[str], second_labels: list[str], tokenizer, max_len=None) -> t.Tensor:
@@ -342,136 +724,68 @@ def align_fine_tuning_gpt2(model, f_model, device):
 ## Metric
 def metric_denoising( logits, answer_tokens, corrupted_logit_diff, clean_logit_diff):
     patched_logit_diff = compute_logit_diff(logits, answer_tokens)
-    patching_effect = (patched_logit_diff - corrupted_logit_diff) / (clean_logit_diff  - corrupted_logit_diff)
+    patching_effect = (patched_logit_diff - corrupted_logit_diff) / (clean_logit_diff  - corrupted_logit_diff) #if positive, patch is better than corrupted, if negative, patch is worse than corrupted
     return patching_effect
 
-## Intervention
-def patching_residual_hook(corrupted_residual_component, hook, pos, clean_cache):
-    corrupted_residual_component[:, pos, :] = clean_cache[hook.name][:, pos, :]
-    return corrupted_residual_component
-
-def patching_residual(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, device):
-    model.reset_hooks()
-    seq_len = corrupted_tokens.size(1)
-    results = t.zeros(model.cfg.n_layers, seq_len, device=device, dtype=t.float32)
-
-    for layer in tqdm(range(model.cfg.n_layers)):
-        for position in range(seq_len):
-            hook_fn = partial(patching_residual_hook, pos=position, clean_cache=clean_cache)
-            patched_logits = model.run_with_hooks(
-                corrupted_tokens,
-                fwd_hooks = [(utils.get_act_name("resid_post", layer), hook_fn)],
-            )
-            results[layer, position] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
-    return results
-
-def patching_attention_hook(corrupted_head_vector, hook, head_index, clean_cache):
-    corrupted_head_vector[:, :, head_index] = clean_cache[hook.name][:, :, head_index]
-    return corrupted_head_vector
-
-def patching_attention(model, corrupted_tokens, clean_cache, patching_metric, answer_tokens, clean_logit_diff, corrupted_logit_diff, head_type, device):
-    model.reset_hooks()
-    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
-
-    for layer in tqdm(range(model.cfg.n_layers)):
-        for head in range(model.cfg.n_heads):
-            hook_fn = partial(patching_attention_hook, head_index=head, clean_cache=clean_cache)
-            patched_logits = model.run_with_hooks(
-                corrupted_tokens,
-                fwd_hooks = [(utils.get_act_name(head_type, layer), hook_fn)],
-                return_type="logits"
-            )
-            results[layer, head] = patching_metric(patched_logits, answer_tokens, corrupted_logit_diff, clean_logit_diff)
-
-    return results
-
-## Ablation
-def accumulated_zero_ablation(clean_head_vector, hook, head_list):
-    heads_to_patch = [head for layer, head in head_list if layer == hook.layer()]
-    if len(heads_to_patch) == 0:
-        return clean_head_vector
-    clean_head_vector[:, :, heads_to_patch, :] = 0
-    return clean_head_vector
-
-def accumulated_mean_ablation(clean_head_vector, hook, head_list):
-    heads_to_patch = [head for layer, head in head_list if layer == hook.layer()]
-    if len(heads_to_patch) == 0:
-        return clean_head_vector
-    clean_head_vector[:, :, heads_to_patch, :] = clean_head_vector.mean(dim=0, keepdim=True)[:, :, heads_to_patch, :]
-    return clean_head_vector
-
-def get_accumulated_ablation_score(model, labels, tokens, answer_tokens, head_list, clean_logit_diff, type, device):
-    model.reset_hooks()
-    results = t.zeros(model.cfg.n_layers, model.cfg.n_heads, device=device, dtype=t.float32)
-
-    if head_list == None:
-      return clean_logit_diff, None, None
-
-    if type == 'mean':
-        hook_fn = accumulated_mean_ablation
-    else:
-        hook_fn = accumulated_zero_ablation
-
-    head_type = 'z'
-    head_layers = set(next(zip(*head_list)))
-    hook_names = [utils.get_act_name(head_type, layer) for layer in head_layers]
-    hook_names_filter = lambda name: name in hook_names
-
-    hook_fn = partial(
-        hook_fn,
-        head_list=head_list
-    )
-    patched_logits = model.run_with_hooks(
-        tokens,
-        fwd_hooks = [(hook_names_filter, hook_fn)],
-        return_type="logits"
-    )
-
-    return compute_logit_diff(patched_logits, answer_tokens)
-
-def necessity_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
-    sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
-    target_head = []
-    scores = []
-
-    for head in tqdm(sequence):
-        target_head.append(head)
-        score = get_accumulated_ablation_score(
-            model, labels, tokens, answer_tokens, target_head, clean_logit_diff, type, device
-        )
-        scores.append(score)
-
-    scores = [clean_logit_diff] + scores
-    for i in range(len(scores)):
-        scores[i] = scores[i].cpu()
-        scores[i] = scores[i].cpu()
-    return scores
-
-def sufficiency_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
-    sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
-    all_heads = [(i, j) for i in range(24) for j in range(16)]
-    all_score = get_accumulated_ablation_score(
-        model, labels, tokens, answer_tokens, all_heads, clean_logit_diff, type, device
-    )
-    target_head = []
-    scores = []
-
-    for head in tqdm(sequence[::-1]):
-        all_heads_temp = all_heads.copy()
-        target_head.append(head)
-        for th in target_head:
-            if th in all_heads_temp:
-                all_heads_temp.remove(th)
-        score = get_accumulated_ablation_score(
-            model, labels, tokens, answer_tokens, all_heads_temp, clean_logit_diff, type, device
-        )
-        scores.append(score)
-
-    scores = [all_score] + scores
-    for i in range(len(scores)):
-        scores[i] = scores[i].cpu()
-    return scores
 
 
 
 
+
+
+
+
+def build_label_cache(labels, tokenizer):
+    """Tokenize labels once."""
+    label_token_ids = [tokenizer.encode(l, add_special_tokens=False) for l in labels]
+    return label_token_ids
+
+
+
+@t.inference_mode()
+def score_label_for_prompt(model, prompt_ids, label_ids, device):
+    input_ids = t.tensor([prompt_ids + label_ids], device=device)
+
+    with t.no_grad():
+        outputs = model(input_ids)
+        if hasattr(outputs, "logits"):
+            logits = outputs.logits
+        elif isinstance(outputs, (tuple, list)):
+            logits = outputs[0]
+        else:
+            logits = outputs   # already a tensor
+
+    prompt_len = len(prompt_ids)
+    label_len  = len(label_ids)
+
+    logits_to_score = logits[0, prompt_len-1 : prompt_len-1 + label_len, :]
+    log_probs = F.log_softmax(logits_to_score, dim=-1)
+
+    label_token_tensor = t.tensor(label_ids, device=device)
+    token_log_probs = log_probs.gather(1, label_token_tensor.unsqueeze(1)).squeeze(1)
+
+    return float(token_log_probs.sum().item())
+
+def predict_label(prompt, model, tokenizer, labels, label_token_ids, device):
+    prompt_ids = tokenizer.encode(prompt, add_special_tokens=False)
+    scores = [
+        score_label_for_prompt(model, prompt_ids, lab_ids, device)
+        for lab_ids in label_token_ids
+    ]
+    best_idx = int(t.tensor(scores).argmax().item())
+    return labels[best_idx], scores
+
+def evaluate_accuracy(prompts, labels, model, device):
+    tokenizer = model.tokenizer
+    label_token_ids = build_label_cache(labels, tokenizer)
+
+    correct = 0
+    for prompt, gold in zip(prompts,labels):
+        pred, _ = predict_label(prompt, model, tokenizer, labels, label_token_ids, device)
+        if pred.strip().lower() == gold.strip().lower():
+            correct += 1
+        else:
+            print("False")
+            print(f"Predicted: {pred!r}, Actual: {gold!r}")
+            print("Original Sentence: " + prompt + " " + gold)
+    return correct / len(labels)
