@@ -113,7 +113,7 @@ class MaterialInferenceDataset:
             b2 = b
         premise_1 = a + " "  + row["Premise1_Verb"]+ " "  + b
         premise_2 = b2 + " "  + row["Premise2_Verb"]+ " "  + c
-        conclusion_set_up = a + " " + row["Conclusion_Verb"] 
+        conclusion_set_up = a + " " + row["Conclusion_Verb"] + " => "
 
         prompt["input"] = f"Since {premise_1} and {premise_2}, therefore {conclusion_set_up}"
 

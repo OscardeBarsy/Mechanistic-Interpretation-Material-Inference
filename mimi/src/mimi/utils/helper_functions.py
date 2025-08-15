@@ -473,30 +473,128 @@ def compress_by_label_spans(
 
 import torch as t
 
-def make_pad_keymask(tokens: t.Tensor, pad_token_id: int):
-    if not isinstance(pad_token_id, int):
-        raise TypeError(f"pad_token_id must be int, got {type(pad_token_id)}")
-    if tokens.ndim == 1:  # allow [T]
+def _vectorized_forward_fill(tokens: t.Tensor, pad_id: int) -> t.Tensor:
+    """
+    Replace each PAD with the last non-PAD token to its left.
+    For leading PAD runs, seed with the row's first non-PAD token (if any).
+    If a row is all PAD, it remains PAD (fine for exclusion).
+    """
+    if tokens.ndim == 1:
         tokens = tokens.unsqueeze(0)
-    is_pad = (tokens == pad_token_id)                 # [B, T], bool
-    return is_pad[:, None, None, :]                   # [B, 1, 1, T]
+    B, T = tokens.shape
+    device = tokens.device
 
-def make_attn_mask_hook(key_pad_mask: t.Tensor):
-    def hook(scores, hook):
-        mask = key_pad_mask.to(scores.device)         # scores: [B,H,Q,K]
-        return scores.masked_fill(mask, 0.0)  # mask pad **keys**
+    idx = t.arange(T, device=device).unsqueeze(0).expand(B, -1)     # [B,T]
+    is_nonpad = tokens.ne(pad_id)                                   # [B,T]
+
+    last_idx = t.where(is_nonpad, idx, t.full_like(idx, -1))
+    last_idx, _ = last_idx.cummax(dim=1)                            # [B,T]
+
+    safe_last = last_idx.clamp(min=0)
+    filled = tokens.gather(1, safe_last)                            # [B,T]
+
+    has_any = is_nonpad.any(dim=1)                                  # [B]
+    first_nonpad_ix = t.where(
+        has_any, is_nonpad.float().argmax(dim=1), t.zeros(B, dtype=t.long, device=device)
+    )                                                                # [B]
+    first_nonpad_tok = tokens[t.arange(B, device=device), first_nonpad_ix]  # [B]
+    seed = first_nonpad_tok.unsqueeze(1).expand(B, T)               # [B,T]
+
+    return t.where(last_idx.eq(-1), seed, filled)                   # [B,T]
+
+def _key_pad_mask(tokens: t.Tensor, pad_id: int) -> t.Tensor:
+    if tokens.ndim == 1:
+        tokens = tokens.unsqueeze(0)
+    return tokens.eq(pad_id)[:, None, None, :]                      # [B,1,1,T] bool
+
+def _prev_nonpad_indices(tokens: t.Tensor, pad_id: int) -> t.Tensor:
+    """
+    prev_nonpad[q] = index of last non-PAD <= q; -1 if none.
+    """
+    if tokens.ndim == 1:
+        tokens = tokens.unsqueeze(0)
+    B, T = tokens.shape
+    device = tokens.device
+    idx = t.arange(T, device=device).unsqueeze(0).expand(B, -1)
+    is_nonpad = tokens.ne(pad_id)
+    prev = t.where(is_nonpad, idx, t.full_like(idx, -1))
+    prev, _ = prev.cummax(dim=1)                                     # [B,T], -1 where none
+    return prev
+
+def _choice_indices(tokens: t.Tensor, pad_id: int) -> t.Tensor:
+    """
+    choice_ix[q] = prev non-PAD idx if it exists, else the row's FIRST non-PAD idx.
+    If a row has no non-PAD at all, this returns 0 (harmless fallback).
+    """
+    if tokens.ndim == 1:
+        tokens = tokens.unsqueeze(0)
+    B, T = tokens.shape
+    device = tokens.device
+
+    prev = _prev_nonpad_indices(tokens, pad_id)                      # [B,T], -1 sentinel
+    is_nonpad = tokens.ne(pad_id)
+    has_any = is_nonpad.any(dim=1)                                   # [B]
+    first_nonpad_ix = t.where(
+        has_any, is_nonpad.float().argmax(dim=1), t.zeros(B, dtype=t.long, device=device)
+    )                                                                # [B]
+    first_broadcast = first_nonpad_ix.unsqueeze(1).expand(B, T)      # [B,T]
+    choice = t.where(prev.ge(0), prev, first_broadcast)              # [B,T]
+    return choice
+
+def _make_scores_hook(key_pad_mask: t.Tensor,
+                      q_is_pad: t.Tensor,
+                      choice_ix: t.Tensor):
+    """
+    Single hook on hook_attn_scores:
+    - mask PAD keys everywhere
+    - for PAD queries, keep exactly one finite score at a NON-PAD key (choice_ix)
+    """
+    def hook(scores, hook=None, **kwargs):
+        # scores: [B,H,Q,K]
+        B, H, Q, K = scores.shape
+        device = scores.device
+        neg_large = t.finfo(scores.dtype).min
+
+        # 1) mask PAD keys
+        s = scores.masked_fill(key_pad_mask.to(device), neg_large)
+
+        # 2) stabilize PAD query rows
+        q_pad = q_is_pad.to(device)                                  # [B,Q]
+        if q_pad.any():
+            row_mask = q_pad[:, None, :, None]                       # [B,1,Q,1]
+            s = s.clone()
+            s[row_mask.expand(-1, H, -1, K)] = neg_large
+
+            idx = choice_ix.to(device).clamp(0, K-1)                 # [B,Q], non-PAD by construction
+            idxH = idx[:, None, :].expand(B, H, Q).long()            # [B,H,Q]
+            s.scatter_(dim=3, index=idxH.unsqueeze(-1), value=0.0)   # one finite key
+        return s
     return hook
 
+# ---------- main entry ----------
 def run_ignoring_pad(model, tokens: t.Tensor, pad_token_id: int):
-    key_pad_mask = make_pad_keymask(tokens, pad_token_id)  # [B,1,1,T]
-    hook_fn = make_attn_mask_hook(key_pad_mask)
+    """
+    Makes interior PADs inert for next-token prediction:
+    - forward-fills PAD inputs per row,
+    - masks PAD keys in attention,
+    - stabilizes PAD query rows with a single non-PAD key kept finite.
+    """
+    if tokens.ndim == 1:
+        tokens = tokens.unsqueeze(0)
+
+    key_pad_mask = _key_pad_mask(tokens, pad_token_id)               # [B,1,1,T]
+    q_is_pad     = tokens.eq(pad_token_id)                            # [B,T]
+    choice_ix    = _choice_indices(tokens, pad_token_id)              # [B,T], NON-PAD
+
+    fed_tokens = _vectorized_forward_fill(tokens, pad_token_id)       # [B,T]
+
+    hook_fn = _make_scores_hook(key_pad_mask, q_is_pad, choice_ix)
     fwd_hooks = [(f"blocks.{l}.attn.hook_attn_scores", hook_fn)
                  for l in range(model.cfg.n_layers)]
-    # Apply hooks here, then run_with_cache
-    with model.hooks(fwd_hooks=fwd_hooks):
-        logits, cache = model.run_with_cache(tokens)
-    return logits, cache
 
+    with model.hooks(fwd_hooks=fwd_hooks):
+        logits, cache = model.run_with_cache(fed_tokens)
+    return logits, cache
 
 def get_adjusted_token_sequences(dataset, max_len) -> t.Tensor:
 
@@ -507,7 +605,7 @@ def get_adjusted_token_sequences(dataset, max_len) -> t.Tensor:
     begin_tokens = tokenizer("Since ", add_special_tokens=False)["input_ids"]
     first_transition_tokens = tokenizer(" and ", add_special_tokens=False)["input_ids"]
     second_transition_tokens = tokenizer(", therefore ", add_special_tokens=False)["input_ids"]
-    #end_tokens = tokenizer(" => ", add_special_tokens=False)["input_ids"]
+    end_tokens = tokenizer(" => ", add_special_tokens=False)["input_ids"]
 
     for prompt in dataset.prompts:
         tokenised_sentence = []
@@ -522,6 +620,7 @@ def get_adjusted_token_sequences(dataset, max_len) -> t.Tensor:
         tokenised_sentence += second_transition_tokens
         tokenised_sentence += tokenizer(prompt["a"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
         tokenised_sentence += tokenizer(prompt["v3"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
+        tokenised_sentence += end_tokens
 
 
         tokenised_sentences.append(tokenised_sentence)  # don't stack yet
@@ -588,41 +687,16 @@ def resize_all(tensor):
     temp = resize_tensor(temp, 4, 5)
     return temp
 
-def compute_logit_diff(logits: t.Tensor, answer_token_seqs: t.Tensor, array=False):
-    """
-    Computes normalized logit difference for multi-token answer sequences.
-
-    Args:
-        logits: Tensor of shape [batch, seq_len, vocab_size] — from model forward pass.
-        answer_token_seqs: Tensor of shape [batch, 2, label_len] — correct and incorrect label token IDs.
-        array: If True, return individual logit differences per sample; else, return the mean.
-
-    Returns:
-        Float (mean logit diff) or array of diffs, depending on `array`.
-    """
-    # Get relevant logits at the end of the sequence (i.e., the label tokens)
-    label_len = answer_token_seqs.size(-1)
-    logits_to_score = logits[:, -label_len:, :]  # [batch, label_len, vocab_size]
-    log_probs = F.log_softmax(logits_to_score, dim=-1)  # [batch, label_len, vocab_size]
-
-    # Extract correct and incorrect label token sequences
-    correct_labels = answer_token_seqs[:, 0, :]  # [batch, label_len]
-    incorrect_labels = answer_token_seqs[:, 1, :]  # [batch, label_len]
-
-    # Gather log-probs for the correct and incorrect tokens
-    correct_log_probs = log_probs.gather(2, correct_labels.unsqueeze(-1)).squeeze(-1)  # [batch, label_len]
-    incorrect_log_probs = log_probs.gather(2, incorrect_labels.unsqueeze(-1)).squeeze(-1)  # [batch, label_len]
-
-    # Normalize: take mean log-prob over the label length
-    correct_mean = correct_log_probs.mean(dim=1)  # [batch]
-    incorrect_mean = incorrect_log_probs.mean(dim=1)  # [batch]
-
-    logit_diff = correct_mean - incorrect_mean  # [batch]
+def compute_logit_diff(logits, answer_tokens, array=False):
+    last = logits[:, -1, :]
+    answer_logits = last.gather(dim=-1, index=answer_tokens)
+    correct_logits, incorrect_logits = answer_logits.unbind(dim=-1)
+    answer_logit_diff = correct_logits - incorrect_logits
 
     if array:
-        return logit_diff.cpu().numpy()
-
-    return logit_diff.mean()
+        return answer_logit_diff.cpu().numpy()
+        
+    return answer_logit_diff.mean()
 
 def get_batched_logit_diff(minibatch_size, tokens, answer_tokens, model):
     avg_logit_diff = 0
