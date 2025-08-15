@@ -176,13 +176,12 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         self, row: pd.Series, a: str, b: str, c: str, corruption: Optional[str] = None
     ) -> Dict:
         prompt = {}
-        premise_1 = f"{a} {row['Premise1_Verb']} {b}"
         if corruption:
-            premise_2 = f"{corruption} {row['Premise2_Verb']} {c}"
-            prompt["labels"] = (a, corruption)
+            premise_1 = f"{a} {row['Premise1_Verb']} {corruption}"
         else:
-            premise_2 = f"{b} {row['Premise2_Verb']} {c}"
-            prompt["labels"] = (a, b)
+            premise_1 = f"{a} {row['Premise1_Verb']} {b}"
+        premise_2 = f"{b} {row['Premise2_Verb']} {c}"
+        
         conclusion_set_up = f"{c} {row['Conclusion_Verb']}"
 
         prompt["input"] = f"{self.begin_str}{premise_1}{self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up}"
@@ -193,6 +192,7 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         prompt["v2"] = row["Premise2_Verb"]
         prompt["v3"] = row["Conclusion_Verb"]
         prompt["corruption"] = corruption
+        prompt["labels"] = (a, b)
         return prompt
     
     def corrupt_middle_term(self) -> List[Dict]:
@@ -241,15 +241,15 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
             # variable parts
             a_len   = self.tlen(prompt["a"] + " ")
             v1_len  = self.tlen(prompt["v1"] + " ")
-            b1_len  = self.tlen(prompt["b"] + " ")
+            b2_len  = self.tlen(prompt["b"] + " ")
             v2_len  = self.tlen(prompt["v2"] + " ")
             c_len  = self.tlen(prompt["c"] + " ")
 
 
             if prompt.get("corruption"):
-                b2_len = self.tlen(prompt["corruption"] + " ")
+                b1_len = self.tlen(prompt["corruption"] + " ")
             else:
-                b2_len = self.tlen(prompt["b"] + " ")
+                b1_len = self.tlen(prompt["b"] + " ")
 
 
             # END piece
@@ -307,15 +307,16 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
                     padding="max_length", max_length=max_len["∈"], truncation=True)["input_ids"]
 
             # b1 (premise b)
-            seq += self.tokenizer(prompt["b"], add_special_tokens=False,
+            b1_text = prompt["corruption"] if prompt.get("corruption") else prompt["b"]
+            seq += self.tokenizer(b1_text, add_special_tokens=False,
                     padding="max_length", max_length=max_len["b1"], truncation=True)["input_ids"]
 
             # ∧
             seq += AND
 
             # b2 (premise c)
-            b2_text = prompt["corruption"] if prompt.get("corruption") else prompt["b"]
-            seq += self.tokenizer(b2_text, add_special_tokens=False,
+            
+            seq += self.tokenizer(prompt["b"], add_special_tokens=False,
                     padding="max_length", max_length=max_len["b2"], truncation=True)["input_ids"]
 
             # -> (v2)
