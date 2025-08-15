@@ -326,93 +326,7 @@ def sufficiency_check(model, labels, tokens, answer_tokens, clean_logit_diff, ty
     return scores
 
 
-def get_label_token_lengths(dataset):
-    """
-    Compute the maximum token length for each symbolic label across the dataset,
-    accounting for variable tokenization of a, b, and c (and verbs).
 
-    Returns:
-        dict: { label: max_len }
-              Labels: ["BEGIN","s_1","s_1 -> m_1","m_1","m_1 -> m_2",
-                       "m_2","m_2 -> p","p","p -> s_2","s_2","END"]
-    """
-    tokenizer = dataset.tokenizer
-    labels = [
-        "BEGIN",
-        "s_1",
-        "s_1 -> m_1",
-        "m_1",
-        "m_1 -> m_2",
-        "m_2",
-        "m_2 -> p",
-        "p",
-        "p -> s_2",
-        "s_2",
-        "END"
-    ]
-
-    max_len = {lab: 0 for lab in labels}
-
-    # Regex to extract a, v1, b, v2, c, v3 based on your prompt builder
-    # Example prompt:
-    # "Since A VERB1 B and B VERB2 C, therefore A VERB3"
-
-    # Helper to get token length
-    def tlen(text): 
-        return len(tokenizer(text, add_special_tokens=False)["input_ids"])
-    
-    max_len["BEGIN"] = tlen("Since")
-    max_len["m_1 -> m_2"] = tlen(" and ")
-    max_len["p -> s_2"] = tlen(", therefore")
-    max_len["END"] = tlen(" => ")
-
-
-    prompt_lens = []
-
-    for prompt in dataset.prompts:
-
-        prompt_len = {lab: 0 for lab in labels}
-        prompt_len["BEGIN"] = tlen("Since ")
-        prompt_len["m_1 -> m_2"] = tlen(" and ")
-        prompt_len["p -> s_2"] = tlen(", therefore ")
-
-
-
-        # s_1: a
-        prompt_len["s_1"] = tlen(prompt["a"]+ " ")
-        max_len["s_1"] = max(max_len["s_1"],prompt_len["s_1"])
-
-        # s_1 -> m_1: v1
-        prompt_len["s_1 -> m_1"] =tlen(prompt["v1"]+ " ")
-        max_len["s_1 -> m_1"] = max(max_len["s_1 -> m_1"], prompt_len["s_1 -> m_1"])
-
-        # m_1: b
-        prompt_len["m_1"] =  tlen(prompt["b"])
-        max_len["m_1"] = max(max_len["m_1"], prompt_len["m_1"])
-
-        # m_2: b2
-        prompt_len["m_2"] =  tlen(prompt["b2"]+ " ")
-        max_len["m_2"] = max(max_len["m_2"], prompt_len["m_2"])
-
-        # m_2 -> p: ", therefore" (comma + space + word)
-        prompt_len["m_2 -> p"] = tlen(prompt["v2"]+ " ")
-        max_len["m_2 -> p"] = max(max_len["m_2 -> p"], prompt_len["m_2 -> p"])
-
-        # p: a
-        prompt_len["p"] = tlen(prompt["label"])
-        max_len["p"] = max(max_len["p"], prompt_len["p"])
-
-        
-
-        # s_2: c  (your earlier code maps s_2 to c again)
-        prompt_len["s_2"] = tlen(prompt["a"])
-        max_len["s_2"] = max(max_len["s_2"], prompt_len["s_2"])
-
-        # END: no EOS added with add_special_tokens=False; keep 0 or set to 1 if you want a column
-        prompt_len["END"] = tlen(" => ")
-        prompt_lens.append(prompt_len)
-
-    return prompt_lens, max_len
 
 def build_label_spans(max_len_by_label: Dict[str, int], labels: List[str]) -> Dict[str, Tuple[int, int]]:
     """
@@ -596,37 +510,7 @@ def run_ignoring_pad(model, tokens: t.Tensor, pad_token_id: int):
         logits, cache = model.run_with_cache(fed_tokens)
     return logits, cache
 
-def get_adjusted_token_sequences(dataset, max_len) -> t.Tensor:
 
-
-    tokenizer = dataset.tokenizer
-    tokenised_sentences = []
-
-    begin_tokens = tokenizer("Since ", add_special_tokens=False)["input_ids"]
-    first_transition_tokens = tokenizer(" and ", add_special_tokens=False)["input_ids"]
-    second_transition_tokens = tokenizer(", therefore ", add_special_tokens=False)["input_ids"]
-    end_tokens = tokenizer(" => ", add_special_tokens=False)["input_ids"]
-
-    for prompt in dataset.prompts:
-        tokenised_sentence = []
-        tokenised_sentence += begin_tokens
-        tokenised_sentence += tokenizer(prompt["a"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
-        tokenised_sentence += tokenizer(prompt["v1"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1 -> m_1"], truncation=True)["input_ids"]
-        tokenised_sentence += tokenizer(prompt["b"], add_special_tokens=False,padding="max_length",max_length=max_len["m_1"], truncation=True)["input_ids"]
-        tokenised_sentence += first_transition_tokens
-        tokenised_sentence += tokenizer(prompt["b2"], add_special_tokens=False,padding="max_length",max_length=max_len["m_2"], truncation=True)["input_ids"]
-        tokenised_sentence += tokenizer(prompt["v2"], add_special_tokens=False,padding="max_length",max_length=max_len["m_2 -> p"], truncation=True)["input_ids"]
-        tokenised_sentence += tokenizer(prompt["label"], add_special_tokens=False,padding="max_length",max_length=max_len["p"], truncation=True)["input_ids"]
-        tokenised_sentence += second_transition_tokens
-        tokenised_sentence += tokenizer(prompt["a"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
-        tokenised_sentence += tokenizer(prompt["v3"], add_special_tokens=False,padding="max_length",max_length=max_len["s_1"], truncation=True)["input_ids"]
-        tokenised_sentence += end_tokens
-
-
-        tokenised_sentences.append(tokenised_sentence)  # don't stack yet
-
-    tokens = t.tensor(tokenised_sentences, dtype=t.long)  # [B, T_fixed]
-    return tokens
 
 
 

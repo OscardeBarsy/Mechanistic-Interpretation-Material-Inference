@@ -1,101 +1,101 @@
 Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
-sparrow,is a member of,birds,birds,have,feathers,sparrow,have,feathers
-cow,belongs to,mammals,mammals,produce,milk,cow,produce,milk
-salmon,is classified as,fish,fish,breathe through,gills,salmon,breathe through,gills
-iguana,is,reptiles,reptiles,regulate,body temperature externally,iguana,regulate,body temperature externally
-salamander,is one of,amphibians,amphibians,undergo,metamorphosis,salamander,undergo,metamorphosis
-beetle,is a kind of,insects,insects,have,six legs,beetle,have,six legs
-tarantula,is an example of,arachnids,arachnids,possess,eight legs,tarantula,possess,eight legs
-oak tree,can be considered,trees,trees,perform,photosynthesis,oak tree,perform,photosynthesis
-daisy,falls under,plants,plants,require,sunlight for growth,daisy,require,sunlight for growth
-Earth,is part of,planets,planets,orbit,a star,Earth,orbit,a star
-Europa,is a member of,moons,moons,orbit,a planet,Europa,orbit,a planet
-Sun,belongs to,stars,stars,emit,light,Sun,emit,light
-Milky Way,is classified as,galaxies,galaxies,contain,billions of stars,Milky Way,contain,billions of stars
-France,is,countries,countries,have,governments,France,have,governments
-Amazon River,is one of,rivers,rivers,flow into,oceans,Amazon River,flow into,oceans
-Mount Everest,is a kind of,mountains,mountains,reach,high elevations,Mount Everest,reach,high elevations
-apple,is an example of,fruits,fruits,contain,seeds,apple,contain,seeds
-carrot,can be considered,vegetables,vegetables,provide,nutrients,carrot,provide,nutrients
-laptop,falls under,computers,computers,process,information,laptop,process,information
-diesel engine,is part of,engines,engines,convert,fuel into motion,diesel engine,convert,fuel into motion
-sedan,is a member of,cars,cars,use,engines,sedan,use,engines
-lithium-ion battery,belongs to,batteries,batteries,store,energy,lithium-ion battery,store,energy
-Mount Etna,is classified as,volcanoes,volcanoes,erupt,lava,Mount Etna,erupt,lava
-cumulonimbus cloud,is,clouds,clouds,contain,water droplets,cumulonimbus cloud,contain,water droplets
-Sahara Desert,is one of,deserts,deserts,receive,little rainfall,Sahara Desert,receive,little rainfall
-Amazon Rainforest,is a kind of,forests,forests,house,diverse wildlife,Amazon Rainforest,house,diverse wildlife
-New York Public Library,is an example of,libraries,libraries,offer,books,New York Public Library,offer,books
-Harvard University,can be considered,universities,universities,provide,education,Harvard University,provide,education
-Socrates,falls under,philosophers,philosophers,ponder,existential questions,Socrates,ponder,existential questions
-Leonardo da Vinci,is part of,painters,painters,create,artworks,Leonardo da Vinci,create,artworks
-Adele,is a member of,singers,singers,perform,songs,Adele,perform,songs
-Usain Bolt,belongs to,athletes,athletes,compete in,sports,Usain Bolt,compete in,sports
-Gordon Ramsay,is classified as,chefs,chefs,prepare,meals,Gordon Ramsay,prepare,meals
-French baker,is,bakers,bakers,bake,bread,French baker,bake,bread
-Marie Curie,is one of,scientists,scientists,conduct,experiments,Marie Curie,conduct,experiments
-Neil Armstrong,is a kind of,astronauts,astronauts,travel to,space,Neil Armstrong,travel to,space
-Dr. Smith,is an example of,doctors,doctors,treat,patients,Dr. Smith,treat,patients
-Nurse Jones,can be considered,nurses,nurses,care for,patients,Nurse Jones,care for,patients
-Mr. Johnson,falls under,teachers,teachers,teach,students,Mr. Johnson,teach,students
-J.K. Rowling,is part of,writers,writers,write,books,J.K. Rowling,write,books
-Meryl Streep,is a member of,actors,actors,act in,films,Meryl Streep,act in,films
-Misty Copeland,belongs to,dancers,dancers,perform,routines,Misty Copeland,perform,routines
-Ansel Adams,is classified as,photographers,photographers,capture,images,Ansel Adams,capture,images
-bridge engineer,is,engineers,engineers,design,structures,bridge engineer,design,structures
-Frank Lloyd Wright,is one of,architects,architects,design,buildings,Frank Lloyd Wright,design,buildings
-local farmer,is a kind of,farmers,farmers,grow,crops,local farmer,grow,crops
-coal miner,is an example of,miners,miners,extract,minerals,coal miner,extract,minerals
-Escherichia coli,can be considered,bacteria,bacteria,multiply by,binary fission,Escherichia coli,multiply by,binary fission
-influenza virus,falls under,viruses,viruses,infect,cells,influenza virus,infect,cells
-shiitake mushroom,is part of,fungi,fungi,decompose,organic matter,shiitake mushroom,decompose,organic matter
-rooftop solar panel,is a member of,solar panels,solar panels,convert,sunlight into electricity,rooftop solar panel,convert,sunlight into electricity
-offshore wind turbine,belongs to,wind turbines,wind turbines,generate,electricity,offshore wind turbine,generate,electricity
-Hoover Dam,is classified as,hydroelectric dams,hydroelectric dams,produce,power,Hoover Dam,produce,power
-Beethoven,is,musicians,musicians,compose,music,Beethoven,compose,music
-Python developer,is one of,programmers,programmers,write,code,Python developer,write,code
-photon,is a kind of,photons,photons,travel at,the speed of light,photon,travel at,the speed of light
-valence electron,is an example of,electrons,electrons,carry,negative charge,valence electron,carry,negative charge
-hydrogen proton,can be considered,protons,protons,possess,positive charge,hydrogen proton,possess,positive charge
-cortical neuron,falls under,neurons,neurons,transmit,nerve impulses,cortical neuron,transmit,nerve impulses
-bicep muscle,is part of,muscles,muscles,contract,to produce movement,bicep muscle,contract,to produce movement
-femur bone,is a member of,bones,bones,support,the body,femur bone,support,the body
-human heart,belongs to,organs,organs,perform,functions,human heart,perform,functions
-plant cell,is classified as,cells,cells,contain,DNA,plant cell,contain,DNA
-muscle tissue,is,tissues,tissues,form,organs,muscle tissue,form,organs
-Pacific Ocean,is one of,oceans,oceans,cover,most of Earth's surface,Pacific Ocean,cover,most of Earth's surface
-Lake Baikal,is a kind of,lakes,lakes,hold,freshwater,Lake Baikal,hold,freshwater
-Greenland Ice Sheet,is an example of,glaciers,glaciers,store,freshwater,Greenland Ice Sheet,store,freshwater
-Route 66,can be considered,roads,roads,connect,cities,Route 66,connect,cities
-Golden Gate Bridge,falls under,bridges,bridges,span,obstacles,Golden Gate Bridge,span,obstacles
-Boeing 747,is part of,airplanes,airplanes,fly through,the sky,Boeing 747,fly through,the sky
-bullet train,is a member of,trains,trains,travel on,tracks,bullet train,travel on,tracks
-double-decker bus,belongs to,buses,buses,transport,passengers,double-decker bus,transport,passengers
-smartphone,is classified as,phones,phones,allow,communication,smartphone,allow,communication
-DSLR camera,is,cameras,cameras,record,images,DSLR camera,record,images
-electron microscope,is one of,microscopes,microscopes,magnify,tiny objects,electron microscope,magnify,tiny objects
-Hubble Telescope,is a kind of,telescopes,telescopes,observe,distant objects,Hubble Telescope,observe,distant objects
-chef's knife,is an example of,knives,knives,cut,materials,chef's knife,cut,materials
-claw hammer,can be considered,hammers,hammers,drive,nails,claw hammer,drive,nails
-circular saw,falls under,saws,saws,cut,wood,circular saw,cut,wood
-metric ruler,is part of,rulers,rulers,measure,length,metric ruler,measure,length
-mercury thermometer,is a member of,thermometers,thermometers,measure,temperature,mercury thermometer,measure,temperature
-aneroid barometer,belongs to,barometers,barometers,measure,air pressure,aneroid barometer,measure,air pressure
-analog clock,is classified as,clocks,clocks,measure,time,analog clock,measure,time
-wall calendar,is,calendars,calendars,track,dates,wall calendar,track,dates
-world map,is one of,maps,maps,show,locations,world map,show,locations
-magnetic compass,is a kind of,compasses,compasses,indicate,direction,magnetic compass,indicate,direction
-car GPS unit,is an example of,GPS devices,GPS devices,provide,navigation,car GPS unit,provide,navigation
-Oxford English Dictionary,can be considered,dictionaries,dictionaries,define,words,Oxford English Dictionary,define,words
-Britannica Encyclopedia,falls under,encyclopedias,encyclopedias,contain,information,Britannica Encyclopedia,contain,information
-National Geographic magazine,is part of,magazines,magazines,feature,articles,National Geographic magazine,feature,articles
-The New York Times,is a member of,newspapers,newspapers,report,news,The New York Times,report,news
-technology podcast,belongs to,podcasts,podcasts,deliver,audio content,technology podcast,deliver,audio content
-adventure video game,is classified as,video games,video games,offer,interactive entertainment,adventure video game,offer,interactive entertainment
-animated movie,is,movies,movies,tell,stories,animated movie,tell,stories
-Impressionist painting,is one of,paintings,paintings,depict,scenes,Impressionist painting,depict,scenes
-marble sculpture,is a kind of,sculptures,sculptures,represent,figures,marble sculpture,represent,figures
-haiku poem,is an example of,poems,poems,express,emotions,haiku poem,express,emotions
-pop song,can be considered,songs,songs,convey,melodies,pop song,convey,melodies
-Statue of Liberty,falls under,statues,statues,commemorate,figures,Statue of Liberty,commemorate,figures
-Mardi Gras festival,is part of,festivals,festivals,celebrate,events,Mardi Gras festival,celebrate,events
+predators,hunt,prey,lions,are,predators,prey,is hunted by,lions
+herbivores,graze,grasses,zebras,are,herbivores,grasses,are grazed by,zebras
+ruminants,digest,cellulose,cattle,are,ruminants,cellulose,is digested by,cattle
+spiders,spin,silk,tarantulas,are,spiders,silk,is spun by,tarantulas
+bees,produce,honey,bumblebees,are,bees,honey,is produced by,bumblebees
+birds,build,nests,swallows,are,birds,nests,are built by,swallows
+pollinators,carry,pollen,honeybees,are,pollinators,pollen,is carried by,honeybees
+snakes,swallow,mice,pythons,are,snakes,mice,are swallowed by,pythons
+cats,drink,milk,kittens,are,cats,milk,is drunk by,kittens
+ducks,eat,algae,mallards,are,ducks,algae,are eaten by,mallards
+raptors,target,prey,kestrels,are,raptors,prey,is targeted by,kestrels
+spiders,trap,insects,orbweavers,are,spiders,insects,are trapped by,orbweavers
+frogs,catch,flies,treefrogs,are,frogs,flies,are caught by,treefrogs
+anteaters,consume,ants,giantanteaters,are,anteaters,ants,are consumed by,giantanteaters
+woodpeckers,drill,holes,greenwoodpeckers,are,woodpeckers,holes,are drilled by,greenwoodpeckers
+bees,pollinate,flowers,apis,are,bees,flowers,are pollinated by,apis
+bats,devour,insects,pipistrelles,are,bats,insects,are devoured by,pipistrelles
+vultures,scavenge,carrion,griffons,are,vultures,carrion,is scavenged by,griffons
+sharks,stalk,seals,whitesharks,are,sharks,seals,are stalked by,whitesharks
+herbivores,browse,leaves,giraffes,are,herbivores,leaves,are browsed by,giraffes
+doctors,treat,patients,surgeons,are,doctors,patients,are treated by,surgeons
+nurses,administer,medications,midwives,are,nurses,medications,are administered by,midwives
+teachers,assign,homework,tutors,are,teachers,homework,is assigned by,tutors
+chefs,cook,meals,pastrychefs,are,chefs,meals,are cooked by,pastrychefs
+carpenters,build,furniture,cabinetmakers,are,carpenters,furniture,is built by,cabinetmakers
+engineers,design,bridges,civilengineers,are,engineers,bridges,are designed by,civilengineers
+programmers,write,software,developers,are,programmers,software,is written by,developers
+authors,compose,novels,novelists,are,authors,novels,are composed by,novelists
+artists,paint,portraits,portraitists,are,artists,portraits,are painted by,portraitists
+composers,compose,symphonies,beethoven,is,composer,symphonies,are composed by,beethoven
+poets,compose,verses,shakespeare,is,poet,verses,are composed by,shakespeare
+journalists,report,news,correspondents,are,journalists,news,is reported by,correspondents
+photographers,shoot,images,photojournalists,are,photographers,images,are shot by,photojournalists
+pilots,fly,aircraft,captains,are,pilots,aircraft,is flown by,captains
+drivers,operate,vehicles,chauffeurs,are,drivers,vehicles,are operated by,chauffeurs
+bakers,bake,bread,patissiers,are,bakers,bread,is baked by,patissiers
+butchers,cut,meat,meatcutters,are,butchers,meat,is cut by,meatcutters
+tailors,sew,clothes,seamsters,are,tailors,clothes,are sewn by,seamsters
+masons,lay,bricks,bricklayers,are,masons,bricks,are laid by,bricklayers
+plants,perform,photosynthesis,oaktrees,are,plants,photosynthesis,is performed by,oaktrees
+plants,absorb,water,sunflowers,are,plants,water,is absorbed by,sunflowers
+bacteria,fix,nitrogen,rhizobia,are,bacteria,nitrogen,is fixed by,rhizobia
+fungi,decompose,wood,mushrooms,are,fungi,wood,is decomposed by,mushrooms
+yeast,ferment,sugars,saccharomyces,are,yeast,sugars,are fermented by,saccharomyces
+magnets,attract,iron,lodestones,are,magnets,iron,is attracted by,lodestones
+solvents,dissolve,solutes,ethanol,is,solvent,solutes,are dissolved by,ethanol
+bases,neutralize,acids,ammonia,is,base,acids,are neutralized by,ammonia
+enzymes,catalyze,reactions,lipase,is,enzyme,reactions,are catalyzed by,lipase
+antibodies,bind,antigens,immunoglobulins,are,antibodies,antigens,are bound by,immunoglobulins
+telescopes,collect,light,refractors,are,telescopes,light,is collected by,refractors
+lenses,magnify,images,handlenses,are,lenses,images,are magnified by,handlenses
+cameras,capture,photos,mirrorless,are,cameras,photos,are captured by,mirrorless
+satellites,observe,earth,landsats,are,satellites,earth,is observed by,landsats
+computers,process,data,supercomputers,are,computers,data,is processed by,supercomputers
+printers,print,documents,inkjets,are,printers,documents,are printed by,inkjets
+routers,route,packets,edgerouters,are,routers,packets,are routed by,edgerouters
+compilers,translate,code,clang,is,compiler,code,is translated by,clang
+cryptographers,encrypt,messages,shannon,is,cryptographer,messages,are encrypted by,shannon
+archaeologists,excavate,sites,egyptologists,are,archaeologists,sites,are excavated by,egyptologists
+geologists,study,rocks,petrologists,are,geologists,rocks,are studied by,petrologists
+astronomers,observe,stars,hubble,is,astronomer,stars,are observed by,hubble
+physicists,formulate,models,einstein,is,physicist,models,are formulated by,einstein
+chemists,analyze,samples,lavoisier,is,chemist,samples,are analyzed by,lavoisier
+biologists,classify,species,linnaeus,is,biologist,species,are classified by,linnaeus
+doctors,prescribe,medicines,physicians,are,doctors,medicines,are prescribed by,physicians
+judges,interpret,law,justices,are,judges,law,is interpreted by,justices
+lawyers,argue,cases,barristers,are,lawyers,cases,are argued by,barristers
+programmers,debug,errors,hackers,are,programmers,errors,are debugged by,hackers
+economists,model,markets,keynes,is,economist,markets,are modeled by,keynes
+historians,document,events,herodotus,is,historian,events,are documented by,herodotus
+linguists,analyze,grammar,chomsky,is,linguist,grammar,is analyzed by,chomsky
+musicians,perform,concerts,violinists,are,musicians,concerts,are performed by,violinists
+actors,perform,roles,thespians,are,actors,roles,are performed by,thespians
+painters,create,landscapes,impressionists,are,painters,landscapes,are created by,impressionists
+sculptors,carve,statues,rodin,is,sculptor,statues,are carved by,rodin
+poets,recite,poems,rhapsodes,are,poets,poems,are recited by,rhapsodes
+singers,record,albums,tenors,are,singers,albums,are recorded by,tenors
+dancers,perform,ballets,ballerinas,are,dancers,ballets,are performed by,ballerinas
+trains,transport,passengers,intercitytrains,are,trains,passengers,are transported by,intercitytrains
+ships,carry,cargo,containerships,are,ships,cargo,is carried by,containerships
+trucks,deliver,goods,semis,are,trucks,goods,are delivered by,semis
+airplanes,transport,freight,airlifters,are,airplanes,freight,is transported by,airlifters
+buses,serve,routes,coaches,are,buses,routes,are served by,coaches
+couriers,deliver,parcels,postmen,are,couriers,parcels,are delivered by,postmen
+merchants,sell,goods,shopkeepers,are,merchants,goods,are sold by,shopkeepers
+buyers,purchase,products,customers,are,buyers,products,are purchased by,customers
+servers,host,websites,nginx,is,server,websites,are hosted by,nginx
+databases,store,records,postgresql,is,database,records,are stored by,postgresql
+kernels,manage,resources,linux,is,kernel,resources,are managed by,linux
+algorithms,sort,lists,quicksort,is,algorithm,lists,are sorted by,quicksort
+models,predict,outputs,transformers,are,models,outputs,are predicted by,transformers
+sensors,detect,motion,accelerometers,are,sensors,motion,is detected by,accelerometers
+radars,track,aircraft,airborneradars,are,radars,aircraft,is tracked by,airborneradars
+telescopes,resolve,galaxies,reflectors,are,telescopes,galaxies,are resolved by,reflectors
+cameras,record,videos,actioncams,are,cameras,videos,are recorded by,actioncams
+microphones,capture,sound,condensermics,are,microphones,sound,is captured by,condensermics
+speakers,emit,audio,woofers,are,speakers,audio,is emitted by,woofers
+owls,hunt,rodents,barnowls,are,owls,rodents,are hunted by,barnowls
+succulents,store,moisture,aloe,is,succulent,moisture,is stored by,aloe
+antivirals,inhibit,viruses,oseltamivir,is,antiviral,viruses,are inhibited by,oseltamivir
