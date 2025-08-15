@@ -96,7 +96,7 @@ class BaseAMRBuilder:
         premise_2 = f"{b2} {row['Premise2_Verb']} {c}"
         conclusion_set_up = f"{a} {row['Conclusion_Verb']}"
 
-        prompt["input"] = f"Since {premise_1} and {premise_2}, therefore {conclusion_set_up}"
+        prompt["input"] = f"Since {premise_1} and {premise_2}, we can deduce that {conclusion_set_up}"
         prompt["a"] = a
         prompt["b"] = b
         prompt["b2"] = b2
@@ -291,7 +291,7 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         # Fixed token sequences
         begin_tokens     = self.tokenizer("Since ", add_special_tokens=False)["input_ids"]
         and_tokens       = self.tokenizer(" and ", add_special_tokens=False)["input_ids"]
-        therefore_tokens = self.tokenizer(", therefore ", add_special_tokens=False)["input_ids"]
+        deduction_tokens = self.tokenizer(", we can deduce that ", add_special_tokens=False)["input_ids"]
 
         for prompt in prompts:
             tokens = []
@@ -331,7 +331,7 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
                                 padding="max_length", max_length=max_len["a_2"], truncation=True)["input_ids"]
 
             # a_2 -> b
-            tokens += therefore_tokens
+            tokens += deduction_tokens
 
             # b (conclusion)
             tokens += self.tokenizer(prompt["b"], add_special_tokens=False,
