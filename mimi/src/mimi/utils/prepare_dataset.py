@@ -65,6 +65,9 @@ class BaseAMRBuilder:
         self.A_col = df["Premise1_Subject"]
         self.B_col = df["Premise2_Subject"]   # middle term in classic ARG_SUB datasets
         self.C_col = df["Premise2_Object"]
+        self.begin_str = "Since "
+        self.and_str = " and "
+        self.deduction_str = ", therefore "
 
     # ---------- core generation ----------
 
@@ -96,7 +99,7 @@ class BaseAMRBuilder:
         premise_2 = f"{b2} {row['Premise2_Verb']} {c}"
         conclusion_set_up = f"{a} {row['Conclusion_Verb']}"
 
-        prompt["input"] = f"Since {premise_1} and {premise_2}, we can deduce that {conclusion_set_up}"
+        prompt["input"] = f"{self.begin_str}{premise_1}{self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up}"
         prompt["a"] = a
         prompt["b"] = b
         prompt["b2"] = b2
@@ -144,16 +147,16 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         self.C_col = df["Premise2_Object"]
         self.labels = [
             "BEGIN",
-            "a_1",
-            "a_1 => b",
-            "b",
-            "b -> c",
+            "a",
+            "∈",
+            "b1",
+            "∧",
+            "b2",
+            "->",
             "c",
-            "c ∈ a_2",
-            "a_2",
-            "a_2 -> b",
-            "b",
-            "END"
+            "=>",
+            "c",
+            "<-"
         ]
 
 
@@ -165,8 +168,8 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         C = Premise2_Object
         """
         a = row["Premise1_Subject"]
-        b = row["Premise1_Object"]       # middle term
-        c = row["Premise2_Subject"]       # NOTE: fixed bug where 'c' got overwritten
+        b = row["Premise2_Subject"]       # middle term
+        c = row["Premise2_Object"]       # NOTE: fixed bug where 'c' got overwritten
         return self.get_prompt_label_pair_from_row_and_abc(row, a, b, c, corruption=corruption)
     
     def get_prompt_label_pair_from_row_and_abc(
@@ -175,12 +178,14 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         prompt = {}
         premise_1 = f"{a} {row['Premise1_Verb']} {b}"
         if corruption:
-            premise_2 = f"{c} {row['Premise2_Verb']} {corruption}"
+            premise_2 = f"{corruption} {row['Premise2_Verb']} {c}"
+            prompt["labels"] = (a, corruption)
         else:
-            premise_2 = f"{c} {row['Premise2_Verb']} {a}"
-        conclusion_set_up = f"{b} {row['Conclusion_Verb']}"
+            premise_2 = f"{b} {row['Premise2_Verb']} {c}"
+            prompt["labels"] = (a, b)
+        conclusion_set_up = f"{c} {row['Conclusion_Verb']}"
 
-        prompt["input"] = f"Since {premise_1} and {premise_2}, therefore {conclusion_set_up}"
+        prompt["input"] = f"{self.begin_str}{premise_1}{self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up}"
         prompt["a"] = a
         prompt["b"] = b
         prompt["c"] = c
@@ -188,7 +193,6 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         prompt["v2"] = row["Premise2_Verb"]
         prompt["v3"] = row["Conclusion_Verb"]
         prompt["corruption"] = corruption
-        prompt["labels"] = (c, a)
         return prompt
     
     def corrupt_middle_term(self) -> List[Dict]:
@@ -197,7 +201,7 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         """
         prompts = []
         for _, row in self.samples.iterrows():
-            corruption = get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
+            corruption = get_filtered_sample(self.B_col, [row["Premise2_Subject"]])
             prompts.append(self.get_prompt_label_pair_from_row(row, corruption=corruption))
         return prompts
 
@@ -208,8 +212,8 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         prompts = []
         for _, row in self.samples.iterrows():
             a = get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
-            b = get_filtered_sample(self.B_col, [row["Premise1_Object"]])
-            c = get_filtered_sample(self.C_col, [row["Premise2_Subject"]])
+            b = get_filtered_sample(self.B_col, [row["Premise2_Subject"]])
+            c = get_filtered_sample(self.C_col, [row["Premise2_Object"]])
             prompts.append(self.get_prompt_label_pair_from_row_and_abc(row, a, b, c))
         return prompts
 
@@ -217,133 +221,126 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         return len(self.tokenizer(text, add_special_tokens=False)["input_ids"])
 
     def get_label_token_lengths(self, prompts):
-        """
-        Compute the maximum token length for each symbolic label across the dataset,
-        accounting for variable tokenization of a, b, and c (and verbs).
-        Uses the new label set in self.labels.
-        """
+        # init
         max_len = {lab: 0 for lab in self.labels}
 
-
-        # Fixed tokens for connectors / operators
-        max_len["BEGIN"]      = self.tlen("Since ")
-        max_len["b -> c"]     = self.tlen(" and ")
-        max_len["a_2 -> b"]   = self.tlen(", therefore ")
+        # fixed operators (unchanged text)
+        max_len["BEGIN"] = self.tlen(self.begin_str)
+        max_len["∧"]     = self.tlen(self.and_str)
+        max_len["=>"]    = self.tlen(self.deduction_str)
 
         prompt_lens = []
-
         for prompt in prompts:
-            prompt_len = {lab: 0 for lab in self.labels}
+            pl = {lab: 0 for lab in self.labels}
 
-            # BEGIN
-            prompt_len["BEGIN"] = self.tlen("Since ")
+            # fixed parts (constant per prompt)
+            pl["BEGIN"] = max_len["BEGIN"]
+            pl["∧"]     = max_len["∧"]
+            pl["=>"]    = max_len["=>"]
 
-            # a_1
-            prompt_len["a_1"] = self.tlen(prompt["a"] + " ")
-            max_len["a_1"] = max(max_len["a_1"], prompt_len["a_1"])
+            # variable parts
+            a_len   = self.tlen(prompt["a"] + " ")
+            v1_len  = self.tlen(prompt["v1"] + " ")
+            b1_len  = self.tlen(prompt["b"] + " ")
+            v2_len  = self.tlen(prompt["v2"] + " ")
+            c_len  = self.tlen(prompt["c"] + " ")
 
-            # a_1 => b
-            prompt_len["a_1 => b"] = self.tlen(prompt["v1"] + " ")
-            max_len["a_1 => b"] = max(max_len["a_1 => b"], prompt_len["a_1 => b"])
 
-            # b
-            prompt_len["b"] = self.tlen(prompt["b"] + " ")
-            max_len["b"] = max(max_len["b"], prompt_len["b"])
-
-            # b -> c
-            prompt_len["b -> c"] = self.tlen(" and ")
-
-            # c
-            prompt_len["c"] = self.tlen(prompt["c"] + " ")
-            max_len["c"] = max(max_len["c"], prompt_len["c"])
-
-            # c ∈ a_2
-            prompt_len["c ∈ a_2"] = self.tlen(prompt["v2"] + " ")
-            max_len["c ∈ a_2"] = max(max_len["c ∈ a_2"], prompt_len["c ∈ a_2"])
-
-            # a_2
-            if prompt["corruption"]:
-                prompt_len["a_2"] = self.tlen(prompt["corruption"] + " ")
+            if prompt.get("corruption"):
+                b2_len = self.tlen(prompt["corruption"] + " ")
             else:
-                prompt_len["a_2"] = self.tlen(prompt["a"] + " ")
+                b2_len = self.tlen(prompt["b"] + " ")
 
-            max_len["a_2"] = max(max_len["a_2"], prompt_len["a_2"])
 
-            # a_2 -> b
-            prompt_len["a_2 -> b"] = self.tlen(", therefore ")
+            # END piece
+            v3_len = self.tlen(prompt["v3"])
 
-            # second b (conclusion b)
-            prompt_len["b"] = max(prompt_len["b"], self.tlen(prompt["b"]))
-            max_len["b"] = max(max_len["b"], prompt_len["b"])
+            # fill per-prompt
+            pl["a"]  = a_len
+            pl["∈"]  = v1_len
+            pl["b1"] = b1_len
+            pl["b2"] = b2_len
+            pl["->"] = v2_len
+            # store the larger since label "c" is reused
+            pl["c"]  = c_len
+            pl["<-"] = v3_len
 
-            # END
-            prompt_len["END"] = self.tlen(prompt["v3"])
-            max_len["END"] = max(max_len["END"], prompt_len["END"])
+            # update global maxima
+            max_len["a"]  = max(max_len["a"],  a_len)
+            max_len["∈"]  = max(max_len["∈"],  v1_len)
+            max_len["b1"] = max(max_len["b1"], b1_len)
+            max_len["b2"] = max(max_len["b2"], b2_len)
+            max_len["->"] = max(max_len["->"], v2_len)
+            max_len["c"]  = max(max_len["c"],  c_len)
+            max_len["<-"] = max(max_len["<-"], v3_len)
 
-            prompt_lens.append(prompt_len)
+            prompt_lens.append(pl)
 
         return prompt_lens, max_len
 
+
     
     def get_adjusted_token_sequences(self, max_len, prompts) -> t.Tensor:
-        tokenised_sentences = []
+        """
+        Same assembly as before; only label names changed.
+        Sequence (labels shown; text unchanged):
+        BEGIN  a  ∈  b1  ∧  b2  ->  c(first=a_2)  =>  c(second=conclusion b)  <-
+        """
+        tokenised = []
 
-        # Fixed token sequences
-        begin_tokens     = self.tokenizer("Since ", add_special_tokens=False)["input_ids"]
-        and_tokens       = self.tokenizer(" and ", add_special_tokens=False)["input_ids"]
-        deduction_tokens = self.tokenizer(", we can deduce that ", add_special_tokens=False)["input_ids"]
+        BEGIN = self.tokenizer(self.begin_str,               add_special_tokens=False)["input_ids"]
+        AND   = self.tokenizer(self.and_str,                add_special_tokens=False)["input_ids"]
+        DED   = self.tokenizer(self.deduction_str,add_special_tokens=False)["input_ids"]
 
         for prompt in prompts:
-            tokens = []
+            seq = []
 
             # BEGIN
-            tokens += begin_tokens
+            seq += BEGIN
 
-            # a_1
-            tokens += self.tokenizer(prompt["a"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["a_1"], truncation=True)["input_ids"]
+            # a
+            seq += self.tokenizer(prompt["a"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["a"], truncation=True)["input_ids"]
 
-            # a_1 => b
-            tokens += self.tokenizer(prompt["v1"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["a_1 => b"], truncation=True)["input_ids"]
+            # ∈ (v1)
+            seq += self.tokenizer(prompt["v1"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["∈"], truncation=True)["input_ids"]
 
-            # b
-            tokens += self.tokenizer(prompt["b"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["b"], truncation=True)["input_ids"]
+            # b1 (premise b)
+            seq += self.tokenizer(prompt["b"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["b1"], truncation=True)["input_ids"]
 
-            # b -> c
-            tokens += and_tokens
+            # ∧
+            seq += AND
 
-            # c
-            tokens += self.tokenizer(prompt["c"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["c"], truncation=True)["input_ids"]
+            # b2 (premise c)
+            b2_text = prompt["corruption"] if prompt.get("corruption") else prompt["b"]
+            seq += self.tokenizer(b2_text, add_special_tokens=False,
+                    padding="max_length", max_length=max_len["b2"], truncation=True)["input_ids"]
 
-            # c ∈ a_2
-            tokens += self.tokenizer(prompt["v2"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["c ∈ a_2"], truncation=True)["input_ids"]
+            # -> (v2)
+            seq += self.tokenizer(prompt["v2"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["->"], truncation=True)["input_ids"]
 
-            # a_2
-            if prompt["corruption"]:
-                tokens += self.tokenizer(prompt["corruption"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["a_2"], truncation=True)["input_ids"]
-            else:
-                tokens += self.tokenizer(prompt["a"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["a_2"], truncation=True)["input_ids"]
+            # c (
+            seq += self.tokenizer(prompt["c"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["c"], truncation=True)["input_ids"]
 
-            # a_2 -> b
-            tokens += deduction_tokens
+            # =>
+            seq += DED
 
-            # b (conclusion)
-            tokens += self.tokenizer(prompt["b"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["b"], truncation=True)["input_ids"]
+            # c (second occurrence = conclusion b)
+            seq += self.tokenizer(prompt["c"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["c"], truncation=True)["input_ids"]
 
-            # END
-            tokens += self.tokenizer(prompt["v3"], add_special_tokens=False,
-                                padding="max_length", max_length=max_len["END"], truncation=True)["input_ids"]
+            # <- (END = v3)
+            seq += self.tokenizer(prompt["v3"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["<-"], truncation=True)["input_ids"]
 
-            tokenised_sentences.append(tokens)
+            tokenised.append(seq)
 
-        return t.tensor(tokenised_sentences, dtype=t.long)
+        return t.tensor(tokenised, dtype=t.long)
+
 
 
 
@@ -365,7 +362,7 @@ class ConditionalFrameInsertionSubstitutionAMRBuilder(BaseAMRBuilder):
     """
     Conditional frame insertion/substitution.
     For a different surface form, you could override like:
-      return f"If {premise_1} and {premise_2}, then {conclusion_set_up}"
+      return f"If {premise_1}{{premise_2}, then {conclusion_set_up}"
     """
     # Example of a custom phrasing (commented out; enable if you want):
     # def get_prompt_label_pair_from_row_and_abc(self, row, a, b, c, b2=None):
