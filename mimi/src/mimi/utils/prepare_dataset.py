@@ -534,7 +534,7 @@ class FrameSubAMRBuilder(BaseAMRBuilder):
         self.begin_str = "because"
         self.and_str = "and because"
         self.deduction_str = "thus"
-        self.end_str = "=>"
+        self.end_str = "causes"
 
         self.labels = [
             "BEGIN",

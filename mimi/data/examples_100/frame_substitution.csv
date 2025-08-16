@@ -30,7 +30,7 @@ snowflake growth,presupposes,ice crystals,ice crystals,is extracted from,cold cl
 orchid pollination,necessitates,specific pollinators,specific pollinators,is observed in,rainforests,rainforests,triggers,orchid pollination
 tea oxidation,is contingent on,enzymes,enzymes,is measured by,tea leaves,tea leaves,cultivates,tea oxidation
 ceramic firing,draws on,high heat,high heat,is detected in,kilns,kilns,supports,ceramic firing
-cheese aging,utilizes,bacteria,bacteria,is recorded by,cellars,cellars,enables,cheese aging
+cheese aging,utilizes,bacteria,bacteria,is present in,cellars,cellars,enables,cheese aging
 landscape photography,employs,good lighting,good lighting,is gathered by,golden hour,golden hour,facilitates,landscape photography
 cellulose digestion,is dependent on,various enzymes,various enzymes,are maintained by,rumen,rumen,permits,cellulose digestion
 chlorophyll production,is fueled by,magnesium,magnesium,is hosted by,plant leaves,plant leaves,allows,chlorophyll production
@@ -46,7 +46,7 @@ smoking,triggers,inflammation,inflammation,results in,artery damage,artery damag
 stroke risks, are induced by,high blood pressure,high blood pressure,culminates in,arterial strain,arterial strain,magnifies,stroke risks
 excess fertilizer,provokes,algal blooms,algal blooms,brings about,dead zones,dead zones,amplifies,excess fertilizer
 deforestation,spurs,soil erosion,soil erosion,gives rise to,river siltation,river siltation,underlies,deforestation
-overfishing,ignites,population decline,population decline,contributes to,ecosystem imbalance,ecosystem imbalance,accelerates,overfishing
+ecosystem imbalance,is caused by,population decline,population decline,comes from,overfishing,overfishing,accelerates,ecosystem imbalance
 sedentary lifestyle,instigates,weight gain,weight gain,paves the way for,insulin resistance,insulin resistance,increases,sedentary lifestyle
 volcanic eruption,elicits,aerosols,aerosols,sets the stage for,temperature drop,temperature drop,raises,volcanic eruption
 urbanization,precipitates,impervious surfaces,impervious surfaces,ushers in,flooding,flooding,elevates,urbanization
@@ -57,13 +57,13 @@ noise pollution,gives rise to,stress,stress,feeds into,sleep disruption,sleep di
 plastic waste,ushers in,microplastics,microplastics,propels,marine ingestion,marine ingestion,fuels,plastic waste
 acid rain,sets off,soil acidification,soil acidification,pushes toward,forest damage,forest damage,spawns,acid rain
 methane leaks,sparks,greenhouse effect,greenhouse effect,tips into,climate change,climate change,promotes,methane leaks
-rainfall deficit,stirs up,drought,drought,lands in,crop failures,crop failures,triggers,rainfall deficit
+crop failures,stirs up from,rainfall deficit,rainfall deficit,lands in,drought,drought,triggers,crop failures
 heat waves,fuels,dehydration,dehydration,builds toward,health emergencies,health emergencies,instigates,heat waves
 river damming,catalyzes,flow reduction,flow reduction,promotes,fish migration barriers,fish migration barriers,helps cause,river damming
 excess sugar intake,foments,tooth decay,tooth decay,begets,dental pain,dental pain,plays a role in,excess sugar intake
 overwatering,generates,root rot,root rot,fosters,plant death,plant death,adds to,overwatering
 high altitude,produces,low oxygen,low oxygen,breeds,acute mountain sickness,acute mountain sickness,builds toward,high altitude
-rapid cooling,yields,thermal shock,thermal shock,engenders,material cracking,material cracking,leads to,rapid cooling
+material cracking,comes from,rapid cooling,rapid cooling,engenders,thermal shock,thermal shock,leads to,material cracking
 oil spills,compounds,coating,coating,incites,bird mortality,bird mortality,is implicated in,oil spills
 poor insulation,creates,heat loss,heat loss,induces,high energy bills,high energy bills,sets in motion,poor insulation
 excess screen time,amplifies,eye strain,eye strain,precipitates,headaches,headaches,hastens,excess screen time
@@ -72,7 +72,7 @@ lead exposure,worsens,neurotoxicity,neurotoxicity,catalyzes,developmental delays
 crowded housing,exacerbates,close contact,close contact,sparks,disease transmission,disease transmission,aggravates,crowded housing
 rapid urban growth,aggravates,traffic congestion,traffic congestion,ushers in,long commutes,long commutes,deepens,rapid urban growth
 overuse of pesticides,causes,pollinator decline,pollinator decline,results in,reduced crop yields,reduced crop yields,intensifies,overuse of pesticides
-melting glaciers,triggers,freshwater influx,freshwater influx,culminates in,ocean stratification,ocean stratification,magnifies,melting glaciers
+ocean stratification,is triggered by,melting glaciers,melting glaciers,culminates in,freshwater influx,freshwater influx,magnifies,ocean stratification
 illegal logging,induces,canopy loss,canopy loss,brings about,habitat fragmentation,habitat fragmentation,amplifies,illegal logging
 food scarcity,provokes,malnutrition,malnutrition,gives rise to,weakened immunity,weakened immunity,underlies,food scarcity
 drought,spurs,low reservoir levels,low reservoir levels,contributes to,water restrictions,water restrictions,accelerates,drought
