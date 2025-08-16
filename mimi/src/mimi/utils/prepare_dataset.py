@@ -65,9 +65,7 @@ class BaseAMRBuilder:
         self.A_col = df["Premise1_Subject"]
         self.B_col = df["Premise2_Subject"]   # middle term in classic ARG_SUB datasets
         self.C_col = df["Premise2_Object"]
-        self.begin_str = "since "
-        self.and_str = "and since "
-        self.deduction_str = ", therefore "
+        
 
     # ---------- core generation ----------
 
@@ -77,61 +75,7 @@ class BaseAMRBuilder:
             prompts.append(self.get_prompt_label_pair_from_row(row))
         return prompts
 
-    def get_prompt_label_pair_from_row(self, row: pd.Series, b2: Optional[str] = None) -> Dict:
-        """
-        Default mapping (ARG_SUB-friendly): 
-        A = Premise1_Subject
-        B = Premise1_Object  (middle term)
-        C = Premise2_Object
-        """
-        a = row["Premise1_Subject"]
-        b = row["Premise1_Object"]       # middle term
-        c = row["Premise2_Object"]       # NOTE: fixed bug where 'c' got overwritten
-        return self.get_prompt_label_pair_from_row_and_abc(row, a, b, c, b2=b2)
 
-    def get_prompt_label_pair_from_row_and_abc(
-        self, row: pd.Series, a: str, b: str, c: str, b2: Optional[str] = None
-    ) -> Dict:
-        prompt = {}
-        if not b2:
-            b2 = b
-        premise_1 = f"{a} {row['Premise1_Verb']} {b}"
-        premise_2 = f"{b2} {row['Premise2_Verb']} {c}"
-        conclusion_set_up = f"{a} {row['Conclusion_Verb']}"
-
-        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up} "
-        prompt["a"] = a
-        prompt["b"] = b
-        prompt["b2"] = b2
-        prompt["v1"] = row["Premise1_Verb"]
-        prompt["v2"] = row["Premise2_Verb"]
-        prompt["v3"] = row["Conclusion_Verb"]
-        prompt["label"] = row["Conclusion_Object"]
-        return prompt
-
-    # ---------- corruptions ----------
-
-    def corrupt_middle_term(self) -> List[Dict]:
-        """
-        Replace the middle term subject in premise 2 (b2) with a random alternative.
-        """
-        prompts = []
-        for _, row in self.samples.iterrows():
-            b2 = get_filtered_sample(self.B_col, [row["Premise2_Subject"]])
-            prompts.append(self.get_prompt_label_pair_from_row(row, b2=b2))
-        return prompts
-
-    def corrupt_all_terms(self) -> List[Dict]:
-        """
-        Independently replace A, B, and C with random alternatives (one-word form).
-        """
-        prompts = []
-        for _, row in self.samples.iterrows():
-            a = get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
-            b = get_filtered_sample(self.B_col, [row["Premise2_Subject"]])
-            c = get_filtered_sample(self.C_col, [row["Premise2_Object"]])
-            prompts.append(self.get_prompt_label_pair_from_row_and_abc(row, a, b, c))
-        return prompts
 
 
 # You can specialize behaviors per type by overriding any of the above methods.
@@ -145,6 +89,11 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         self.A_col = df["Premise1_Subject"]
         self.B_col = df["Premise2_Subject"]   # middle term in classic ARG_SUB datasets
         self.C_col = df["Premise2_Object"]
+
+        self.begin_str = "since "
+        self.and_str = "and since "
+        self.deduction_str = ", therefore "
+
         self.labels = [
             "BEGIN",
             "a",
@@ -170,9 +119,9 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         a = row["Premise1_Subject"]
         b = row["Premise2_Subject"]       # middle term
         c = row["Premise2_Object"]       # NOTE: fixed bug where 'c' got overwritten
-        return self.get_prompt_label_pair_from_row_and_abc(row, a, b, c, corruption=corruption)
+        return self.get_prompt_label_pair_from_row_and_components(row, a, b, c, corruption=corruption)
     
-    def get_prompt_label_pair_from_row_and_abc(
+    def get_prompt_label_pair_from_row_and_components(
         self, row: pd.Series, a: str, b: str, c: str, corruption: Optional[str] = None
     ) -> Dict:
         prompt = {}
@@ -214,7 +163,7 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
             a = get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
             b = get_filtered_sample(self.B_col, [row["Premise2_Subject"]])
             c = get_filtered_sample(self.C_col, [row["Premise2_Object"]])
-            prompts.append(self.get_prompt_label_pair_from_row_and_abc(row, a, b, c))
+            prompts.append(self.get_prompt_label_pair_from_row_and_components(row, a, b, c))
         return prompts
 
     def tlen(self,text):
@@ -348,10 +297,223 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
 class PredSubAMRBuilder(BaseAMRBuilder):
     """
     Predicate substitution: same base template for now.
-    Optionally, you could override get_prompt_label_pair_from_row_and_abc to
+    Optionally, you could override get_prompt_label_pair_from_row_and_components to
     vary the phrasing or how labels are chosen for predicate-oriented tasks.
     """
-    pass
+    def __init__(self, df: pd.DataFrame, N: int, seed: int, tokenizer):
+        super().__init__(df, N, seed, tokenizer)
+        # Columns commonly used for corruptions (A,B,C refer to the classic syllogistic slots)
+        self.A_col = df["Premise1_Subject"]
+        self.B_col = df["Premise1_Object"]   # middle term in classic ARG_SUB datasets
+        self.V1_col = df["Premise2_Subject"]
+        self.V2_col = df["Premise2_Object"]
+
+        self.begin_str = "since "
+        self.and_str = "and since "
+        self.means_str = "means "
+        self.deduction_str = "therefore the verb between "
+        self.generic_verb = "and "
+        self.end_str = "is "
+
+        self.labels = [
+            "BEGIN",
+            "a",
+            "v1",
+            "b",
+            "∧",
+            "v1_2",
+            "->",
+            "v2",
+            "=>",
+            "a_2",
+            "-->",
+            "b_2",
+            "END"
+        ]
+
+
+    def get_prompt_label_pair_from_row(self, row: pd.Series, corruption: Optional[str] = None) -> Dict:
+        
+        a = row["Premise1_Subject"]
+        b = row["Premise1_Object"]
+        v1 = row["Premise2_Subject"]         
+        v2 = row["Premise2_Object"]       
+        return self.get_prompt_label_pair_from_row_and_components(row, a, b, v1, v2, corruption=corruption)
+    
+    def get_prompt_label_pair_from_row_and_components(
+        self, row: pd.Series, a: str, b: str, v1: str, v2: str, corruption: Optional[str] = None
+    ) -> Dict:
+        prompt = {}
+        premise_1 = f"{a} {v1} {b}"
+        if corruption:
+            premise_2 = f"{corruption} {self.means_str}{v2}"
+        else:
+            premise_2 = f"{v1} {self.means_str}{v2}"
+        
+        conclusion_set_up = f"{a} {self.generic_verb}{b} {self.end_str}"
+
+        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up} "
+        prompt["a"] = a
+        prompt["b"] = b
+        prompt["v1"] = v1
+        prompt["v2"] = v2
+        prompt["corruption"] = corruption
+        prompt["labels"] = (v2, v1)
+        return prompt
+    
+    def corrupt_middle_term(self) -> List[Dict]:
+        """
+        Replace the middle term subject in premise 2 (a2) with a random alternative.
+        """
+        prompts = []
+        for _, row in self.samples.iterrows():
+            corruption = get_filtered_sample(self.V1_col, [row["Premise2_Subject"]])
+            prompts.append(self.get_prompt_label_pair_from_row(row, corruption=corruption))
+        return prompts
+
+    def corrupt_all_terms(self) -> List[Dict]:
+        """
+        Independently replace A, B, and C with random alternatives (one-word form).
+        """
+        prompts = []
+        for _, row in self.samples.iterrows():
+            a = get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
+            b = get_filtered_sample(self.B_col, [row["Premise1_Object"]])
+            v1 = get_filtered_sample(self.V2_col, [row["Premise2_Subject"]])
+            v2 = get_filtered_sample(self.V2_col, [row["Premise2_Object"]])
+            prompts.append(self.get_prompt_label_pair_from_row_and_components(row, a, b, v1, v2))
+        return prompts
+
+    def tlen(self,text):
+        return len(self.tokenizer(text, add_special_tokens=False)["input_ids"])
+
+    def get_label_token_lengths(self, prompts):
+        # init
+        max_len = {lab: 0 for lab in self.labels}
+
+        # fixed operators (unchanged text)
+        max_len["BEGIN"] = self.tlen(self.begin_str)
+        max_len["∧"]     = self.tlen(self.and_str)
+        max_len["->"]    = self.tlen(self.means_str)
+        max_len["=>"]    = self.tlen(self.deduction_str)
+        max_len["-->"]   = self.tlen(self.generic_verb)
+        max_len["END"]   = self.tlen(self.end_str)
+
+        prompt_lens = []
+        for prompt in prompts:
+            pl = {lab: 0 for lab in self.labels}
+
+            # fixed parts (constant per prompt)
+            pl["BEGIN"] = max_len["BEGIN"]
+            pl["∧"]     = max_len["∧"]
+            pl["=>"]    = max_len["=>"]
+            pl["->"]    = max_len["->"]
+            pl["-->"]   = max_len["-->"]
+            pl["END"]    = max_len["END"]
+
+            # variable parts
+            a_len   = self.tlen(prompt["a"] + " ")
+            v1_len  = self.tlen(prompt["v1"] + " ")
+            b_len  = self.tlen(prompt["b"] + " ")
+            v2_len  = self.tlen(prompt["v2"] + " ")
+
+
+            if prompt.get("corruption"):
+                v1_2_len = self.tlen(prompt["corruption"] + " ")
+            else:
+                v1_2_len = self.tlen(prompt["v1"] + " ")
+
+
+            # fill per-prompt
+            pl["a"]  = a_len
+            pl["a_2"]  = a_len
+            pl["v1"]  = v1_len
+            pl["b"] = b_len
+            pl["b_2"] = b_len
+            pl["v2"] = v2_len
+            pl["v1_2"]  = v1_2_len
+
+            # update global maxima
+            max_len["a"]  = max(max_len["a"],  a_len)
+            max_len["a_2"]  = max_len["a"]
+            max_len["v1"]  = max(max_len["v1"],  v1_len)
+            max_len["b"] = max(max_len["b"], b_len)
+            max_len["b_2"] = max_len["b"]
+            max_len["v1_2"] = max(max_len["v1_2"], v1_2_len)
+            max_len["v2"] = max(max_len["v2"], v2_len)
+
+            prompt_lens.append(pl)
+
+        return prompt_lens, max_len
+
+
+    
+    def get_adjusted_token_sequences(self, max_len, prompts) -> t.Tensor:
+        """
+        Same assembly as before; only label names changed.
+        Sequence (labels shown; text unchanged):
+        BEGIN  a  ∈  b1  ∧  b2  ->  c(first=a_2)  =>  c(second=conclusion b)  <-
+        """
+        tokenised = []
+
+        BEGIN = self.tokenizer(self.begin_str,               add_special_tokens=False)["input_ids"]
+        AND   = self.tokenizer(self.and_str,                add_special_tokens=False)["input_ids"]
+        DED   = self.tokenizer(self.deduction_str,add_special_tokens=False)["input_ids"]
+        MEANS = self.tokenizer(self.means_str,               add_special_tokens=False)["input_ids"]
+        GEN   = self.tokenizer(self.generic_verb,                add_special_tokens=False)["input_ids"]
+        END   = self.tokenizer(self.end_str,add_special_tokens=False)["input_ids"]
+
+        for prompt in prompts:
+            seq = []
+
+            # BEGIN
+            seq += BEGIN
+
+            # a
+            seq += self.tokenizer(prompt["a"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["a"], truncation=True)["input_ids"]
+
+            # ∈ (v1)
+            seq += self.tokenizer(prompt["v1"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["v1"], truncation=True)["input_ids"]
+
+            # b1 (premise b)
+            seq += self.tokenizer(prompt["b"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["b"], truncation=True)["input_ids"]
+
+            # ∧
+            seq += AND
+
+            # b2 (premise c)
+            v1_2_text = prompt["corruption"] if prompt.get("corruption") else prompt["v1"]
+            seq += self.tokenizer(v1_2_text, add_special_tokens=False,
+                    padding="max_length", max_length=max_len["v1"], truncation=True)["input_ids"]
+
+            # -> (v2)
+            seq += MEANS
+
+            # c (
+            seq += self.tokenizer(prompt["v2"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["v2"], truncation=True)["input_ids"]
+
+            # =>
+            seq += DED
+
+            # c (second occurrence = conclusion b)
+            seq += self.tokenizer(prompt["a"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["a"], truncation=True)["input_ids"]
+            
+            seq += GEN
+
+            # <- (END = v3)
+            seq += self.tokenizer(prompt["b"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["b"], truncation=True)["input_ids"]
+            
+            seq += END
+
+            tokenised.append(seq)
+
+        return t.tensor(tokenised, dtype=t.long)
 
 
 class FrameSubAMRBuilder(BaseAMRBuilder):
@@ -366,8 +528,8 @@ class ConditionalFrameInsertionSubstitutionAMRBuilder(BaseAMRBuilder):
       return f"If {premise_1}{{premise_2}, then {conclusion_set_up}"
     """
     # Example of a custom phrasing (commented out; enable if you want):
-    # def get_prompt_label_pair_from_row_and_abc(self, row, a, b, c, b2=None):
-    #     prompt = super().get_prompt_label_pair_from_row_and_abc(row, a, b, c, b2)
+    # def get_prompt_label_pair_from_row_and_components(self, row, a, b, c, b2=None):
+    #     prompt = super().get_prompt_label_pair_from_row_and_components(row, a, b, c, b2)
     #     # Rebuild input string using a conditional template
     #     premise_1 = f"{a} {row['Premise1_Verb']} {prompt['b']}"
     #     premise_2 = f"{prompt['b2']} {row['Premise2_Verb']} {row['Conclusion_Object']}"
@@ -405,8 +567,8 @@ class ExampleAMRBuilder(BaseAMRBuilder):
 class IfThenAMRBuilder(BaseAMRBuilder):
     """If-then phrasing (you can override template if you want a stronger 'if-then' surface)."""
     # Example (commented out):
-    # def get_prompt_label_pair_from_row_and_abc(self, row, a, b, c, b2=None):
-    #     prompt = super().get_prompt_label_pair_from_row_and_abc(row, a, b, c, b2)
+    # def get_prompt_label_pair_from_row_and_components(self, row, a, b, c, b2=None):
+    #     prompt = super().get_prompt_label_pair_from_row_and_components(row, a, b, c, b2)
     #     premise_1 = f"{a} {row['Premise1_Verb']} {prompt['b']}"
     #     premise_2 = f"{prompt['b2']} {row['Premise2_Verb']} {row['Conclusion_Object']}"
     #     conclusion_set_up = f"{a} {row['Conclusion_Verb']}"
@@ -485,9 +647,3 @@ class MaterialInferenceDataset:
         # Expose convenience attributes for downstream code
         self.sentences = [p["input"] for p in self.prompts]
         self.labels    = [p["labels"] for p in self.prompts]
-        self.A         = [p["a"] for p in self.prompts]
-        self.B         = [p["b"] for p in self.prompts]
-        self.C        = [p["c"] for p in self.prompts]
-        self.V1        = [p["v1"] for p in self.prompts]
-        self.V2        = [p["v2"] for p in self.prompts]
-        self.V3        = [p["v3"] for p in self.prompts]
