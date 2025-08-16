@@ -65,8 +65,8 @@ class BaseAMRBuilder:
         self.A_col = df["Premise1_Subject"]
         self.B_col = df["Premise2_Subject"]   # middle term in classic ARG_SUB datasets
         self.C_col = df["Premise2_Object"]
-        self.begin_str = "Since "
-        self.and_str = " and "
+        self.begin_str = "since "
+        self.and_str = "and since "
         self.deduction_str = ", therefore "
 
     # ---------- core generation ----------
@@ -99,7 +99,7 @@ class BaseAMRBuilder:
         premise_2 = f"{b2} {row['Premise2_Verb']} {c}"
         conclusion_set_up = f"{a} {row['Conclusion_Verb']}"
 
-        prompt["input"] = f"{self.begin_str}{premise_1}{self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up}"
+        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up} "
         prompt["a"] = a
         prompt["b"] = b
         prompt["b2"] = b2
@@ -184,7 +184,7 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         
         conclusion_set_up = f"{c} {row['Conclusion_Verb']}"
 
-        prompt["input"] = f"{self.begin_str}{premise_1}{self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up}"
+        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up} "
         prompt["a"] = a
         prompt["b"] = b
         prompt["c"] = c
@@ -447,6 +447,7 @@ class MaterialInferenceDataset:
     ):
         self.N = N
         self.seed = seed
+        self.type = type
 
         # Tokenizer setup
         self.tokenizer = tokenizer or AutoTokenizer.from_pretrained("gpt2")
