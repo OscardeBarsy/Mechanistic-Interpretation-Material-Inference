@@ -90,6 +90,8 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         self.B_col = df["Premise2_Subject"]   # middle term in classic ARG_SUB datasets
         self.C_col = df["Premise2_Object"]
 
+        self.element_list = list(self.A_col) + list(self.B_col) + list(self.C_col)
+
         self.begin_str = "since "
         self.and_str = "and since "
         self.deduction_str = ", therefore "
@@ -308,12 +310,14 @@ class PredSubAMRBuilder(BaseAMRBuilder):
         self.V1_col = df["Premise2_Subject"]
         self.V2_col = df["Premise2_Object"]
 
-        self.begin_str = "since "
-        self.and_str = "and since "
-        self.means_str = "means "
-        self.deduction_str = "therefore the verb between "
-        self.generic_verb = "and "
-        self.end_str = "is "
+        self.element_list = list(self.V1_col) + list(self.V2_col)
+
+        self.begin_str = "because"
+        self.and_str = "and because"
+        self.means_str = "means"
+        self.deduction_str = "thus what"
+        self.generic_verb = "do on"
+        self.end_str = "is"
 
         self.labels = [
             "BEGIN",
@@ -334,17 +338,17 @@ class PredSubAMRBuilder(BaseAMRBuilder):
 
     def get_prompt_label_pair_from_row(self, row: pd.Series, corruption: Optional[str] = None) -> Dict:
         
-        a = row["Premise1_Subject"]
-        b = row["Premise1_Object"]
-        v1 = row["Premise2_Subject"]         
-        v2 = row["Premise2_Object"]       
+        a = " " + row["Premise1_Subject"]
+        b = " " + row["Premise1_Object"]
+        v1 = " " + row["Premise2_Subject"]         
+        v2 = " " + row["Premise2_Object"]       
         return self.get_prompt_label_pair_from_row_and_components(row, a, b, v1, v2, corruption=corruption)
     
     def get_prompt_label_pair_from_row_and_components(
         self, row: pd.Series, a: str, b: str, v1: str, v2: str, corruption: Optional[str] = None
     ) -> Dict:
         prompt = {}
-        premise_1 = f"{a} {v1} {b}"
+        premise_1 = f"{a}{v1}{b}"
         if corruption:
             premise_2 = f"{corruption} {self.means_str}{v2}"
         else:
@@ -352,7 +356,7 @@ class PredSubAMRBuilder(BaseAMRBuilder):
         
         conclusion_set_up = f"{a} {self.generic_verb}{b} {self.end_str}"
 
-        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up} "
+        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2} {self.deduction_str}{conclusion_set_up}"
         prompt["a"] = a
         prompt["b"] = b
         prompt["v1"] = v1
@@ -367,7 +371,7 @@ class PredSubAMRBuilder(BaseAMRBuilder):
         """
         prompts = []
         for _, row in self.samples.iterrows():
-            corruption = get_filtered_sample(self.V1_col, [row["Premise2_Subject"]])
+            corruption = " " + get_filtered_sample(self.V1_col, [row["Premise2_Subject"]])
             prompts.append(self.get_prompt_label_pair_from_row(row, corruption=corruption))
         return prompts
 
@@ -377,10 +381,10 @@ class PredSubAMRBuilder(BaseAMRBuilder):
         """
         prompts = []
         for _, row in self.samples.iterrows():
-            a = get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
-            b = get_filtered_sample(self.B_col, [row["Premise1_Object"]])
-            v1 = get_filtered_sample(self.V2_col, [row["Premise2_Subject"]])
-            v2 = get_filtered_sample(self.V2_col, [row["Premise2_Object"]])
+            a = " " + get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
+            b = " " + get_filtered_sample(self.B_col, [row["Premise1_Object"]])
+            v1 = " " + get_filtered_sample(self.V2_col, [row["Premise2_Subject"]])
+            v2 = " " + get_filtered_sample(self.V2_col, [row["Premise2_Object"]])
             prompts.append(self.get_prompt_label_pair_from_row_and_components(row, a, b, v1, v2))
         return prompts
 

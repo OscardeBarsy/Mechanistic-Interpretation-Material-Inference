@@ -1,101 +1,101 @@
 Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
-milk, contains, calcium, contains, means, holds, milk, holds, calcium
-Earth, orbits, the sun, orbits, means, revolves around, Earth, revolves around, the sun
-sugar, dissolves in, water, dissolves in, means, mixes into, sugar, mixes into, water
-skin, absorbs, sunlight, absorbs, means, takes in, skin, takes in, sunlight
-stars, emit, light, emit, means, give off, stars, give off, light
-engines, consume, fuel, consume, means, use up, engines, use up, fuel
-plants, produce, oxygen, produce, means, generate, plants, generate, oxygen
-batteries, store, energy, store, means, keep, batteries, keep, energy
-blood, transports, oxygen, transports, means, carries, blood, carries, oxygen
-magnets, repel, like poles, repel, means, push away, magnets, push away, like poles
-magnets, attract, opposite poles, attract, means, pull toward, magnets, pull toward, opposite poles
-helmets, resist, impacts, resist, means, withstand, helmets, withstand, impacts
-metals, conduct, electricity, conduct, means, allow the flow of, metals, allow the flow of, electricity
-thermos, insulates, heat, insulates, means, blocks the passage of, thermos, blocks the passage of, heat
-compost, fertilizes, soil, fertilizes, means, enriches, compost, enriches, soil
-bees, pollinate, flowers, pollinate, means, transfer pollen to, bees, transfer pollen to, flowers
-wolves, prey on, deer, prey on, means, hunt, wolves, hunt, deer
-swallows, migrate to, warmer regions, migrate to, means, move seasonally to, swallows, move seasonally to, warmer regions
-bears, hibernate in, winter, hibernate in, means, sleep through, bears, sleep through, winter
-rivers, erode, banks, erode, means, wear away, rivers, wear away, banks
-iron, oxidizes with, oxygen, oxidizes with, means, reacts with oxygen to form oxide, iron, reacts with oxygen to form oxide, oxygen
-saltwater, corrodes, steel, corrodes, means, eats away at, saltwater, eats away at, steel
-water, freezes into, ice, freezes into, means, turns into solid, water, turns into solid, ice
-water, boils into, vapor, boils into, means, turns into vapor, water, turns into vapor, vapor
-steam, condenses into, liquid, condenses into, means, turns into liquid, steam, turns into liquid, liquid
-water, evaporates into, vapor, evaporates into, means, changes into gas, water, changes into gas, vapor
-carbon dioxide, dissolves into, oceans, dissolves into, means, goes into solution in, carbon dioxide, goes into solution in, oceans
-gases, compress under, pressure, compress under, means, reduce volume under, gases, reduce volume under, pressure
-metal, expands with, heat, expands with, means, increases in volume with, metal, increases in volume with, heat
-enzymes, catalyze, reactions, catalyze, means, speed up, enzymes, speed up, reactions
-drugs, inhibit, enzymes, inhibit, means, slow down, drugs, slow down, enzymes
-software, encrypts, data, encrypts, means, encode, software, encode, data
-tool, decrypts, messages, decrypts, means, decode, tool, decode, messages
-server, authenticates, users, authenticates, means, verifies identity of, server, verifies identity of, users
-system, authorizes, access, authorizes, means, grants permission to, system, grants permission to, access
-browser, caches, pages, caches, means, keeps temporarily, browser, keeps temporarily, pages
-database, indexes, records, indexes, means, organizes for quick lookup, database, organizes for quick lookup, records
-compiler, compiles, code, compiles, means, translates into machine code, compiler, translates into machine code, code
-interpreter, interprets, scripts, interprets, means, executes without compiling, interpreter, executes without compiling, scripts
-client, uploads, files, uploads, means, sends to a server, client, sends to a server, files
-user, downloads, content, downloads, means, receives from a server, user, receives from a server, content
-platform, streams, video, streams, means, transmits continuously, platform, transmits continuously, video
-station, broadcasts, signals, broadcasts, means, transmits widely, station, transmits widely, signals
-library, archives, documents, archives, means, preserves, library, preserves, documents
-service, backs up, data, backs up, means, creates a copy of, service, creates a copy of, data
-technician, calibrates, instruments, calibrates, means, adjusts for accuracy of, technician, adjusts for accuracy of, instruments
-sensor, measures, temperature, measures, means, quantifies, sensor, quantifies, temperature
-model, estimates, demand, estimates, means, approximates, model, approximates, demand
-meteorologist, forecasts, weather, forecasts, means, predicts, meteorologist, predicts, weather
-checker, validates, input, validates, means, checks the correctness of, checker, checks the correctness of, input
-routine, sanitizes, inputs, sanitizes, means, removes harmful parts of, routine, removes harmful parts of, inputs
-dairy, pasteurizes, milk, pasteurizes, means, heats to kill pathogens in, dairy, heats to kill pathogens in, milk
-autoclave, sterilizes, equipment, sterilizes, means, eliminates all microbes from, autoclave, eliminates all microbes from, equipment
-mask, filters, air, filters, means, removes particles from, mask, removes particles from, air
-still, distills, ethanol, distills, means, purifies by heating and cooling, still, purifies by heating and cooling, ethanol
-yeast, ferments, sugars, ferments, means, converts sugars into alcohol, yeast, converts sugars into alcohol, sugars
-plants, photosynthesize, carbohydrates, photosynthesize, means, convert light into chemical energy to make, plants, convert light into chemical energy to make, carbohydrates
-factories, pollute, rivers, pollute, means, contaminate, factories, contaminate, rivers
-soap, cleans, hands, cleans, means, removes dirt from, soap, removes dirt from, hands
-canals, irrigate, fields, irrigate, means, supply water to, canals, supply water to, fields
-combine harvesters, harvest, crops, harvest, means, gather, combine harvesters, gather, crops
-farmers, sow, fields, sow, means, plant seeds in, farmers, plant seeds in, fields
-seeds, germinate in, spring, germinate in, means, begin to grow in, seeds, begin to grow in, spring
-leaves, decay in, autumn, decay in, means, decompose in, leaves, decompose in, autumn
-fuel, combusts in, engines, combusts in, means, burns in, fuel, burns in, engines
-lenses, refract, light, refract, means, bend, lenses, bend, light
-mirrors, reflect, light, reflect, means, bounce off, mirrors, bounce off, light
-glass, transmits, light, transmits, means, lets pass through, glass, lets pass through, light
-dye, diffuses through, cloth, diffuses through, means, spreads through, dye, spreads through, cloth
-water, osmoses into, plant cells, osmoses into, means, moves through a semipermeable membrane into, water, moves through a semipermeable membrane into, plant cells
-offspring, inherit from, parents, inherit from, means, receive traits from, offspring, receive traits from, parents
-viruses, mutate into, variants, mutate into, means, change genetic sequence into, viruses, change genetic sequence into, variants
-DNA, replicates in, cells, replicates in, means, copies itself in, DNA, copies itself in, cells
-RNA polymerase, transcribes, DNA, transcribes, means, copies DNA into RNA, RNA polymerase, copies DNA into RNA, DNA
-ribosomes, translate, mRNA, translate, means, assemble proteins from, ribosomes, assemble proteins from, mRNA
-miners, mine, ore, mine, means, extract, miners, extract, ore
-smelters, smelt, ore, smelt, means, melt to extract metal from, smelters, melt to extract metal from, ore
-makers, alloy, metals, alloy, means, combine metals to form, makers, combine metals to form, metals
-welders, weld, steel, weld, means, join by melting, welders, join by melting, steel
-gasket, seals, joints, seals, means, closes tightly, gasket, closes tightly, joints
-oil, lubricates, gears, lubricates, means, reduces friction of, oil, reduces friction of, gears
-fans, ventilate, rooms, ventilate, means, circulate air in, fans, circulate air in, rooms
-inspectors, inspect, bridges, inspect, means, examine, inspectors, examine, bridges
-accountants, audit, books, audit, means, review, accountants, review, books
-parliament, legislates, policy, legislates, means, makes laws about, parliament, makes laws about, policy
-courts, adjudicate, disputes, adjudicate, means, make legal judgments on, courts, make legal judgments on, disputes
-councils, govern, cities, govern, means, rule over, councils, rule over, cities
-diplomats, negotiate, treaties, negotiate, means, reach agreement on, diplomats, reach agreement on, treaties
-states, tax, income, tax, means, impose levies on, states, impose levies on, income
-investors, invest in, startups, invest in, means, put money into, investors, put money into, startups
-portfolios, diversify into, sectors, diversify into, means, spread risk across, portfolios, spread risk across, sectors
-companies, hedge against, volatility, hedge against, means, protect against risk of, companies, protect against risk of, volatility
-accountants, amortize, expenses, amortize, means, spread cost of, accountants, spread cost of, expenses
-cars, depreciate over, time, depreciate over, means, lose value over, cars, lose value over, time
-property, appreciates over, decades, appreciates over, means, gains value over, property, gains value over, decades
-drivers, refuel, vehicles, refuel, means, add fuel to, drivers, add fuel to, vehicles
-owners, recharge, phones, recharge, means, restore electric charge to, owners, restore electric charge to, phones
-captains, navigate, seas, navigate, means, find a route through, captains, find a route through, seas
-cartographers, map, coastlines, map, means, chart, cartographers, chart, coastlines
-satellites, image, Earth, image, means, capture pictures of, satellites, capture pictures of, Earth
+cells,contains,water,contains,means,holds,cells,holds,water
+exercise,lowers,stress,lowers,means,reduces,exercise,reduces,stress
+caffeine,increases,alertness,increases,means,raises,caffeine,raises,alertness
+rabbit,eats,plants,eats,means,consumes,rabbit,consumes,plants
+camel,drinks,water,drinks,means,imbibes,camel,imbibes,water
+chlorophyll,absorbs,light,absorbs,means,captures,chlorophyll,captures,light
+volcano,emits,ash,emits,means,releases,volcano,releases,ash
+photosynthesis,produces,oxygen,produces,means,yields,photosynthesis,yields,oxygen
+friction,generates,heat,generates,means,creates,friction,creates,heat
+beavers,builds,dams,builds,means,constructs,beavers,constructs,dams
+condensation,forms,clouds,forms,means,makes,condensation,makes,clouds
+infection,causes,fever,causes,means,induces,infection,induces,fever
+pollen,triggers,allergies,triggers,means,provokes,pollen,provokes,allergies
+smoke,indicates,fire,indicates,means,signals,smoke,signals,fire
+graph,shows,trends,shows,means,displays,graph,displays,trends
+scan,reveals,tumors,reveals,means,uncovers,scan,uncovers,tumors
+thermometer,measures,temperature,measures,means,gauges,thermometer,gauges,temperature
+software,records,activity,records,means,logs,software,logs,activity
+memories,store,facts,store,means,preserve,memories,preserve,facts
+insulation,saves,energy,saves,means,conserves,insulation,conserves,energy
+salt,preserves,food,preserves,means,maintains,salt,maintains,food
+sunscreen,protects,skin,protects,means,safeguards,sunscreen,safeguards,skin
+riot helmet,protects,heads,protects,means,shields,riot helmet,shields,heads
+curtains,blocks,light,blocks,means,obstructs,curtains,obstructs,light
+steel,resists,corrosion,resists,means,withstands,steel,withstands,corrosion
+magnet,attracts,iron,attracts,means,draws,magnet,draws,iron
+citronella,repels,mosquitoes,repels,means,deters,citronella,deters,mosquitoes
+water,dissolves,salt,dissolves,means,solubilizes,water,solubilizes,salt
+painter,mixes,colors,mixes,means,blends,painter,blends,colors
+oxygen,oxidizes,iron,oxidizes,means,corrodes,oxygen,corrodes,iron
+cream,hydrates,skin,hydrates,means,moistens,cream,moistens,skin
+wind,cools,skin,cools,means,chills,wind,chills,skin
+sun,warms,earth,warms,means,heats,sun,heats,earth
+cold,freezes,water,freezes,means,solidifies,cold,solidifies,water
+heat,boils,water,boils,means,vaporizes,heat,vaporizes,water
+cooling,condenses,steam,condenses,means,liquefies,cooling,liquefies,steam
+sun,evaporates,moisture,evaporates,means,removes,sun,removes,moisture
+filter,filters,particles,filters,means,screens,filter,screens,particles
+chlorine,purifies,water,purifies,means,cleanses,chlorine,cleanses,water
+autoclave,sterilizes,tools,sterilizes,means,disinfects,autoclave,disinfects,tools
+composts,enrich,soils,enrich,means,fertilize,composts,fertilize,soils
+lamp,illuminates,room,illuminates,means,lights,lamp,lights,room
+glue,binds,parts,binds,means,attaches,glue,attaches,parts
+buckle,secures,belt,secures,means,fastens,buckle,fastens,belt
+latches,chain down,gates,chain down,means,secure,latches,secure,gates
+keys,unlock,door,unlock,means,open,keys,open,door
+owner,closes,shop,closes,means,shuts,owner,shuts,shop
+cable,connects,devices,connects,means,links,cable,links,devices
+wall,separates,rooms,separates,means,divides,wall,divides,rooms
+merger,joins,companies,joins,means,combines,merger,combines,companies
+reform,merges,agencies,merges,means,unites,reform,unites,agencies
+axe,splits,wood,splits,means,cleaves,axe,cleaves,wood
+knife,cuts,bread,cuts,means,slices,knife,slices,bread
+artists,sculpt,stone,sculpt,means,carve,artists,carve,stone
+mill,grinds,grain,grinds,means,pulverizes,mill,pulverizes,grain
+press,crushes,grapes,crushes,means,smashes,press,smashes,grapes
+piston,presses,gas,presses,means,squeezes,piston,squeezes,gas
+heat,expands,metal,expands,means,enlarges,heat,enlarges,metal
+cold,shrinks,metal,shrinks,means,contracts,cold,contracts,metal
+tension,stretches,rubber,stretches,means,elongates,tension,elongates,rubber
+editor,shortens,text,shortens,means,truncates,editor,truncates,text
+delay,lengthens,wait,lengthens,means,extends,delay,extends,wait
+erosion,widens,river,widens,means,broadens,erosion,broadens,river
+plaque,narrows,arteries,narrows,means,constricts,plaque,constricts,arteries
+sand,roughens,skin,roughens,means,coarsens,sand,coarsens,skin
+sandpaper,smooths,wood,smooths,means,polishes,sandpaper,polishes,wood
+maid,cleans,room,cleans,means,tidies,maid,tidies,room
+mud,dirties,clothes,dirties,means,soils,mud,soils,clothes
+wine,stains,fabric,stains,means,discolors,wine,discolors,fabric
+artists,illustrate,pictures,illustrate,means,draw,artists,draw,pictures
+indigo,dyes,cloth,dyes,means,tints,indigo,tints,cloth
+sun,bleaches,hair,bleaches,means,whitens,sun,whitens,hair
+cloud,darkens,sky,darkens,means,dims,cloud,dims,sky
+dawn,brightens,sky,brightens,means,lightens,dawn,lightens,sky
+example,clarifies,concept,clarifies,means,elucidates,example,elucidates,concept
+teacher,explains,topic,explains,means,expounds,teacher,expounds,topic
+common law,delineates,rights,delineates,means,outlines,common law,outlines,rights
+poem,describes,love,describes,means,portrays,poem,portrays,love
+abstract,summarizes,paper,summarizes,means,abridges,abstract,abridges,paper
+theory,generalizes,cases,generalizes,means,abstracts,theory,abstracts,cases
+contractual obligation,enforces,bindings,enforces,means,upholds,contractual obligations,upholds,bindings
+report,enumerates,items,enumerates,means,lists,report,lists,items
+clerk,counts,votes,counts,means,tallies,clerk,tallies,votes
+analyst,compares,options,compares,means,juxtaposes,analyst,juxtaposes,options
+scientist,analyzes,samples,analyzes,means,examines,scientist,examines,samples
+lab,tests,blood,tests,means,assays,lab,assays,blood
+doctor,diagnoses,disease,diagnoses,means,identifies,doctor,identifies,disease
+nurse,treats,wounds,treats,means,medicates,nurse,medicates,wounds
+time,heals,injuries,heals,means,mends,time,mends,injuries
+virus,infects,cells,infects,means,contaminates,virus,contaminates,cells
+clinic,vaccinates,children,vaccinates,means,immunizes,clinic,immunizes,children
+mentor,trains,staff,trains,means,coaches,mentor,coaches,staff
+tutor,teaches,math,teaches,means,instructs,tutor,instructs,math
+student,learns,skills,learns,means,acquires,student,acquires,skills
+scholar,reads,texts,reads,means,peruses,scholar,peruses,texts
+journalist,writes,articles,writes,means,authors,journalist,authors,articles
+printers,print,pages,print,means,stamp,printers,stamp,pages
+program,encodes,data,encodes,means,encrypts,program,encrypts,data
+tool,decodes,data,decodes,means,decrypts,tool,decrypts,data
+utility,compresses,files,compresses,means,zips,utility,zips,files
