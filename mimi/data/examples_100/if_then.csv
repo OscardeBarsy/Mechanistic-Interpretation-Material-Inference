@@ -1,101 +1,101 @@
-Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
-plants,require,sunlight,dense cloud cover,blocks,sunlight,if dense cloud cover exists,then plants perform less,photosynthesis
-a car engine,needs,fuel,an empty fuel tank,contains,no fuel,if the fuel tank is empty,then the engine will not,start
-fire,requires,oxygen,a foam extinguisher,deprives,oxygen,if a foam extinguisher is applied,then the fire is,extinguished
-human bones,contain,calcium,a diet low in calcium,provides,insufficient calcium,if the diet lacks calcium,then bones become,weaker
-ice,melts at,0°C,raising the temperature,increases,temperature above 0°C,if the temperature rises above 0°C,then ice will,melt
-metal,expands when,heated,high heat,applies,heat,if high heat is applied,then metal,expands
-photosynthesis,produces,oxygen,absence of light,prevents,photosynthesis,if there is no light,then oxygen production,drops
-bacteria,multiply in,warm conditions,refrigeration,lowers,temperature,if food is refrigerated,then bacterial growth,slows
-sound,travels through,air,vacuum,lacks,air,if there is a vacuum,then sound cannot,propagate
-seed germination,requires,water,dry soil,provides,no water,if the soil is dry,then seeds fail to,germinate
-solar panels,convert,sunlight to electricity,night time,provides,no sunlight,if it is night,then solar panels produce,no electricity
-electric circuits,need,a closed loop,an open switch,breaks,the circuit,if the switch is open,then current will not,flow
-enzymes,function at,optimal pH,strong acids,alter,pH levels,if strong acids are added,then enzyme activity,decreases
-photosensitive film,records,light patterns,complete darkness,offers,no light,if there is complete darkness,then the film captures,nothing
-parachutes,use,air resistance,thin atmosphere,reduces,air resistance,if the atmosphere is thin,then parachutes become,less effective
-photosynthesis,requires,chlorophyll,autumn leaf senescence,breaks down,chlorophyll,if chlorophyll is degraded,then photosynthesis,declines
-satellite communication,depends on,line-of-sight signals,mountainous terrain,obstructs,line-of-sight,if terrain obstructs line-of-sight,then satellite communication,fails
-electric vehicles,store energy in,batteries,extreme cold,reduces,battery capacity,if temperatures are extremely cold,then electric vehicle range,drops
-human vision,relies on,photoreceptors,vitamin A deficiency,damages,photoreceptors,if vitamin A is deficient,then vision,impairs
-Wi-Fi routers,transmit,radio waves,thick concrete walls,absorb,radio waves,if signals pass through thick concrete,then Wi-Fi strength,weakens
-combustion engines,emit,carbon dioxide,catalytic converters,reduce,carbon dioxide emission,if catalytic converters are fitted,then engines emit less,carbon dioxide
-renal filtration,depends on,blood pressure,severe dehydration,lowers,blood pressure,if blood pressure drops,then kidney filtration,slows
-sound waves,reflect off,hard surfaces,acoustic foam panels,absorb,sound waves,if acoustic foam is installed,then sound reflections,decrease
-yeast,ferments,sugar,oxygen absence,creates,anaerobic conditions,if oxygen is absent,then yeast produces,alcohol
-radioactive decay,emits,ionizing radiation,lead shielding,blocks,ionizing radiation,if lead shielding surrounds the source,then exposure to radiation,reduces
-computer processors,generate,heat,thermal paste,improves,heat transfer,if thermal paste is applied,then processor temperature,drops
-glaciers,reflect,sunlight,soot deposition,darkens,ice surfaces,if glaciers are covered with soot,then sunlight reflection,decreases
-cacti,store,water,prolonged drought,depletes,stored water,if drought persists,then cacti eventually,wilt
-electric motors,need,magnetic fields,demagnetized coils,fail to create,magnetic fields,if coils are demagnetized,then the motor,stops
-photographic lenses,focus,light,scratched glass,scatters,light,if lens glass is scratched,then image clarity,degrades
-root hairs,absorb,minerals,soil salinity,reduces,mineral uptake,if soil is highly saline,then plants struggle to,absorb minerals
-batteries,store,chemical energy,corrosion,damages,battery terminals,if terminals corrode,then battery capacity,falls
-fog,forms when,air cools to dew point,warm winds,raise,air temperature,if warm winds arrive,then fog,dissipates
-iron,rusts when,exposed to moisture,oil coating,repels,water,if oil coating is applied,then iron rusting is,prevented
-photosystem II,splits,water molecules,intense UV radiation,damages,photosystems,if photosystems are damaged,then water splitting,stops
-rainbows,require,sunlight and raindrops,dry clear sky,lacks,raindrops,if the sky is dry,then a rainbow cannot,form
-crops,absorb,nitrate,soil bacteria,convert,ammonia to nitrate,if soil bacteria are absent,then crops receive less,nitrate
-fluorescent bulbs,contain,mercury vapor,mercury leak,reduces,vapor pressure,if mercury escapes,then bulb brightness,drops
-nuclear fission,releases,neutrons,control rods,absorb,neutrons,if control rods are inserted,then reactor power,decreases
-snowflakes,crystallize from,water vapor,temperatures above 0°C,melt,ice crystals,if temperature rises above freezing,then snowflakes,melt
-heart muscles,contract via,electrical signals,ventricular fibrillation,disrupts,electrical signals,if fibrillation occurs,then heart pumping,fails
-digital cameras,capture,light,lens cap,blocks,light,if the lens cap is on,then the camera records,darkness
-wind turbines,generate,electricity,calm weather,provides,no wind,if weather is calm,then wind turbines produce,no electricity
-compasses,align with,magnetic fields,nearby magnets,distort,magnetic fields,if magnets are nearby,then compass readings,deviate
-candle flames,consume,wax vapor,strong wind,blows away,wax vapor,if strong wind blows,then candle flames,extinguish
-sunscreen,absorbs,UV radiation,sweating,washes off,sunscreen,if sweating occurs,then UV protection,reduces
-refrigerators,remove,heat from interiors,dust-clogged coils,impede,heat release,if condenser coils are dusty,then refrigerator efficiency,drops
-shooting stars,originate from,meteoroids,thick atmosphere,burns,meteoroids,if meteoroids enter thick atmosphere,then shooting stars,appear
-bread dough,rises with,carbon dioxide,dead yeast,produces,no carbon dioxide,if the yeast is dead,then dough will not,rise
-satellite orbits,are maintained by,gravity,gravitational anomalies,alter,gravity field,if gravity weakens significantly,then satellites may,drift
-photosynthetic algae,produce,oxygen,water pollution,reduces,algae population,if water is polluted,then oxygen production,declines
-sprinters,require,explosive energy,muscle fatigue,limits,energy output,if muscles fatigue,then sprint speed,drops
-paper,burns in,open flame,water,extinguishes,flame,if paper is soaked,then it will not,burn
-bicycles,balance due to,angular momentum,slow speed,reduces,angular momentum,if speed is too low,then bicycles may,topple
-icloud data sync,requires,internet connectivity,airplane mode,disables,internet,if airplane mode is on,then iCloud cannot,sync
-photos,are stored in,flash memory,power failure during write,corrupts,flash memory sectors,if power fails while writing,then photos may become,corrupted
-magnetic storage,relies on,magnetic domains,strong magnets,realign,domains,if strong magnets are nearby,then stored data,erases
-athletes,perform well with,adequate hydration,dehydration,reduces,hydration levels,if athletes are dehydrated,then performance,declines
-laser cutters,focus,coherent light,dirty lenses,scatter,light,if the lens is dirty,then cutting precision,degrades
-chalk messages,adhere to,rough surfaces,rain,washes away,chalk,if it rains,then chalk messages,disappear
-DNA replication,needs,DNA polymerase,high fever,denatures,polymerase,if polymerase is denatured,then DNA replication,halts
-xylem vessels,transport,water,air bubbles,block,xylem flow,if air embolism occurs,then water transport,stops
-gene expression,depends on,transcription factors,mutations,alter,transcription factors,if transcription factors mutate,then gene expression,changes
-bridge cables,bear,tension,metal fatigue,weakens,cables,if metal fatigue advances,then bridge stability,declines
-air conditioners,use,refrigerant,refrigerant leak,reduces,coolant amount,if refrigerant leaks,then cooling efficiency,drops
-orchestra timing,relies on,the conductor,absence of conductor,removes,central cue,if the conductor is absent,then orchestra timing,suffers
-influenza spread,occurs via,respiratory droplets,face masks,block,droplets,if masks are worn,then influenza transmission,reduces
-seeds,disperse through,wind,deforestation,changes,wind patterns,if forests are removed,then seed dispersal,alters
-glass,shatters under,sudden stress,tempering,strengthens,glass,if glass is tempered,then shattering risk,lowers
-locomotive wheels,grip,rails,oil spill,reduces,friction,if oil is on rails,then wheel traction,drops
-skin,synthesizes,vitamin D,sunlight exposure,provides,UVB rays,if sunlight exposure is low,then vitamin D synthesis,decreases
-bamboo,grows,rapidly,frost,damage,new shoots,if frost hits bamboo,then growth,slows
-solar eclipses,occur when,moon blocks sun,cloud cover,obscures,view,if sky is cloudy,then eclipse visibility,diminishes
-bacterial enzymes,break down,antibiotics,gene transfer,spreads,enzyme genes,if genes spread,then antibiotic resistance,increases
-solar cells,produce,electricity,dust accumulation,covers,solar cells,if dust accumulates,then electricity output,drops
-coffee,contains,caffeine,decaffeination,removes,caffeine,if coffee is decaffeinated,then caffeine intake,reduces
-tectonic plates,move along,fault lines,friction,resists,motion,if friction is overcome,then earthquakes,occur
-germination,needs,oxygen,waterlogging,limits,oxygen availability,if soil is waterlogged,then seed germination,fails
-lightning,creates,nitric oxide,nitric oxide,converts,to nitrates in rain,if lightning occurs,then soil nitrate,increases
-oil paints,dry by,oxidation,low oxygen environment,slows,oxidation,if oxygen is low,then oil paint drying,slows
-clocks,measure,time,dead batteries,provide,no power,if batteries are dead,then clocks stop,ticking
-plants,transpire,water vapor,high humidity,reduces,rate of transpiration,if humidity is high,then transpiration,decreases
-photos,fade under,sunlight,UV-blocking glass,filters,sunlight,if UV-blocking glass is used,then photo fading,slows
-fish gills,extract,oxygen from water,polluted water,lowers,dissolved oxygen,if water is polluted,then fish respiration,suffers
-car tires,grip,road,worn tread,reduces,grip,if tire tread is worn,then braking distance,increases
-photosynthesis,fixes,carbon dioxide,stomatal closure,limits,CO₂ intake,if stomata close,then carbon fixation,drops
-cheese,ripens with,bacteria action,pasteurization,kills,bacteria,if milk is pasteurized,then cheese ripening,slows
-blood clotting,requires,vitamin K,vitamin K deficiency,reduces,clotting factors,if vitamin K is deficient,then blood clotting,impairs
-plane lift,depends on,airflow over wings,icing,disrupts,airflow,if wings are iced,then lift,reduces
-batteries,supply,direct current,inverters,convert,direct current to alternating,if inverters are used,then AC power,is provided
-infrared cameras,detect,heat signatures,thermal insulation,masks,heat signatures,if insulation is added,then infrared detection,fails
-penguin feathers,trap,air for insulation,oil spills,coat,feathers,if feathers are oiled,then insulation,decreases
-machinery,functions with,lubrication,dust contamination,thickens,lubricant,if lubricant is dirty,then machinery wear,increases
-cooling towers,evaporate,water,high humidity,reduces,evaporation rate,if humidity is high,then cooling efficiency,falls
-bee pollination,requires,flower visits,pesticides,kill,bees,if pesticides are used excessively,then pollination,declines
-electric arc welding,needs,inert gas shielding,air drafts,disperse,shielding gas,if air drafts blow,then weld quality,drops
-microwave ovens,heat,water molecules,metal containers,reflect,microwaves,if metal is placed inside,then heating,halts
-rust prevention,uses,galvanization,scratches,expose,bare iron,if galvanizing layer is scratched,then rusting,starts
-photosynthetic rate,rises with,light intensity,thick forest canopy,reduces,light intensity,if canopy is dense,then photosynthetic rate,drops
-protein synthesis,requires,ribosomes,ribosome inhibitors,block,ribosomes,if inhibitors are present,then protein synthesis,ceases
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,If_Clause,If_Subject,Then_Clause,Conclusion_Object
+microscope,requires,lens,lens,is made from,glass,if there is,glass,then there can be,microscope
+compass,needs,magnet,magnet,requires,iron,if there is,iron,then there can be,compass
+smartphone,requires,battery,battery,requires,electrolyte,if there is,electrolyte,then there can be,smartphone
+bicycle,uses,chain,chain,requires,sprocket,if there is,sprocket,then there can be,bicycle
+airplane,requires,wing,wing,requires,airfoil,if there is,airfoil,then there can be,airplane
+refrigerator,requires,compressor,compressor,requires,piston,if there is,piston,then there can be,refrigerator
+computer,runs on,processor,processor,is made from,silicon,if there is,silicon,then there can be,computer
+router,requires,firmware,firmware,is written in,code,if there is,code,then there can be,router
+camera,needs,sensor,sensor,contains,photodiode,if there is,photodiode,then there can be,camera
+guitar,requires,strings,strings,are made from,nylon,if there is,nylon,then there can be,guitar
+piano,uses,hammers,hammers,are made from,felt,if there is,felt,then there can be,piano
+violin,needs,bow,bow,uses,rosin,if there is,rosin,then there can be,violin
+book,requires,ink,ink,contains,pigment,if there is,pigment,then there can be,book
+radio,uses,antenna,antenna,is made from,copper,if there is,copper,then there can be,radio
+television,requires,display,display,contains,pixel,if there is,pixel,then there can be,television
+satellite,needs,transponder,transponder,uses,oscillator,if there is,oscillator,then there can be,satellite
+submarine,requires,ballast,ballast,contains,water,if there is,water,then there can be,submarine
+drone,uses,propeller,propeller,requires,blade,if there is,blade,then there can be,drone
+rocket,requires,fuel,fuel,requires,oxidizer,if there is,oxidizer,then there can be,rocket
+lighthouse,needs,lamp,lamp,requires,bulb,if there is,bulb,then there can be,lighthouse
+windmill,requires,rotor,rotor,has,shaft,if there is,shaft,then there can be,windmill
+photocell,requires,junction,junction,is made from,semiconductor,if there is,semiconductor,then there can be,photocell
+calculator,uses,computer,computer,requires,hardware,if there is,hardware,then there can be,calculator
+smartwatch,requires,wristband,wristband,requires,buckle,if there is,buckle,then there can be,smartwatch
+pacemaker,needs,electrode,electrode,is made from,platinum,if there is,platinum,then there can be,pacemaker
+ventilator,requires,airflow,airflow,is driven by,fan,if there is,fan,then there can be,ventilator
+elevator,needs,counterweight,counterweight,is made from,steel,if there is,steel,then there can be,elevator
+escalator,uses,steps,steps,require,tread,if there is,tread,then there can be,escalator
+thermostat,requires,thermistor,thermistor,uses,oxide,if there is,oxide,then there can be,thermostat
+sprinkler,uses,nozzle,nozzle,requires,orifice,if there is,orifice,then there can be,sprinkler
+washer,needs,drum,drum,is driven by,belt,if there is,belt,then there can be,washer
+dryer,requires,heater,heater,uses,resistor,if there is,resistor,then there can be,dryer
+blender,uses,blades,blades,require,alloy,if there is,alloy,then there can be,blender
+microwave,needs,heat,heat,uses,electricity,if there is,electricity,then there can be,microwave
+oven,requires,heating,heating,requires,element,if there is,element,then there can be,oven
+kettle,needs,spout,spout,requires,lip,if there is,lip,then there can be,kettle
+toaster,uses,nichrome,nichrome,contains,chromium,if there is,chromium,then there can be,toaster
+flashlight,requires,reflector,reflector,needs,mirror,if there is,mirror,then there can be,flashlight
+lantern,needs,mantle,mantle,requires,cerium,if there is,cerium,then there can be,lantern
+generator,requires,armature,armature,requires,commutator,if there is,commutator,then there can be,generator
+powerplant,uses,turbine,turbine,requires,generator,if there is,generator,then there can be,powerplant
+engine,requires,ignition,ignition,uses,sparkplug,if there is,sparkplug,then there can be,engine
+motor,needs,winding,winding,requires,insulation,if there is,insulation,then there can be,motor
+pump,requires,impeller,impeller,requires,shroud,if there is,shroud,then there can be,pump
+train,needs,engine,engine,uses,steam,if there is,steam,then there can be,train
+furnace,requires,burner,burner,requires,igniter,if there is,igniter,then there can be,furnace
+boiler,requires,steamdrum,steamdrum,requires,feedwater,if there is,feedwater,then there can be,boiler
+seismometer,uses,pendulum,pendulum,requires,pivot,if there is,pivot,then there can be,seismometer
+barometer,requires,mercury,mercury,occurs in,cinnabar,if there is,cinnabar,then there can be,barometer
+thermometer,needs,thermocouple,thermocouple,uses,wire,if there is,wire,then there can be,thermometer
+hygrometer,requires,hair,hair,contains,keratin,if there is,keratin,then there can be,hygrometer
+altimeter,uses,pressure,pressure,is measured in,pascal,if there is,pascal,then there can be,altimeter
+chronometer,needs,escapement,escapement,uses,pallet,if there is,pallet,then there can be,chronometer
+nutrient,requires,food,food,requires,meal,if there is,meal,then there can be,nutrient
+accelerometer,needs,proofmass,proofmass,requires,spring,if there is,spring,then there can be,accelerometer
+spectrometer,requires,grating,grating,has,groove,if there is,groove,then there can be,spectrometer
+centrifuge,needs,bucket,bucket,requires,latch,if there is,latch,then there can be,centrifuge
+incubator,requires,shelf,shelf,is made from,aluminum,if there is,aluminum,then there can be,incubator
+defibrillator,needs,capacitor,capacitor,uses,dielectric,if there is,dielectric,then there can be,defibrillator
+salad,requires,leaf,leaf,is made from,plant,if there is,plant,then there can be,salad
+syringe,needs,plunger,plunger,is made from,rubber,if there is,rubber,then there can be,syringe
+scalpel,requires,edge,edge,is made from,ceramic,if there is,ceramic,then there can be,scalpel
+rope,requires,fiber,fiber,is made from,silica,if there is,silica,then there can be,rope
+research,needs,image,image,requires,probe,if there is,probe,then there can be,research
+transistor,requires,gate,gate,is made from,polysilicon,if there is,polysilicon,then there can be,transistor
+diode,needs,pnjunction,pnjunction,requires,dopant,if there is,dopant,then there can be,diode
+resistor,uses,film,film,is made from,carbon,if there is,carbon,then there can be,resistor
+capacitor,requires,plates,plates,are made from,foil,if there is,foil,then there can be,capacitor
+inductor,needs,core,core,is made from,ferrite,if there is,ferrite,then there can be,inductor
+aerial,requires,dipole,dipole,is made from,metal,if there is,metal,then there can be,aerial
+speaker,needs,notes,notes,is made from,paper,if there is,paper,then there can be,speaker
+headphone,requires,driver,driver,contains,neodymium,if there is,neodymium,then there can be,headphone
+microphone,needs,capsule,capsule,contains,electret,if there is,electret,then there can be,microphone
+keyboard,requires,switch,switch,uses,membrane,if there is,membrane,then there can be,keyboard
+touchscreen,needs,digitizer,digitizer,uses,indiumtinoxide,if there is,indiumtinoxide,then there can be,touchscreen
+joystick,requires,potentiometer,potentiometer,provides,resistance,if there is,resistance,then there can be,joystick
+gamepad,needs,button,button,uses,dome,if there is,dome,then there can be,gamepad
+modem,requires,codec,codec,uses,algorithm,if there is,algorithm,then there can be,modem
+switch,requires,backplane,backplane,is made from,pcb,if there is,pcb,then there can be,switch
+firewall,needs,ruleset,ruleset,is written in,policy,if there is,policy,then there can be,firewall
+server,requires,storage,storage,uses,disk,if there is,disk,then there can be,server
+database,needs,index,index,is stored on,page,if there is,page,then there can be,database
+compiler,requires,parser,parser,uses,grammar,if there is,grammar,then there can be,compiler
+interpreter,needs,lexer,lexer,splits,token,if there is,token,then there can be,interpreter
+browser,requires,engine,engine,parses,html,if there is,html,then there can be,browser
+chatbot,needs,model,model,is trained on,data,if there is,data,then there can be,chatbot
+network,requires,protocol,protocol,defines,header,if there is,header,then there can be,network
+blockchain,needs,ledger,ledger,stores,block,if there is,block,then there can be,blockchain
+robot,requires,actuator,actuator,uses,servo,if there is,servo,then there can be,robot
+rover,needs,wheel,wheel,requires,axle,if there is,axle,then there can be,rover
+travel,requires,walk,walk,requires,shoes,if there is,shoes,then there can be,travel
+spectroscope,needs,prism,prism,is made from,quartz,if there is,quartz,then there can be,spectroscope
+biosensor,requires,bioreceptor,bioreceptor,binds,analyte,if there is,analyte,then there can be,biosensor
+photodiode,needs,depletion,depletion,requires,bias,if there is,bias,then there can be,photodiode
+microprocessor,requires,cache,cache,stores,instruction,if there is,instruction,then there can be,microprocessor
+document,requires,text,text,uses,alphabet,if there is,alphabet,then there can be,document
+contract,needs,parties,parties,require,consent,if there is,consent,then there can be,contract
+treaty,requires,ratification,ratification,requires,quorum,if there is,quorum,then there can be,treaty
+statute,needs,enactment,enactment,requires,legislature,if there is,legislature,then there can be,statute
+verdict,requires,jury,jury,requires,oath,if there is,oath,then there can be,verdict
