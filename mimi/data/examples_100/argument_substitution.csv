@@ -1,4 +1,4 @@
-Premise1\_Subject,Premise1\_Verb,Premise1\_Object,Premise2\_Subject,Premise2\_Verb,Premise2\_Object,Conclusion\_Subject,Conclusion\_Verb,Conclusion\_Object
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
 sparrow,belongs to,birds,birds,are,vertebrates,sparrow,is,vertebrates
 salmon,belongs to,fish,fish,are a subset of,aquatic vertebrates,salmon,is,aquatic vertebrates
 oak,belongs to,trees,trees,are,vascular plants,oak,is,vascular plants
@@ -29,7 +29,7 @@ cheddar,belongs to,cheeses,cheeses,are,dairy products,cheddar,is,dairy products
 yogurt,belongs to,fermented foods,fermented foods,are,processed foods,yogurt,is,processed foods
 baguette,belongs to,breads,breads,are,baked goods,baguette,is,baked goods
 espresso,belongs to,coffee drinks,coffee drinks,are,beverages,espresso,is,beverages
-currywurst,belongs to,sausages,sausages,are,meat products,currywurst,is,meat products
+currywurst,belongs to,sausage dishes,sausage dishes,are,meat products,currywurst,is,meat products
 tofu,belongs to,soy foods,soy foods,are,plant-based proteins,tofu,is,plant-based proteins
 sushi,belongs to,seafood dishes,seafood dishes,are,prepared foods,sushi,is,prepared foods
 avocado,belongs to,botanical berries,botanical berries,are,fruits,avocado,is,fruits
@@ -38,7 +38,7 @@ almond,belongs to,tree nuts,tree nuts,are,edible seeds,almond,is,edible seeds
 chia,belongs to,pseudocereals,pseudocereals,are,grain crops,chia,is,grain crops
 maple syrup,belongs to,sweeteners,sweeteners,are,food additives,maple syrup,is,food additives
 sahara,belongs to,deserts,deserts,are,arid regions,sahara,is,arid regions
-amazon river,belongs to,rivers,rivers,are,watercourses,amazon river,is,watercourses
+amazon,belongs to,brazil,brazil,is in,south america,amazon,is,south america
 alps,belongs to,mountain ranges,mountain ranges,are,landforms,alps,is,landforms
 sydney,belongs to,state capitals of australia,state capitals of australia,are,administrative centres,sydney,is,administrative centres
 luxembourg city,belongs to,capital cities,capital cities,are,national seats of government,luxembourg city,is,national seats of government
@@ -82,7 +82,7 @@ betelgeuse,belongs to,red supergiants,red supergiants,are,stars,betelgeuse,is,st
 andromeda galaxy,belongs to,spiral galaxies,spiral galaxies,are,galactic systems,andromeda galaxy,is,galactic systems
 panda,belongs to,ursids,ursids,are,carnivorans,panda,is,carnivorans
 platypus,belongs to,monotremes,monotremes,are,egg-laying mammals,platypus,is,egg-laying mammals
-emu,belongs to,ratites,ratites,are,paleognaths,emu,is,paleognaths
+ostrich,belongs to,flightless birds,flightless birds,are,birds,ostrich,is,birds
 cobra,belongs to,elapid snakes,elapid snakes,are,venomous reptiles,cobra,is,venomous reptiles
 falcon,belongs to,raptors,raptors,are,birds of prey,falcon,is,birds of prey
 oyster,belongs to,bivalves,bivalves,are,molluscan animals,oyster,is,molluscan animals
