@@ -1,101 +1,101 @@
-Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
-a gas giant,is a type of,planet,Jupiter,is a,gas giant,Jupiter,embodies,planet
-a terrestrial planet,is a form of,planet,Earth,is classified as,terrestrial planet,Earth,illustrates,planet
-a citrus fruit,belongs to the group,fruit,orange,is one example of a,citrus fruit,orange,embodies,fruit
-a berry,is categorized as a,fruit,strawberry,is one example of a,berry,strawberry,is a specific case of,fruit
-a raptor,is part of the category,bird,bald eagle,is a,raptor,bald eagle,is an example of,bird
-a passerine,is a type of,bird,house sparrow,is classified as,passerine,house sparrow,illustrates,bird
-a marsupial,is categorized as a,mammal,koala,is a,marsupial,koala,is a specific case of,mammal
-a primate,is classified as a,mammal,chimpanzee,can be considered a,primate,chimpanzee,illustrates,mammal
-an electric car,is included in,vehicle,Tesla Model S,is an instance of,electric car,Tesla Model S,serves as an example of,vehicle
-a motorcycle,is a kind of,vehicle,Ducati Monster,belongs to,motorcycle,Ducati Monster,embodies,vehicle
-a string instrument,is part of the category,musical instrument,violin,is a member of,string instrument,violin,demonstrates,musical instrument
-a percussion instrument,belongs to the group,musical instrument,snare drum,is classified as,percussion instrument,snare drum,serves as an example of,musical instrument
-a coffee,falls under,beverage,espresso,is one example of a,coffee,espresso,is an example of,beverage
-a soda,is part of the category,beverage,Coca‑Cola,is one example of a,soda,Coca‑Cola,demonstrates,beverage
-a Romance language,falls under,language family,Spanish,is an instance of,Romance language,Spanish,serves as an example of,language family
-a Germanic language,is a kind of,language family,English,represents a,Germanic language,English,is a specific case of,language family
-a novel,is a type of,literary genre,Pride and Prejudice,can be considered a,novel,Pride and Prejudice,is an example of,literary genre
-a play,is categorized as a,literary genre,Hamlet,is an instance of,play,Hamlet,serves as an example of,literary genre
-a skyscraper,falls under,building,Burj Khalifa,is classified as,skyscraper,Burj Khalifa,embodies,building
-a bridge,is a type of,civil structure,Golden Gate Bridge,is a,bridge,Golden Gate Bridge,embodies,civil structure
-a noble gas,is classified as a,chemical element group,helium,is an instance of,noble gas,helium,is an example of,chemical element group
-an alkali metal,is classified as a,chemical element group,sodium,is one example of a,alkali metal,sodium,represents,chemical element group
-a racket sport,is a form of,sport,tennis,represents a,racket sport,tennis,embodies,sport
-a team sport,falls under,sport,football,belongs to,team sport,football,demonstrates,sport
-a red dwarf,falls under,star,Proxima Centauri,is classified as,red dwarf,Proxima Centauri,embodies,star
-a supergiant star,is a form of,star,Betelgeuse,is one example of a,supergiant star,Betelgeuse,is a specific case of,star
-a zodiac constellation,belongs to the group,constellation,Leo,is classified as,zodiac constellation,Leo,illustrates,constellation
-a southern constellation,is included in,constellation,Crux,can be considered a,southern constellation,Crux,demonstrates,constellation
-a rainforest,is categorized as a,ecosystem,Amazon Rainforest,is classified as,rainforest,Amazon Rainforest,embodies,ecosystem
-a desert,falls under,ecosystem,Sahara Desert,is a,desert,Sahara Desert,illustrates,ecosystem
-a CPU,is a kind of,computer component,Intel Core i9,is a member of,CPU,Intel Core i9,represents,computer component
-a GPU,is a form of,computer component,NVIDIA GeForce RTX 4090,is one example of a,GPU,NVIDIA GeForce RTX 4090,illustrates,computer component
-a sculpture,falls under,art form,Michelangelo's David,is classified as,sculpture,Michelangelo's David,embodies,art form
-a painting,is included in,art form,Mona Lisa,can be considered a,painting,Mona Lisa,embodies,art form
-a viral infection,is included in,disease,influenza,belongs to,viral infection,influenza,demonstrates,disease
-a bacterial infection,belongs to the group,disease,tuberculosis,is classified as,bacterial infection,tuberculosis,embodies,disease
-a gemstone,is categorized as a,mineral,diamond,is an instance of,gemstone,diamond,embodies,mineral
-a metal ore,is part of the category,mineral,bauxite,can be considered a,metal ore,bauxite,demonstrates,mineral
-a religious holiday,is classified as a,holiday,Christmas,belongs to,religious holiday,Christmas,is a specific case of,holiday
-a national holiday,is included in,holiday,Independence Day,is one example of a,national holiday,Independence Day,serves as an example of,holiday
-a neuron,is a kind of,cell type,motor neuron,is one example of a,neuron,motor neuron,illustrates,cell type
-a blood cell,belongs to the group,cell type,red blood cell,can be considered a,blood cell,red blood cell,is a specific case of,cell type
-a fold mountain range,is a type of,mountain range,Himalayas,can be considered a,fold mountain range,Himalayas,represents,mountain range
-a volcanic mountain range,is included in,mountain range,Andes,is an instance of,volcanic mountain range,Andes,is a specific case of,mountain range
-a functional programming,is a kind of,programming paradigm,Haskell,is one example of a,functional programming,Haskell,embodies,programming paradigm
-an object‑oriented programming,is categorized as a,programming paradigm,Java,is an instance of,object‑oriented programming,Java,serves as an example of,programming paradigm
-a conifer,falls under,tree,pine tree,is one example of a,conifer,pine tree,demonstrates,tree
-a deciduous tree,is part of the category,tree,oak tree,belongs to,deciduous tree,oak tree,represents,tree
-an exothermic reaction,is a kind of,chemical reaction,combustion,is an instance of,exothermic reaction,combustion,is a specific case of,chemical reaction
-an endothermic reaction,belongs to the group,chemical reaction,photosynthesis,is one example of a,endothermic reaction,photosynthesis,serves as an example of,chemical reaction
-a decapod,is a form of,crustacean,lobster,is classified as,decapod,lobster,illustrates,crustacean
-an isopod,falls under,crustacean,woodlouse,belongs to,isopod,woodlouse,is a specific case of,crustacean
-a cartilaginous fish,is categorized as a,fish,great white shark,is a,cartilaginous fish,great white shark,is a specific case of,fish
-a bony fish,falls under,fish,Atlantic salmon,represents a,bony fish,Atlantic salmon,is an example of,fish
-a spiral galaxy,is a type of,galaxy,Milky Way,is a member of,spiral galaxy,Milky Way,serves as an example of,galaxy
-an elliptical galaxy,is a form of,galaxy,Messier 87,is classified as,elliptical galaxy,Messier 87,is an example of,galaxy
-an island continent,is classified as a,continent,Australia,is one example of a,island continent,Australia,is an example of,continent
-a delta,is included in,landform,Nile Delta,is one example of a,delta,Nile Delta,serves as an example of,landform
-a renewable energy source,is categorized as a,energy source,solar power,belongs to,renewable energy source,solar power,illustrates,energy source
-a fossil fuel,is included in,energy source,coal,belongs to,fossil fuel,coal,demonstrates,energy source
-an ionic bond,is categorized as a,chemical bond,sodium chloride,can be considered a,ionic bond,sodium chloride,illustrates,chemical bond
-a covalent bond,is categorized as a,chemical bond,water molecule,is classified as,covalent bond,water molecule,embodies,chemical bond
-a mixed economy,is a form of,economic system,United States economy,can be considered a,mixed economy,United States economy,embodies,economic system
-a command economy,falls under,economic system,North Korea economy,represents a,command economy,North Korea economy,is a specific case of,economic system
-a prime number,is included in,mathematical concept,13,is one example of a,prime number,13,illustrates,mathematical concept
-an irrational number,is classified as a,mathematical concept,square root of 2,is one example of a,irrational number,square root of 2,demonstrates,mathematical concept
-a dragon,is a kind of,mythological creature,Smaug,is classified as,dragon,Smaug,is a specific case of,mythological creature
-a phoenix,is classified as a,mythological creature,Fawkes,is a,phoenix,Fawkes,is an example of,mythological creature
-a revolution,is a kind of,historical event,French Revolution,is classified as,revolution,French Revolution,is an example of,historical event
-a world war,is a kind of,historical event,World War II,is a member of,world war,World War II,is an example of,historical event
-a scripting language,is categorized as a,programming language,JavaScript,is classified as,scripting language,JavaScript,demonstrates,programming language
-a compiled language,is included in,programming language,C++,is classified as,compiled language,C++,is a specific case of,programming language
-an Impressionism,belongs to the group,art movement,Water Lilies,represents a,Impressionism,Water Lilies,illustrates,art movement
-a Cubism,is included in,art movement,Les Demoiselles d'Avignon,can be considered a,Cubism,Les Demoiselles d'Avignon,illustrates,art movement
-a classical music,is a type of,musical genre,Beethoven Symphony No.5,is one example of a,classical music,Beethoven Symphony No.5,embodies,musical genre
-a jazz,is part of the category,musical genre,Take Five,is a member of,jazz,Take Five,represents,musical genre
-a frog,is part of the category,amphibian,poison dart frog,represents a,frog,poison dart frog,serves as an example of,amphibian
-a turtle,is a kind of,reptile,green sea turtle,is one example of a,turtle,green sea turtle,is an example of,reptile
-a butterfly,is part of the category,insect,monarch butterfly,is a member of,butterfly,monarch butterfly,serves as an example of,insect
-a spider,is a type of,arachnid,tarantula,is classified as,spider,tarantula,illustrates,arachnid
-a big cat,is classified as a,mammal,lion,represents a,big cat,lion,illustrates,mammal
-a hoofed mammal,is part of the category,mammal,horse,belongs to,hoofed mammal,horse,demonstrates,mammal
-a weathering,is included in,geological process,acid rain weathering limestone,is classified as,weathering,acid rain weathering limestone,serves as an example of,geological process
-a hurricane,is a type of,meteorological phenomenon,Hurricane Katrina,represents a,hurricane,Hurricane Katrina,serves as an example of,meteorological phenomenon
-an inflation rate,is categorized as a,economic indicator,Consumer Price Index change,is one example of a,inflation rate,Consumer Price Index change,is an example of,economic indicator
-a force,is categorized as a,physical quantity,gravitational force,is a,force,gravitational force,is an example of,physical quantity
-a lepton,is classified as a,subatomic particle,electron,belongs to,lepton,electron,represents,subatomic particle
-a baryon,is included in,subatomic particle,proton,represents a,baryon,proton,illustrates,subatomic particle
-a fat‑soluble vitamin,is part of the category,vitamin,vitamin D,is a,fat‑soluble vitamin,vitamin D,illustrates,vitamin
-a water‑soluble vitamin,is part of the category,vitamin,vitamin C,is a,water‑soluble vitamin,vitamin C,represents,vitamin
-a relational database,is a form of,database model,PostgreSQL,represents a,relational database,PostgreSQL,demonstrates,database model
-a NoSQL database,is part of the category,database model,MongoDB,represents a,NoSQL database,MongoDB,illustrates,database model
-a digestive organ,is classified as a,human organ,stomach,is an instance of,digestive organ,stomach,illustrates,human organ
-a respiratory organ,is a kind of,human organ,lungs,is a,respiratory organ,lungs,embodies,human organ
-a Gothic architecture,falls under,architectural style,Notre‑Dame Cathedral,is a,Gothic architecture,Notre‑Dame Cathedral,is an example of,architectural style
-a Modernist architecture,is included in,architectural style,Fallingwater,belongs to,Modernist architecture,Fallingwater,is an example of,architectural style
-a civil engineering,is categorized as a,engineering discipline,Brooklyn Bridge,is one example of a,civil engineering,Brooklyn Bridge,serves as an example of,engineering discipline
-an electrical engineering,belongs to the group,engineering discipline,iPhone motherboard,is one example of a,electrical engineering,iPhone motherboard,is a specific case of,engineering discipline
-an angiosperm,is a type of,seed plant,rose,is classified as,angiosperm,rose,represents,seed plant
-a gymnosperm,is a type of,seed plant,Norway spruce,is classified as,gymnosperm,Norway spruce,is a specific case of,seed plant
+Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Example_Clause,Example_Subject,Example_Verb,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
+shelters,can be used to,live in,raccoons,live in,hollow logs,an example of,shelters,is,raccoons,live in,hollow logs
+vehicles,are used to,get transported in,miners,get transported in,wagons,an example of,vehicles,is,miners,get transported in,wagons
+bridges,are designed to,cross rivers on,trekkers,cross rivers on,suspension bridges,an example of,bridges,is,trekkers,cross rivers on,suspension bridges
+roads,are suitable to,drive on,motorists,drive on,highways,an example of,roads,is,motorists,drive on,highways
+trains,are commonly used to,travel on,passengers,travel on,bullet trains,an example of,trains,is,passengers,travel on,bullet trains
+runways,often help to,take off from,airplanes,take off from,asphalt runways,an example of,runways,is,airplanes,take off from,asphalt runways
+piers,enable people to,dock at,ferries,dock at,floating piers,an example of,piers,is,ferries,dock at,floating piers
+containers,are meant to,store grain in,farmers,store grain in,silos,an example of,containers,is,farmers,store grain in,silos
+bottles,allow people to,store reagents in,chemists,store reagents in,glass bottles,an example of,bottles,is,chemists,store reagents in,glass bottles
+jars,are employed to,preserve jam in,pastry chefs,preserve jam in,mason jars,an example of,jars,is,pastry chefs,preserve jam in,mason jars
+tanks,serve to,collect rainwater in,villagers,collect rainwater in,water tanks,an example of,tanks,is,villagers,collect rainwater in,water tanks
+backpacks,can help to,carry books in,students,carry books in,hiking backpacks,an example of,backpacks,is,students,carry books in,hiking backpacks
+wallets,can be used to,keep cash in,shoppers,keep cash in,leather wallets,an example of,wallets,is,shoppers,keep cash in,leather wallets
+safes,are used to,secure valuables in,collectors,secure valuables in,fireproof safes,an example of,safes,is,collectors,secure valuables in,fireproof safes
+envelopes,are designed to,mail fragile items in,shippers,mail fragile items in,padded envelopes,an example of,envelopes,is,shippers,mail fragile items in,padded envelopes
+crates,are suitable to,ship produce in,growers,ship produce in,wooden crates,an example of,crates,is,growers,ship produce in,wooden crates
+suitcases,are commonly used to,pack clothes in,travelers,pack clothes in,rolling suitcases,an example of,suitcases,is,travelers,pack clothes in,rolling suitcases
+briefcases,often help to,carry files in,lawyers,carry files in,aluminium briefcases,an example of,briefcases,is,lawyers,carry files in,aluminium briefcases
+coolers,enable people to,keep food cold in,campers,keep food cold in,insulated coolers,an example of,coolers,is,campers,keep food cold in,insulated coolers
+thermoses,are meant to,keep drinks hot in,hikers,keep drinks hot in,vacuum flasks,an example of,thermoses,is,hikers,keep drinks hot in,vacuum flasks
+lockers,allow people to,store gear in,athletes,store gear in,gym lockers,an example of,lockers,is,athletes,store gear in,gym lockers
+archives,are employed to,store manuscripts in,curators,store manuscripts in,climate-controlled archives,an example of,archives,is,curators,store manuscripts in,climate-controlled archives
+tools,serve to,drive nails with,carpenters,drive nails with,hammers,an example of,tools,is,carpenters,drive nails with,hammers
+utensils,can help to,flip pancakes with,short-order cooks,flip pancakes with,spatulas,an example of,utensils,is,short-order cooks,flip pancakes with,spatulas
+knives,can be used to,slice vegetables with,chefs,slice vegetables with,chef's knives,an example of,knives,is,chefs,slice vegetables with,chef's knives
+forks,are used to,turn meat with,grillers,turn meat with,barbecue forks,an example of,forks,is,grillers,turn meat with,barbecue forks
+spoons,are designed to,measure spices with,bakers,measure spices with,measuring spoons,an example of,spoons,is,bakers,measure spices with,measuring spoons
+tongs,are suitable to,pick up salad with,servers,pick up salad with,kitchen tongs,an example of,tongs,is,servers,pick up salad with,kitchen tongs
+scissors,are commonly used to,cut cloth with,tailors,cut cloth with,fabric scissors,an example of,scissors,is,tailors,cut cloth with,fabric scissors
+brushes,often help to,apply paint with,artists,apply paint with,paintbrushes,an example of,brushes,is,artists,apply paint with,paintbrushes
+pencils,enable people to,sketch diagrams with,students of engineering,sketch diagrams with,graphite pencils,an example of,pencils,is,students of engineering,sketch diagrams with,graphite pencils
+pens,are meant to,write letters with,calligraphers,write letters with,fountain pens,an example of,pens,is,calligraphers,write letters with,fountain pens
+cameras,allow people to,capture images with,photographers,capture images with,DSLR cameras,an example of,cameras,is,photographers,capture images with,DSLR cameras
+microphones,are employed to,record audio with,podcasters,record audio with,condenser microphones,an example of,microphones,is,podcasters,record audio with,condenser microphones
+binoculars,serve to,observe birds with,birders,observe birds with,field binoculars,an example of,binoculars,is,birders,observe birds with,field binoculars
+telescopes,can help to,view galaxies with,astronomers,view galaxies with,reflecting telescopes,an example of,telescopes,is,astronomers,view galaxies with,reflecting telescopes
+compasses,can be used to,find directions with,orienteers,find directions with,magnetic compasses,an example of,compasses,is,orienteers,find directions with,magnetic compasses
+thermometers,are used to,measure temperature with,nurses,measure temperature with,digital thermometers,an example of,thermometers,is,nurses,measure temperature with,digital thermometers
+stethoscopes,are designed to,listen to heartbeats with,doctors,listen to heartbeats with,Littmann stethoscopes,an example of,stethoscopes,is,doctors,listen to heartbeats with,Littmann stethoscopes
+wheelbarrows,are suitable to,move soil with,gardeners,move soil with,steel wheelbarrows,an example of,wheelbarrows,is,gardeners,move soil with,steel wheelbarrows
+ladders,are commonly used to,reach roofs with,painters,reach roofs with,extension ladders,an example of,ladders,is,painters,reach roofs with,extension ladders
+printers,often help to,print documents with,office managers,print documents with,laser printers,an example of,printers,is,office managers,print documents with,laser printers
+garments,enable people to,keep warm with,mountaineers,keep warm with,parkas,an example of,garments,is,mountaineers,keep warm with,parkas
+helmets,are meant to,protect heads with,climbers,protect heads with,climbing helmets,an example of,helmets,is,climbers,protect heads with,climbing helmets
+gloves,allow people to,keep hands warm with,skiers,keep hands warm with,insulated gloves,an example of,gloves,is,skiers,keep hands warm with,insulated gloves
+boots,are employed to,grip trails with,trekkers of Nepal,grip trails with,hiking boots,an example of,boots,is,trekkers of Nepal,grip trails with,hiking boots
+goggles,serve to,see underwater with,swimmers,see underwater with,swim goggles,an example of,goggles,is,swimmers,see underwater with,swim goggles
+umbrellas,can help to,stay dry under,commuters,stay dry under,compact umbrellas,an example of,umbrellas,is,commuters,stay dry under,compact umbrellas
+hats,can be used to,shade faces with,gardeners' assistants,shade faces with,wide-brim hats,an example of,hats,is,gardeners' assistants,shade faces with,wide-brim hats
+respirators,are used to,filter air with,nurses in ICUs,filter air with,N95 respirators,an example of,respirators,is,nurses in ICUs,filter air with,N95 respirators
+belts,are designed to,support backs with,powerlifters,support backs with,weightlifting belts,an example of,belts,is,powerlifters,support backs with,weightlifting belts
+ovens,are suitable to,bake bread in,bakers at dawn,bake bread in,convection ovens,an example of,ovens,is,bakers at dawn,bake bread in,convection ovens
+pans,are commonly used to,sear steaks in,line cooks,sear steaks in,cast-iron pans,an example of,pans,is,line cooks,sear steaks in,cast-iron pans
+pots,often help to,simmer soup in,home cooks,simmer soup in,stock pots,an example of,pots,is,home cooks,simmer soup in,stock pots
+kettles,enable people to,boil water in,students in dorms,boil water in,electric kettles,an example of,kettles,is,students in dorms,boil water in,electric kettles
+microwaves,are meant to,reheat meals in,tenants,reheat meals in,microwave ovens,an example of,microwaves,is,tenants,reheat meals in,microwave ovens
+fridges,allow people to,chill drinks in,office workers,chill drinks in,bar fridges,an example of,fridges,is,office workers,chill drinks in,bar fridges
+freezers,are employed to,preserve fish in,anglers,preserve fish in,chest freezers,an example of,freezers,is,anglers,preserve fish in,chest freezers
+grills,serve to,smoke ribs on,pitmasters,smoke ribs on,charcoal grills,an example of,grills,is,pitmasters,smoke ribs on,charcoal grills
+toasters,can help to,toast bread in,roommates,toast bread in,slot toasters,an example of,toasters,is,roommates,toast bread in,slot toasters
+rice cookers,can be used to,steam rice in,home economists,steam rice in,induction rice cookers,an example of,rice cookers,is,home economists,steam rice in,induction rice cookers
+balls,are used to,play football with,strikers,play football with,soccer balls,an example of,balls,is,strikers,play football with,soccer balls
+rackets,are designed to,hit serves with,athletes at Wimbledon,hit serves with,tennis rackets,an example of,rackets,is,athletes at Wimbledon,hit serves with,tennis rackets
+bats,are suitable to,strike balls with,openers,strike balls with,cricket bats,an example of,bats,is,openers,strike balls with,cricket bats
+clubs,are commonly used to,drive tee shots with,golfers,drive tee shots with,golf clubs,an example of,clubs,is,golfers,drive tee shots with,golf clubs
+skis,often help to,descend slopes on,alpinists,descend slopes on,alpine skis,an example of,skis,is,alpinists,descend slopes on,alpine skis
+snowboards,enable people to,carve turns on,freeriders,carve turns on,freestyle snowboards,an example of,snowboards,is,freeriders,carve turns on,freestyle snowboards
+kayaks,are meant to,explore coasts in,paddlers,explore coasts in,sea kayaks,an example of,kayaks,is,paddlers,explore coasts in,sea kayaks
+canoes,allow people to,paddle rivers in,canoeists,paddle rivers in,racing canoes,an example of,canoes,is,canoeists,paddle rivers in,racing canoes
+surfboards,are employed to,ride waves on,longboarders,ride waves on,longboards,an example of,surfboards,is,longboarders,ride waves on,longboards
+bicycles,serve to,commute on,urban cyclists,commute on,road bikes,an example of,bicycles,is,urban cyclists,commute on,road bikes
+computers,can help to,write essays on,undergraduates,write essays on,laptops,an example of,computers,is,undergraduates,write essays on,laptops
+phones,can be used to,navigate cities with,solo travelers,navigate cities with,smartphones,an example of,phones,is,solo travelers,navigate cities with,smartphones
+routers,are used to,share internet through,households,share internet through,Wi‑Fi routers,an example of,routers,is,households,share internet through,Wi‑Fi routers
+projectors,are designed to,show slides with,lecturers,show slides with,LED projectors,an example of,projectors,is,lecturers,show slides with,LED projectors
+speakers,are suitable to,listen to music through,audiophiles,listen to music through,bookshelf speakers,an example of,speakers,is,audiophiles,listen to music through,bookshelf speakers
+headphones,are commonly used to,block noise with,metro commuters,block noise with,noise-cancelling headphones,an example of,headphones,is,metro commuters,block noise with,noise-cancelling headphones
+keyboards,often help to,type code on,programmers,type code on,mechanical keyboards,an example of,keyboards,is,programmers,type code on,mechanical keyboards
+tablets,enable people to,sketch concepts on,illustrators,sketch concepts on,drawing tablets,an example of,tablets,is,illustrators,sketch concepts on,drawing tablets
+notebooks,are meant to,log experiments in,researchers,log experiments in,lab notebooks,an example of,notebooks,is,researchers,log experiments in,lab notebooks
+pipettes,allow people to,dispense reagents with,biologists,dispense reagents with,micropipettes,an example of,pipettes,is,biologists,dispense reagents with,micropipettes
+centrifuges,are employed to,separate samples in,technicians,separate samples in,benchtop centrifuges,an example of,centrifuges,is,technicians,separate samples in,benchtop centrifuges
+aquariums,serve to,keep corals in,aquarists,keep corals in,reef aquariums,an example of,aquariums,is,aquarists,keep corals in,reef aquariums
+terrariums,can help to,grow moss in,hobbyists,grow moss in,glass terrariums,an example of,terrariums,is,hobbyists,grow moss in,glass terrariums
+greenhouses,can be used to,raise seedlings in,horticulturists,raise seedlings in,solar greenhouses,an example of,greenhouses,is,horticulturists,raise seedlings in,solar greenhouses
+incubators,are used to,hatch chicks in,farmers with flocks,hatch chicks in,egg incubators,an example of,incubators,is,farmers with flocks,hatch chicks in,egg incubators
+kilns,are designed to,fire clay in,potters,fire clay in,pottery kilns,an example of,kilns,is,potters,fire clay in,pottery kilns
+maps,are suitable to,plan routes with,mountain guides,plan routes with,topographic maps,an example of,maps,is,mountain guides,plan routes with,topographic maps
+tents,are commonly used to,sleep in,backcountry campers,sleep in,backpacking tents,an example of,tents,is,backcountry campers,sleep in,backpacking tents
+hammocks,often help to,rest in,backpackers,rest in,camping hammocks,an example of,hammocks,is,backpackers,rest in,camping hammocks
+stoves,enable people to,melt snow on,high-altitude climbers,melt snow on,camp stoves,an example of,stoves,is,high-altitude climbers,melt snow on,camp stoves
+cards,are meant to,pay for groceries with,customers,pay for groceries with,debit cards,an example of,cards,is,customers,pay for groceries with,debit cards
+currencies,allow people to,buy tickets with,tourists,buy tickets with,euros,an example of,currencies,is,tourists,buy tickets with,euros
+tickets,are employed to,board trains with,commuters with passes,board trains with,train tickets,an example of,tickets,is,commuters with passes,board trains with,train tickets
+receipts,serve to,reconcile expenses with,accountants,reconcile expenses with,digital receipts,an example of,receipts,is,accountants,reconcile expenses with,digital receipts
+scanners,can help to,check prices with,clerks,check prices with,barcode scanners,an example of,scanners,is,clerks,check prices with,barcode scanners
+syringes,can be used to,inject insulin with,diabetics,inject insulin with,insulin syringes,an example of,syringes,is,diabetics,inject insulin with,insulin syringes
+inhalers,are used to,relieve attacks with,asthmatics,relieve attacks with,rescue inhalers,an example of,inhalers,is,asthmatics,relieve attacks with,rescue inhalers
+braces,are designed to,straighten teeth with,patients in treatment,straighten teeth with,dental braces,an example of,braces,is,patients in treatment,straighten teeth with,dental braces
+crutches,are suitable to,walk after injuries with,patients in recovery,walk after injuries with,forearm crutches,an example of,crutches,is,patients in recovery,walk after injuries with,forearm crutches

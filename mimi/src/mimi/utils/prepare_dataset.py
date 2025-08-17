@@ -1820,8 +1820,235 @@ class ArgSubPropAMRBuilder(BaseAMRBuilder):
         return prompt_lens, max_len
 
 class ExampleAMRBuilder(BaseAMRBuilder):
-    """Example type: defaults to base behavior unless customized."""
-    pass
+    def __init__(self, df: pd.DataFrame, N: int, seed: int, tokenizer):
+        super().__init__(df, N, seed, tokenizer)
+        # Columns commonly used for corruptions (A,B,C refer to the classic syllogistic slots)
+        self.A_col = df["Premise1_Subject"]
+        self.V_col = df["Premise1_Object"]  
+        self.B_col = df["Premise2_Subject"]
+        self.C_col = df["Premise2_Object"]
+
+
+        self.element_list = list(self.V_col) 
+
+
+        self.because_str = "because"
+        self.and_str = "and because"
+        self.can_be_str = "can be done by" #is done when things
+        self.deduction_str = "thus"
+        self.example_str = "an example of"
+        self.is_str = "is"
+
+        self.labels = [
+            "BEGIN",
+            "a_1",
+            "->",
+            "v_1",
+            "∧",
+            "b_1",
+            "v_2",
+            "c",
+            "EXAMPLE",
+            "a_2",
+            "IS",
+            "b_2",
+        ]
+
+
+    def get_prompt_label_pair_from_row(self, row: pd.Series, corruption: Optional[str] = None) -> Dict:
+        
+        a = " " + row["Premise1_Subject"]
+        v = " " + row["Premise1_Object"]
+        b = " " + row["Premise2_Subject"]
+        c = " " + row["Premise2_Object"]          
+        return self.get_prompt_label_pair_from_row_and_components(row, a, b, c, v, corruption=corruption)
+    
+    def get_prompt_label_pair_from_row_and_components(
+        self, row: pd.Series, a: str, b: str, c: str, v: str, corruption: Optional[str] = None
+    ) -> Dict:
+        prompt = {}
+        
+        premise_1 = f"{a}{self.can_be_str}{v}"
+
+        if corruption:
+            premise_2 = f"{b}{corruption}{c}"
+        else:
+            premise_2 = f"{b}{v}{c}"
+        
+        conclusion_set_up = f"{self.example_str}{a}{self.is_str}{b}{v}"
+
+        prompt["input"] = f"{self.because_str}{premise_1} {self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up}"
+        prompt["a"] = a
+        prompt["b"] = b
+        prompt["c"] = c
+        prompt["v"] = v
+        prompt["corruption"] = corruption
+        prompt["labels"] = (c, a)
+        return prompt
+    
+    def corrupt_middle_term(self) -> List[Dict]:
+        """
+        Replace the middle term subject in premise 2 (a2) with a random alternative.
+        """
+        prompts = []
+        for _, row in self.samples.iterrows():
+            corruption = " " + get_filtered_sample(self.V_col, [row["Premise1_Object"]])
+            prompts.append(self.get_prompt_label_pair_from_row(row, corruption=corruption))
+        return prompts
+
+    def corrupt_all_terms(self) -> List[Dict]:
+        """
+        Independently replace A, B, and C with random alternatives (one-word form).
+        """
+        prompts = []
+        for _, row in self.samples.iterrows():
+            a = " " + get_filtered_sample(self.A_col, [row["Premise1_Subject"]])
+            b = " " + get_filtered_sample(self.B_col, [row["Premise2_Subject"]])
+            c = " " + get_filtered_sample(self.C_col, [row["Premise2_Object"]])
+            v = " " + get_filtered_sample(self.V_col, [row["Premise1_Object"]])
+            prompts.append(self.get_prompt_label_pair_from_row_and_components(row, a, b, c, v))
+        return prompts
+
+    def tlen(self,text):
+        return len(self.tokenizer(text, add_special_tokens=False)["input_ids"])
+
+    def get_label_token_lengths(self, prompts):
+        # seed with declared labels
+        max_len = {lab: 0 for lab in self.labels}
+
+        # fixed operators (constant across prompts)
+        max_len["BEGIN"]   = self.tlen(self.because_str)
+        max_len["->"]      = self.tlen(self.can_be_str)
+        max_len["∧"]       = self.tlen(self.and_str)
+        max_len["THUS"]    = self.tlen(self.deduction_str)  # internal helper (not in self.labels)
+        max_len["EXAMPLE"] = self.tlen(self.example_str)
+        max_len["IS"]      = self.tlen(self.is_str)
+
+        prompt_lens = []
+        for prompt in prompts:
+            pl = {lab: 0 for lab in self.labels}
+
+            # fixed parts
+            pl["BEGIN"]   = max_len["BEGIN"]
+            pl["->"]      = max_len["->"]
+            pl["∧"]       = max_len["∧"]
+            pl["THUS"]    = max_len["THUS"]
+            pl["EXAMPLE"] = max_len["EXAMPLE"]
+            pl["IS"]      = max_len["IS"]
+
+            # variable parts from the prompt dict
+            a_len  = self.tlen(prompt["a"])
+            v_len  = self.tlen(prompt["v"])
+            b_len  = self.tlen(prompt["b"])
+            v2_len = self.tlen(prompt["corruption"]) if prompt.get("corruption") else v_len
+            c_len  = self.tlen(prompt["c"])
+
+            # fill per-prompt
+            pl["a_1"] = a_len
+            pl["v_1"] = v_len
+            pl["b_1"] = b_len
+            pl["v_2"] = v2_len
+            pl["c"]   = c_len
+            pl["a_2"] = a_len
+            pl["b_2"] = b_len
+            pl["v_3"] = v_len  # final verb in the conclusion ("... b v"); internal helper
+
+            # update global maxima
+            for k in ["a_1", "v_1", "b_1", "v_2", "c", "a_2", "b_2", "v_3"]:
+                max_len[k] = max(max_len.get(k, 0), pl[k])
+
+            prompt_lens.append(pl)
+
+        return prompt_lens, max_len
+
+
+    def get_adjusted_token_sequences(self, max_len, prompts) -> t.Tensor:
+        """
+        Sequence layout (labels shown; fixed tokens mapped to your strings):
+        BEGIN  a_1  ->  v_1  ∧  b_1  v_2  c  THUS  EXAMPLE  a_2  IS  b_2  v_3
+        """
+        tokenised = []
+
+        # fixed-token pieces
+        BEGIN = self.tokenizer(self.because_str,   add_special_tokens=False)["input_ids"]
+        CAN   = self.tokenizer(self.can_be_str,    add_special_tokens=False)["input_ids"]
+        AND   = self.tokenizer(self.and_str,       add_special_tokens=False)["input_ids"]
+        THUS  = self.tokenizer(self.deduction_str, add_special_tokens=False)["input_ids"]
+        EX    = self.tokenizer(self.example_str,   add_special_tokens=False)["input_ids"]
+        IS    = self.tokenizer(self.is_str,        add_special_tokens=False)["input_ids"]
+
+        for prompt in prompts:
+            seq = []
+
+            # BEGIN
+            seq += BEGIN
+
+            # a_1
+            seq += self.tokenizer(
+                prompt["a"], add_special_tokens=False,
+                padding="max_length", max_length=max_len["a_1"], truncation=True
+            )["input_ids"]
+
+            # ->
+            seq += CAN
+
+            # v_1
+            seq += self.tokenizer(
+                prompt["v"], add_special_tokens=False,
+                padding="max_length", max_length=max_len["v_1"], truncation=True
+            )["input_ids"]
+
+            # ∧
+            seq += AND
+
+            # b_1
+            seq += self.tokenizer(
+                prompt["b"], add_special_tokens=False,
+                padding="max_length", max_length=max_len["b_1"], truncation=True
+            )["input_ids"]
+
+            # v_2 (possibly corrupted)
+            v2_text = prompt["corruption"] if prompt.get("corruption") else prompt["v"]
+            seq += self.tokenizer(
+                v2_text, add_special_tokens=False,
+                padding="max_length", max_length=max_len["v_2"], truncation=True
+            )["input_ids"]
+
+            # c
+            seq += self.tokenizer(
+                prompt["c"], add_special_tokens=False,
+                padding="max_length", max_length=max_len["c"], truncation=True
+            )["input_ids"]
+
+            # THUS EXAMPLE
+            seq += THUS
+            seq += EX
+
+            # a_2
+            seq += self.tokenizer(
+                prompt["a"], add_special_tokens=False,
+                padding="max_length", max_length=max_len["a_2"], truncation=True
+            )["input_ids"]
+
+            # IS
+            seq += IS
+
+            # b_2
+            seq += self.tokenizer(
+                prompt["b"], add_special_tokens=False,
+                padding="max_length", max_length=max_len["b_2"], truncation=True
+            )["input_ids"]
+
+            # v_3 (final verb in the conclusion)
+            seq += self.tokenizer(
+                prompt["v"], add_special_tokens=False,
+                padding="max_length", max_length=max_len["v_3"], truncation=True
+            )["input_ids"]
+
+            tokenised.append(seq)
+
+        return t.tensor(tokenised, dtype=t.long)
+
 
 
 class IfThenAMRBuilder(BaseAMRBuilder):
