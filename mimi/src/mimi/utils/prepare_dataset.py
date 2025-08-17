@@ -89,9 +89,9 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
 
         self.element_list = list(self.A_col) + list(self.B_col) + list(self.C_col)
 
-        self.begin_str = "because"
+        self.begin_str = "because "
         self.and_str = "and because "
-        self.deduction_str = "thus"
+        self.deduction_str = "thus "
         self.are_str = "are"
         self.belongs_str = "belongs to "
 
@@ -134,7 +134,7 @@ class ArgSubAMRBuilder(BaseAMRBuilder):
         
         conclusion_set_up = f"{a} {self.belongs_str}"
 
-        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2}{self.deduction_str}{conclusion_set_up} "
+        prompt["input"] = f"{self.begin_str}{premise_1} {self.and_str}{premise_2} {self.deduction_str}{conclusion_set_up} "
         prompt["a"] = a
         prompt["b"] = b
         prompt["c"] = c

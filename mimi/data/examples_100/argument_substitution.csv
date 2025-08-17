@@ -8,10 +8,10 @@ tokyo,belongs to,cities,cities,are,urban settlements,tokyo,is,urban settlements
 eiffel tower,belongs to,monuments,monuments,are,architectural structures,eiffel tower,is,architectural structures
 copper,is a type of,metals,metals,are,chemical elements,copper,is,chemical elements
 glucose,belongs to,monosaccharides,monosaccharides,are,carbohydrates,glucose,is,carbohydrates
-quartz,belongs to,minerals,minerals,are,natural solids,quartz,is,natural solids
+quartz,belongs to,crystals,crystals,are,minerals,quartz,is,minerals
 helium,belongs to,noble gases,noble gases,are,inert elements,helium,is,inert elements
 tiger,belongs to,big cats,big cats,are,mammals,tiger,is,mammals
-penguin,belongs to,flightless birds,flightless birds,are,avian species,penguin,is,avian species
+penguin,belongs to,avians,avians,are,birds,penguin,is,birds
 koala,belongs to,marsupials,marsupials,are,metatherians,koala,is,metatherians
 anaconda,belongs to,constrictor snakes,constrictor snakes,are,reptiles,anaconda,is,reptiles
 honeybee,belongs to,insects,insects,are,arthropods,honeybee,is,arthropods
@@ -28,7 +28,7 @@ basmati,belongs to,rice varieties,rice varieties,are,cultivars,basmati,is,cultiv
 cheddar,belongs to,cheeses,cheeses,are,dairy products,cheddar,is,dairy products
 yogurt,belongs to,fermented foods,fermented foods,are,processed foods,yogurt,is,processed foods
 baguette,belongs to,breads,breads,are,baked goods,baguette,is,baked goods
-espresso,belongs to,coffee drinks,coffee drinks,are,beverages,espresso,is,beverages
+espresso,belongs to,coffee drinks,coffee drinks,are,beverages,escpresso,is,beverages
 currywurst,belongs to,sausage dishes,sausage dishes,are,meat products,currywurst,is,meat products
 tofu,belongs to,soy foods,soy foods,are,plant-based proteins,tofu,is,plant-based proteins
 sushi,belongs to,seafood dishes,seafood dishes,are,prepared foods,sushi,is,prepared foods
@@ -40,11 +40,11 @@ maple syrup,belongs to,sweeteners,sweeteners,are,food additives,maple syrup,is,f
 sahara,belongs to,deserts,deserts,are,arid regions,sahara,is,arid regions
 amazon,belongs to,brazil,brazil,is in,south america,amazon,is,south america
 alps,belongs to,mountain ranges,mountain ranges,are,landforms,alps,is,landforms
-sydney,belongs to,state capitals of australia,state capitals of australia,are,administrative centres,sydney,is,administrative centres
-luxembourg city,belongs to,capital cities,capital cities,are,national seats of government,luxembourg city,is,national seats of government
+sydney,belongs to,state capitals,state capitals,are,administrative centres,sydney,is,administrative centres
+luxembourg,belongs to,grand-duchy,grand-duchy,is a type of,monarchy,luxembourg,is,monarchy
 milan,belongs to,italian cities,italian cities,are,municipalities,milan,is,municipalities
 brussels,belongs to,european capitals,european capitals,are,political centers,brussels,is,political centers
-andes,belongs to,cordilleras,cordilleras,are,orogenic belts,andes,is,orogenic belts
+andes,belongs to,mountain range,mountain range,are,cordilleras,andes,is,cordilleras
 gobi,belongs to,deserts of asia,deserts of asia,are,drylands,gobi,is,drylands
 pacific ocean,belongs to,oceans,oceans,are,earth's water bodies,pacific ocean,is,earth's water bodies
 everest,belongs to,mountains,mountains,are,high elevations,everest,is,high elevations
@@ -68,10 +68,10 @@ covid-19,belongs to,viral diseases,viral diseases,are,infectious diseases,covid-
 measles,belongs to,contagious diseases,contagious diseases,are,transmissible illnesses,measles,is,transmissible illnesses
 aspirin,belongs to,nonsteroidal analgesics,nonsteroidal analgesics,are,medications,aspirin,is,medications
 penicillin,belongs to,antibiotics,antibiotics,are,antimicrobial drugs,penicillin,is,antimicrobial drugs
-kotlin,belongs to,programming languages for jvm,programming languages for jvm,are,software development tools,kotlin,is,software development tools
-rust,belongs to,systems programming languages,systems programming languages,are,software engineering tools,rust,is,software engineering tools
-react,belongs to,user interface libraries,user interface libraries,are,web development tools,react,is,web development tools
-linux,belongs to,operating systems,operating systems,are,system software,linux,is,system software
+kotlin,belongs to,programming languages,programming languages,are,software development tools,kotlin,is,software development tools
+rust,belongs to,programming languages,programming languages,are,software engineering tools,rust,is,software engineering tools
+react,belongs to,libraries,libraries,are,web development tools,react,is,web development tools
+linux,belongs to,operating systems,operating systems,are,software,linux,is,software
 postgresql,belongs to,relational databases,relational databases,are,data management systems,postgresql,is,data management systems
 github,belongs to,code hosting platforms,code hosting platforms,are,developer services,github,is,developer services
 saturn v,belongs to,launch vehicles,launch vehicles,are,spacecraft systems,saturn v,is,spacecraft systems
@@ -82,12 +82,12 @@ betelgeuse,belongs to,red supergiants,red supergiants,are,stars,betelgeuse,is,st
 andromeda galaxy,belongs to,spiral galaxies,spiral galaxies,are,galactic systems,andromeda galaxy,is,galactic systems
 panda,belongs to,ursids,ursids,are,carnivorans,panda,is,carnivorans
 platypus,belongs to,monotremes,monotremes,are,egg-laying mammals,platypus,is,egg-laying mammals
-ostrich,belongs to,flightless birds,flightless birds,are,birds,ostrich,is,birds
+olive,belongs to,fruit tree,fruit tree,are,flowering,olive,is,flowering
 cobra,belongs to,elapid snakes,elapid snakes,are,venomous reptiles,cobra,is,venomous reptiles
 falcon,belongs to,raptors,raptors,are,birds of prey,falcon,is,birds of prey
 oyster,belongs to,bivalves,bivalves,are,molluscan animals,oyster,is,molluscan animals
 cuttlefish,belongs to,sepiids,sepiids,are,marine invertebrates,cuttlefish,is,marine invertebrates
-kiwi,belongs to,flightless birds of new zealand,flightless birds of new zealand,are,endemic fauna,kiwi,is,endemic fauna
+kiwi,belongs to,new zealand birds,new zealand birds,are,endemic fauna,kiwi,is,endemic fauna
 lemur,belongs to,strepsirrhines,strepsirrhines,are,primates,lemur,is,primates
 blue whale,belongs to,baleen whales,baleen whales,are,megafauna,blue whale,is,megafauna
 orca,belongs to,dolphin family,dolphin family,are,toothed whales,orca,is,toothed whales
