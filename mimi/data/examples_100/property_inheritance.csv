@@ -1,101 +1,101 @@
 Premise1_Subject,Premise1_Verb,Premise1_Object,Premise2_Subject,Premise2_Verb,Premise2_Object,Conclusion_Subject,Conclusion_Verb,Conclusion_Object
-blacktop,is made of,asphalt,asphalt,has,a smooth surface,blacktop,has,a smooth surface
-Jean,belongs to,humanity,humanity,speaks,languages,Jean,speaks,a language
-Camembert,is a type of,cheese,cheese,contains,calcium,Camembert,contains,calcium
-Honeycrisp,belongs to,apples,apples,have,pectin,Honeycrisp,has,pectin
-Labrador,is a breed of,dog,dog,has,fur,Labrador,has,fur
-Sparrow,is a kind of,bird,bird,has,feathers,Sparrow,has,feathers
-Raspberry Pi,is a form of,computer,computer,processes,data,Raspberry Pi,processes,data
-Prius,is a model of,car,car,has,wheels,Prius,has,wheels
-Tesla Model Y,is,an electric vehicle,electric vehicle,uses,batteries,Tesla Model Y,uses,batteries
-Chardonnay,is a variety of,wine,wine,contains,alcohol,Chardonnay,contains,alcohol
-Granite countertop,is made of,granite,granite,exhibits,hardness,Granite countertop,exhibits,hardness
-Oak barrel,is made from,oak,oak,possesses,tannins,Oak barrel,possesses,tannins
-Silk scarf,is woven from,silk,silk,feels,smooth,Silk scarf,feels,smooth
-Cucumber plant,is a type of,vine,vine,climbs,surfaces,Cucumber plant,climbs,surfaces
-Violin,is,an instrument,instrument,produces,sound,Violin,produces,sound
-Maglite,is,a flashlight,flashlight,emits,light,Maglite,emits,light
-Border Collie,is,a dog,dog,barks,loudly,Border Collie,barks,loudly
-Earthworm,is,an annelid,annelid,has,segments,Earthworm,has,segments
-Blue whale,is,a mammal,mammal,nurses,young,Blue whale,nurses,young
-Christmas tree,is,a conifer,conifer,bears,cones,Christmas tree,bears,cones
-Down jacket,is filled with,down,down,traps,heat,Down jacket,traps,heat
-Oak tree,is,a plant,plant,requires,water,Oak tree,requires,water
-Hydrogen atom,is,an element,element,consists of,protons,Hydrogen atom,consists of,protons
-Chimpanzee,is,a primate,primate,has,opposable thumbs,Chimpanzee,has,opposable thumbs
-Acer laptop,is,a computer,computer,runs,software,Acer laptop,runs,software
-Moon rock,is,lunar basalt,lunar basalt,contains,minerals,Moon rock,contains,minerals
-Wheat bread,is made from,wheat,wheat,contains,gluten,Wheat bread,contains,gluten
-Almond milk,is derived from,almonds,almonds,contain,protein,Almond milk,contains,protein
-Diamond ring,is made of,diamond,diamond,refracts,light,Diamond ring,refracts,light
-Maple syrup,is made from,maple sap,maple sap,contains,sugars,Maple syrup,contains,sugars
-Longbow,is crafted from,yew,yew,is,flexible,Longbow,is,flexible
-Cotton shirt,is made of,cotton,cotton,breathes,easily,Cotton shirt,breathes,easily
-Air Jordan,is,a sneaker,sneaker,has,rubber soles,Air Jordan,has,rubber soles
-Hydroflask,is,a bottle,bottle,holds,liquids,Hydroflask,holds,liquids
-Kindle,is,an e-reader,e-reader,displays,text,Kindle,displays,text
-Kepler-452b,is,an exoplanet,exoplanet,orbits,stars,Kepler-452b,orbits,stars
-Flu vaccine,is,a vaccine,vaccine,stimulates,immunity,Flu vaccine,stimulates,immunity
-Ceramic mug,is,ceramic,ceramic,resists,heat,Ceramic mug,resists,heat
-Bronze statue,is,bronze,bronze,resists,corrosion,Bronze statue,resists,corrosion
-Bamboo chopstick,is,bamboo,bamboo,is,lightweight,Bamboo chopstick,is,lightweight
-Cheddar sandwich,uses,cheddar,cheddar,melts,well,Cheddar sandwich,melts,well
-Oatmeal cookie,contains,oatmeal,oatmeal,lowers,cholesterol,Oatmeal cookie,lowers,cholesterol
-Carbon fiber bike,is,carbon fiber,carbon fiber,is,lightweight,Carbon fiber bike,is,lightweight
-Solar panel,contains,silicon,silicon,conducts,electricity,Solar panel,conducts,electricity
-Quartz watch,uses,quartz,quartz,oscillates,steadily,Quartz watch,oscillates,steadily
-Steam engine,is powered by,steam,steam,transfers,energy,Steam engine,transfers,energy
-Redwood lumber,comes from,redwood,redwood,resists,decay,Redwood lumber,resists,decay
-LED bulb,uses,LEDs,LEDs,conserve,energy,LED bulb,conserves,energy
-Espresso shot,uses,coffee,coffee,contains,caffeine,Espresso shot,contains,caffeine
-Thermos,is insulated with,vacuum,vacuum,prevents,conduction,Thermos,prevents,conduction
-Smartwatch,is,a wearable,wearable,tracks,activity,Smartwatch,tracks,activity
-Cane sugar,derives from,sugarcane,sugarcane,contains,sucrose,Cane sugar,contains,sucrose
-Rice noodle,is made from,rice,rice,is,gluten‑free,Rice noodle,is,gluten‑free
-Truffle oil,infuses,truffle,truffle,possesses,aroma,Truffle oil,possesses,aroma
-Shark tooth,is,a tooth,tooth,contains,dentine,Shark tooth,contains,dentine
-Polar bear,is,a bear,bear,hibernates,seasonally,Polar bear,hibernates,seasonally
-Iguana,is,a reptile,reptile,lays,eggs,Iguana,lays,eggs
-Lotus flower,is,a flower,flower,attracts,pollinators,Lotus flower,attracts,pollinators
-Hot spring,is,geothermal water,geothermal water,is,mineral‑rich,Hot spring,is,mineral‑rich
-Greek yogurt,is,yogurt,yogurt,contains,probiotics,Greek yogurt,contains,probiotics
-HDMI cable,is,a cable,cable,transmits,signals,HDMI cable,transmits,signals
-Snowboard,is,sports equipment,sports equipment,endures,impact,Snowboard,endures,impact
-Galaxy S24,is,a smartphone,smartphone,connects,networks,Galaxy S24,connects,networks
-Sudoku puzzle,is,a puzzle,puzzle,challenges,logic,Sudoku puzzle,challenges,logic
-Disneyland Paris,is,a theme park,theme park,entertains,visitors,Disneyland Paris,entertains,visitors
-Mocha latte,includes,chocolate,chocolate,contains,cocoa,Mocha latte,contains,cocoa
-Tuna steak,is,tuna,tuna,provides,omega‑3,Tuna steak,provides,omega‑3
-Fountain pen,uses,ink,ink,stains,surfaces,Fountain pen,stains,surfaces
-Silk Road,is,a route,route,connects,locations,Silk Road,connects,locations
-Coral reef,consists of,coral,coral,builds,calcium skeletons,Coral reef,builds,calcium skeletons
-Rainforest canopy,is part of,rainforest,rainforest,hosts,biodiversity,Rainforest canopy,hosts,biodiversity
-Electric kettle,is,an appliance,appliance,consumes,electricity,Electric kettle,consumes,electricity
-Bagpipe,is,an instrument,instrument,requires,practice,Bagpipe,requires,practice
-Cookie cutter,is,a tool,tool,facilitates,tasks,Cookie cutter,facilitates,tasks
-Aloe gel,comes from,aloe,aloe,soothes,skin,Aloe gel,soothes,skin
-Whiskey barrel,ages,whiskey,whiskey,develops,flavor,Whiskey barrel,develops,flavor
-Fire engine,is,a truck,truck,carries,cargo,Fire engine,carries,cargo
-Mars rover,is,a robot,robot,executes,commands,Mars rover,executes,commands
-Paper plane,is,paper,paper,is,lightweight,Paper plane,is,lightweight
-Ocean liner,is,a ship,ship,sails,oceans,Ocean liner,sails,oceans
-Falcon 9,is,a rocket,rocket,launches,payloads,Falcon 9,launches,payloads
-Futsal court,is,a court,court,marks,boundaries,Futsal court,marks,boundaries
-Yoga mat,is,foam,foam,cushions,impact,Yoga mat,cushions,impact
-Opera singer,is,a singer,singer,projects,voice,Opera singer,projects,voice
-Ski pole,is,aluminum,aluminum,resists,rust,Ski pole,resists,rust
-Honey bee,is,an insect,insect,has,six legs,Honey bee,has,six legs
-Choir hymn,is,music,music,conveys,emotion,Choir hymn,conveys,emotion
-Reusable straw,is,metal,metal,conducts,heat,Reusable straw,conducts,heat
-Polar fleece,is,polyester,polyester,dries,quickly,Polar fleece,dries,quickly
-Ethernet switch,is,networking equipment,networking equipment,forwards,packets,Ethernet switch,forwards,packets
-Sourdough loaf,is,bread,bread,contains,carbohydrates,Sourdough loaf,contains,carbohydrates
-Jet engine,burns,kerosene,kerosene,produces,heat,Jet engine,produces,heat
-Leather boot,is,leather,leather,repels,water,Leather boot,repels,water
-Origami crane,is,paper,paper,is,lightweight,Origami crane,is,lightweight
-Chrome browser,is,software,software,executes,instructions,Chrome browser,executes,instructions
-Kayak paddle,is,fiberglass,fiberglass,resists,corrosion,Kayak paddle,resists,corrosion
-Ginkgo tea,comes from,ginkgo,ginkgo,improves,circulation,Ginkgo tea,improves,circulation
-Honeycomb piece,is,beeswax,beeswax,seals,honey,Honeycomb piece,seals,honey
-Plywood sheet,is,plywood,plywood,has,layered structure,Plywood sheet,has,layered structure
-Wheat noodle,includes,wheat,wheat,supplies,fiber,Wheat noodle,supplies,fiber
+copper alloys,are,metals,metals,conduct,electricity,electricity,can be conducted by,copper alloys
+sodium,is,alkali metal,alkali metal,reacts with,water,water,can react with,sodium
+helium,is,noble gas,noble gas,emit,light,light,can be emitted by,helium
+granite,is,igneous rock,igneous rock,contain,minerals,minerals,can be contained by,granite
+salmon,is,fish,fish,extract,oxygen,oxygen,can be extracted by,salmon
+oak,is,beech trees,beech trees,produce,acorns,acorns,can be produced by,oak
+pythons,are,snakes,snakes,subdue,prey,prey,can be subdued by,pythons
+yeast,are,fungi,fungi,ferment,sugars,sugars,can be fermented by,yeast
+bacteria,are,microorganisms,microorganisms,decompose,organic matter,organic matter,can be decomposed by,bacteria
+bees,are,pollinators,pollinators,pollinate,flowers,flowers,can be pollinated by,bees
+roses,are,plants,plants,perform,photosynthesis,photosynthesis,can be performed by,roses
+sharks,are,cartilaginous fish,cartilaginous fish,detect,electric fields,electric fields,can be detected by,sharks
+owls,are,birds,birds,hunt,rodents,rodents,can be hunted by,owls
+wolves,are,mammals,mammals,nurse,young,young,can be nursed by,wolves
+spiders,are,arachnids,arachnids,spin,silk,silk,can be spun by,spiders
+maple,is,hardwoods,hardwoods,provide,lumber,lumber,can be provided by,maple
+pumice,is,volcanic rocks,volcanic rocks,contain,vesicles,vesicles,can be contained by,pumice
+limestone,is,sedimentary rocks,sedimentary rocks,preserve,fossils,fossils,can be preserved by,limestone
+quartz,is,minerals,minerals,form,crystals,crystals,can be formed by,quartz
+silicon,is,semiconductors,semiconductors,control,current,current,can be controlled by,silicon
+fluoride,is,halides,halides,form,salts,salts,can be formed by,fluoride
+chlorine,is,halogens,halogens,disinfect,water,water,can be disinfected by,chlorine
+ammonia,is,bases,bases,neutralize,acids,acids,can be neutralized by,ammonia
+vinegar,is,acids,acids,react with,metals,metals,can be reacted with by,vinegar
+platinum,is,catalysts,catalysts,accelerate,reactions,reactions,can be accelerated by,platinum
+penicillin,is,antibiotics,antibiotics,treat,infections,infections,can be treated by,penicillin
+ibuprofen,is,analgesics,analgesics,relieve,pain,pain,can be relieved by,ibuprofen
+insulin,is,hormones,hormones,regulate,glucose,glucose,can be regulated by,insulin
+vaccines,are,immunizations,immunizations,prevent,diseases,diseases,can be prevented by,vaccines
+aspirin,is,antiinflammatories,antiinflammatories,reduce,inflammation,inflammation,can be reduced by,aspirin
+lettuce,is,vegetables,vegetables,provide,fiber,fiber,can be provided by,lettuce
+oranges,are,fruits,fruits,supply,vitamin C,vitamin C,can be supplied by,oranges
+rice,is,grains,grains,store,starch,starch,can be stored by,rice
+almonds,are,nuts,nuts,contain,oil,oil,can be contained by,almonds
+yogurt,is,fermented foods,fermented foods,contain,probiotics,probiotics,can be contained by,yogurt
+basil,is,herbs,herbs,flavor,sauces,sauces,can be flavored by,basil
+cinnamon,is,spices,spices,flavor,desserts,desserts,can be flavored by,cinnamon
+sourdough,is,breads,breads,provide,energy,energy,can be provided by,sourdough
+cheddar,is,cheeses,cheeses,provide,protein,protein,can be provided by,cheddar
+espresso,is,coffees,coffees,contain,caffeine,caffeine,can be contained by,espresso
+tornadoes,are,storms,storms,produce,damage,damage,can be produced by,tornadoes
+glaciers,are,ice masses,ice masses,erode,valleys,valleys,can be eroded by,glaciers
+earthquakes,are,seismic events,seismic events,release,energy,energy,can be released by,earthquakes
+monsoons,are,wind systems,wind systems,bring,rainfall,rainfall,can be brought by,monsoons
+lightning,is,electricity,electricity,ionizes,air,air,can be ionized by,lightning
+sandstone,is,clastics,clastics,store,water,water,can be stored by,sandstone
+coral,are,cnidarians,cnidarians,sting,prey,prey,can be stung by,coral
+penguins,are,birds,birds,incubate,eggs,eggs,can be incubated by,penguins
+termites,are,insects,insects,build,mounds,mounds,can be built by,termites
+orchids,are,plants,plants,produce,nectar,nectar,can be produced by,orchids
+cacti,are,succulents,succulents,store,moisture,moisture,can be stored by,cacti
+koalas,are,mammals,mammals,digest,eucalyptus,eucalyptus,can be digested by,koalas
+dragonflies,are,insects,insects,prey on,mosquitoes,mosquitoes,can be preyed on by,dragonflies
+beavers,are,rodents,rodents,chew,wood,wood,can be chewed by,beavers
+oysters,are,mollusks,mollusks,filter,plankton,plankton,can be filtered by,oysters
+starfish,are,echinoderms,echinoderms,regenerate,arms,arms,can be regenerated by,starfish
+tulips,are,flowers,flowers,attract,pollinators,pollinators,can be attracted by,tulips
+kelp,are,algae,algae,absorb,nutrients,nutrients,can be absorbed by,kelp
+mosses,are,bryophytes,bryophytes,colonize,rocks,rocks,can be colonized by,mosses
+lichens,are,symbionts,symbionts,weather,stone,stone,can be weathered by,lichens
+sparrows,are,passerines,passerines,eat,seeds,seeds,can be eaten by,sparrows
+tigers,are,carnivores,carnivores,hunt,ungulates,ungulates,can be hunted by,tigers
+corgis,are,herding dogs,herding dogs,herd,livestock,livestock,can be herded by,corgis
+falcons,are,raptors,raptors,capture,prey,prey,can be captured by,falcons
+whales,are,cetaceans,cetaceans,produce,sounds,sounds,can be produced by,whales
+dolphins,are,odontocetes,odontocetes,use,echolocation,echolocation,can be used by,dolphins
+zebras,are,perissodactyls,perissodactyls,graze,grasses,grasses,can be grazed by,zebras
+giraffes,are,ungulates,ungulates,browse,leaves,leaves,can be browsed by,giraffes
+pandas,are,ursids,ursids,consume,bamboo,bamboo,can be consumed by,pandas
+camels,are,camelids,camelids,store,fat,fat,can be stored by,camels
+otters,are,mustelids,mustelids,crack,shellfish,shellfish,can be cracked by,otters
+ants,are,arthropods,arthropods,build,nests,nests,can be built by,ants
+swallows,are,songbirds,songbirds,catch,insects,insects,can be caught by,swallows
+kangaroos,are,marsupials,marsupials,carry,joeys,joeys,can be carried by,kangaroos
+platypuses,are,monotremes,monotremes,lay,eggs,eggs,can be laid by,platypuses
+eagles,are,birds of prey,birds of prey,take,fish,fish,can be taken by,eagles
+swans,are,waterfowl,waterfowl,graze,pondweed,pondweed,can be grazed by,swans
+trout,are,teleosts,teleosts,inhabit,streams,streams,can be inhabited by,trout
+cod,are,gadiforms,gadiforms,provide,omega3,omega3,can be provided by,cod
+routers,are,networking devices,networking devices,forward,packets,packets,can be forwarded by,routers
+toggles,are,switches,switches,connect,devices,devices,can be connected by,toggles
+compilers,are,programs,programs,translate,source code,source code,can be translated by,compilers
+browsers,are,software,software,render,webpages,webpages,can be rendered by,browsers
+servers,are,computers,computers,host,websites,websites,can be hosted by,servers
+printers,are,peripherals,peripherals,produce,documents,documents,can be produced by,printers
+accelerometers,are,sensors,sensors,measure,acceleration,acceleration,can be measured by,accelerometers
+cameras,are,imagers,imagers,capture,photos,photos,can be captured by,cameras
+microphones,are,transducers,transducers,convert,sound,sound,can be converted by,microphones
+antennas,are,hardware,hardware,transmit,signals,signals,can be transmitted by,antennas
+diamond,is,abrasives,abrasives,scratch,surfaces,surfaces,can be scratched by,diamond
+steel,is,alloys,alloys,bear,loads,loads,can be borne by,steel
+concrete,is,composites,composites,withstand,compression,compression,can be withstood by,concrete
+glass,is,amorphous solids,amorphous solids,transmit,light,light,can be transmitted by,glass
+cotton,is,fibers,fibers,absorb,liquid,liquid,can be absorbed by,cotton
+silk,is,proteins,proteins,form,threads,threads,can be formed by,silk
+nylon,is,polymers,polymers,form,filaments,filaments,can be formed by,nylon
+kevlar,is,strong resistant fibers,strong resistant fibers,make,armor,armor,can be made with,kevlar
+bronze,is,alloys,alloys,resist,corrosion,corrosion,can be resisted by,bronze
+teflon,is,fluoropolymers,fluoropolymers,repel,oil,oil,can be repelled by,teflon
+paper,is,cellulosics,cellulosics,absorb,ink,ink,can be absorbed by,paper
