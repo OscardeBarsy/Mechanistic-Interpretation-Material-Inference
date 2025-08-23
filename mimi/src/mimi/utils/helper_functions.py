@@ -678,47 +678,42 @@ def evaluate_accuracy(prompts, labels, model, device):
 def build_head_sequence_from_map(
     head_map: t.Tensor,
     *,
-    threshold: float = 0.5,
+    k: int = 15,
     absolute: bool = False,
     return_with_scores: bool = False,
     ):
     """
-    Select (layer, head) pairs whose score passes `threshold` in a [n_layers, n_heads]
-    tensor (e.g., norm_s_attn_denoising from patching_attention), sorted descending.
-
-    - If `absolute=False` (default), uses raw values: keep heads with value >= threshold
-      and sort by that value (desc).
-    - If `absolute=True`, uses absolute values: keep heads with |value| >= threshold
-      and sort by |value| (desc). Returned score (when requested) is the raw value.
+    Return the top-K (layer, head) pairs from a [n_layers, n_heads] tensor.
 
     Args:
-        head_map: Torch tensor of shape [n_layers, n_heads].
-        threshold: float threshold for selection (default 0.5).
-        absolute: if True, use absolute values for filtering + sorting.
-        return_with_scores: if True, return (layer, head, raw_value) tuples.
+        head_map: [n_layers, n_heads] tensor (e.g., norm_s_attn_denoising).
+        k: number of heads to return (default 15).
+        absolute: if True, rank by |value|; otherwise by raw value.
+        return_with_scores: if True, include raw scores in the output.
+
+    Returns:
+        [(layer, head)] or [(layer, head, raw_score)], sorted by score desc.
     """
     if head_map.dim() != 2:
         raise ValueError("Expected a 2D tensor of shape [n_layers, n_heads].")
 
-    crit = head_map.abs() if absolute else head_map
-    mask = crit >= threshold
-    idx = mask.nonzero(as_tuple=False)  # [N, 2], columns: layer, head
+    n_layers, n_heads = head_map.shape
+    scores = head_map.abs() if absolute else head_map
 
-    if idx.numel() == 0:
-        return []  # nothing passes the threshold
+    # Handle NaNs so they don't get selected
+    neg_inf = -t.inf if scores.dtype in (t.float16, t.bfloat16, t.float32, t.float64) else float("-inf")
+    scores = t.where(t.isnan(scores), t.full_like(scores, neg_inf), scores)
 
-    # scores used for sorting (abs if absolute else raw)
-    sort_scores = crit[idx[:, 0], idx[:, 1]]
-    order = t.argsort(sort_scores, descending=True)
-    idx = idx[order]
+    flat = scores.view(-1)
+    k = min(k, flat.numel())
+    if k == 0:
+        return []
+
+    vals, idx = t.topk(flat, k, largest=True, sorted=True)  # vals are for ordering only
+    layers = (idx // n_heads).tolist()
+    heads  = (idx %  n_heads).tolist()
 
     if return_with_scores:
-        # return raw scores so you can read sign/magnitude
-        out = [
-            (int(l.item()), int(h.item()), float(head_map[l, h].item()))
-            for l, h in idx
-        ]
+        return [(int(L), int(H), float(head_map[L, H].item())) for L, H in zip(layers, heads)]
     else:
-        out = [(int(l.item()), int(h.item())) for l, h in idx]
-
-    return out
+        return [(int(L), int(H)) for L, H in zip(layers, heads)]
