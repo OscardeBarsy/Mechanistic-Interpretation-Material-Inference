@@ -74,81 +74,66 @@ def plot_attn(data, label_token, save_path):
     print(f"Plot saved to {save_path}")
     fig.show()
 
-
 def plot_residual(data, label_token, save_path):
     """
-    Plots the residual data and saves the plot to the specified path.
-
-    Args:
-        data (torch.Tensor): The residual data to be plotted.
-        label_token (list): List of tokens for labeling.
-        save_path (str): Path to save the plot image.
+    Plots residual heatmap with a numeric y-axis so duplicate labels (e.g., 'b') appear.
+    data shape should be [len(label_token), n_layers]; if not, it's auto-fixed.
     """
-    # Convert the data to numpy
-    data = data.cpu().numpy()
 
-    # Create directory if it doesn't exist
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    # --- prepare data ---
+    data = data.detach().cpu().numpy()
 
-    # Create tick values
-    tickvals = np.arange(len(label_token))
+    # Ensure rows correspond to labels (seq x layers)
+    if data.shape[0] != len(label_token) and data.shape[1] == len(label_token):
+        data = data.T
 
-    # Create the plot
+
+    # --- figure (numeric y-axis; no categorical collapse) ---
     fig = px.imshow(
-        data.T,  
-        y=label_token,
-        labels={"y": "Sequence Position", "x": "Layer"},  
-        color_continuous_scale='RdBu',  
+        data,
+        labels={"y": "Sequence Position", "x": "Layer"},
+        color_continuous_scale="RdBu",
         color_continuous_midpoint=0.0,
     )
-    fig.update_layout(
-        yaxis=dict(
-            tickmode="array",
-            tickvals=tickvals,
-            ticktext=label_token,
-            showticklabels=True,  
-        ),
-        xaxis=dict(
-            tickmode="array",
-            showticklabels=True 
-        ),
-        width=400, 
-        height=300, 
-        title_font_size=14, 
-        xaxis_title=None, 
-        yaxis_title=None, 
-        margin=dict(l=10, r=10, t=20, b=20), 
-        font=dict(
-            size=12,
-            color="black"
-        ),
-        coloraxis_colorbar=dict(
-            title="𝑆", 
-            thicknessmode="pixels",  
-            thickness=10, 
-            lenmode="fraction",
-            len=1  
-        )
+
+    tickvals = list(range(len(label_token)))
+    fig.update_yaxes(
+        tickmode="array",
+        tickvals=tickvals,          # numeric positions
+        ticktext=label_token,       # your (possibly duplicate) labels
+        type="linear",
+        automargin=True,
+        showline=True,
+        linewidth=1,
+        linecolor="black",
+        mirror=True,
+        ticks="",
     )
     fig.update_xaxes(
         showline=True,
         linewidth=1,
-        linecolor='black',
+        linecolor="black",
         mirror=True,
-        ticks="", 
-    )
-    fig.update_yaxes(
-        showline=True,
-        linewidth=1,
-        linecolor='black',
-        mirror=True,
-        ticks="", 
+        ticks="",
     )
 
-    # Save the plot to the specified path
+    fig.update_layout(
+        width=500,
+        title_font_size=14,
+        xaxis_title=None,
+        yaxis_title=None,
+        margin=dict(l=10, r=10, t=20, b=20),
+        font=dict(size=12, color="black"),
+        coloraxis_colorbar=dict(title="𝑆", thicknessmode="pixels", thickness=10, lenmode="fraction", len=1),
+    )
+
+    # Save and show
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
     fig.write_image(save_path)
     print(f"Plot saved to {save_path}")
     fig.show()
+
+
 
 def plot_ablation(s_clean_logit_diff, mean_s_scores, sf_mean_s_scores, save_path):
     """
