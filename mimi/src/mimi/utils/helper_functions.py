@@ -282,8 +282,9 @@ def get_accumulated_ablation_score(model, labels, tokens, answer_tokens, head_li
 
     return compute_logit_diff(patched_logits, answer_tokens)
 
-def necessity_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
-    sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
+def necessity_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device, sequence = None):
+    if not sequence:
+        sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
     target_head = []
     scores = []
 
@@ -300,8 +301,9 @@ def necessity_check(model, labels, tokens, answer_tokens, clean_logit_diff, type
         scores[i] = scores[i].cpu()
     return scores
 
-def sufficiency_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device):
-    sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
+def sufficiency_check(model, labels, tokens, answer_tokens, clean_logit_diff, type, device, sequence = None):
+    if not sequence:
+        sequence = [(23,10), (19,1), (18, 12), (17,2), (15, 14), (14,14), (11, 10), (7,2), (6, 15), (6,1), (5,8)]
     all_heads = [(i, j) for i in range(24) for j in range(16)]
     all_score = get_accumulated_ablation_score(
         model, labels, tokens, answer_tokens, all_heads, clean_logit_diff, type, device
@@ -670,3 +672,53 @@ def evaluate_accuracy(prompts, labels, model, device):
             print(f"Predicted: {pred!r}, Actual: {gold!r}")
             print("Original Sentence: " + prompt + " " + gold)
     return correct / len(labels)
+
+
+
+def build_head_sequence_from_map(
+    head_map: t.Tensor,
+    *,
+    threshold: float = 0.5,
+    absolute: bool = False,
+    return_with_scores: bool = False,
+    ):
+    """
+    Select (layer, head) pairs whose score passes `threshold` in a [n_layers, n_heads]
+    tensor (e.g., norm_s_attn_denoising from patching_attention), sorted descending.
+
+    - If `absolute=False` (default), uses raw values: keep heads with value >= threshold
+      and sort by that value (desc).
+    - If `absolute=True`, uses absolute values: keep heads with |value| >= threshold
+      and sort by |value| (desc). Returned score (when requested) is the raw value.
+
+    Args:
+        head_map: Torch tensor of shape [n_layers, n_heads].
+        threshold: float threshold for selection (default 0.5).
+        absolute: if True, use absolute values for filtering + sorting.
+        return_with_scores: if True, return (layer, head, raw_value) tuples.
+    """
+    if head_map.dim() != 2:
+        raise ValueError("Expected a 2D tensor of shape [n_layers, n_heads].")
+
+    crit = head_map.abs() if absolute else head_map
+    mask = crit >= threshold
+    idx = mask.nonzero(as_tuple=False)  # [N, 2], columns: layer, head
+
+    if idx.numel() == 0:
+        return []  # nothing passes the threshold
+
+    # scores used for sorting (abs if absolute else raw)
+    sort_scores = crit[idx[:, 0], idx[:, 1]]
+    order = t.argsort(sort_scores, descending=True)
+    idx = idx[order]
+
+    if return_with_scores:
+        # return raw scores so you can read sign/magnitude
+        out = [
+            (int(l.item()), int(h.item()), float(head_map[l, h].item()))
+            for l, h in idx
+        ]
+    else:
+        out = [(int(l.item()), int(h.item())) for l, h in idx]
+
+    return out
