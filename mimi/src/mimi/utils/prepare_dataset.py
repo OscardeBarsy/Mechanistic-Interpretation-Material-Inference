@@ -1818,6 +1818,67 @@ class ArgSubPropAMRBuilder(BaseAMRBuilder):
             prompt_lens.append(pl)
 
         return prompt_lens, max_len
+    def get_adjusted_token_sequences(self, max_len, prompts) -> t.Tensor:
+        """
+        Same assembly as before; only label names changed.
+        Sequence (labels shown; text unchanged):
+        BEGIN  a  ∈  b1  ∧  b2  ->  c(first=a_2)  =>  c(second=conclusion b)  <-
+        """
+        tokenised = []
+
+        BEGIN = self.tokenizer(self.begin_str,               add_special_tokens=False)["input_ids"]
+        AND   = self.tokenizer(self.and_str,                add_special_tokens=False)["input_ids"]
+        DED   = self.tokenizer(self.deduction_str,add_special_tokens=False)["input_ids"]
+
+        for prompt in prompts:
+            seq = []
+
+            # BEGIN
+            seq += BEGIN
+
+            # a
+            seq += self.tokenizer(prompt["a"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["a"], truncation=True)["input_ids"]
+
+            # ∈ (v1)
+            seq += self.tokenizer(prompt["v1"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["∈"], truncation=True)["input_ids"]
+
+            # b1 (premise b)
+            b1_text = prompt["corruption"] if prompt.get("corruption") else prompt["b"]
+            seq += self.tokenizer(b1_text, add_special_tokens=False,
+                    padding="max_length", max_length=max_len["b1"], truncation=True)["input_ids"]
+
+            # ∧
+            seq += AND
+
+            # b2 (premise c)
+            
+            seq += self.tokenizer(prompt["b"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["b2"], truncation=True)["input_ids"]
+
+            # -> (v2)
+            seq += self.tokenizer(prompt["v2"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["->"], truncation=True)["input_ids"]
+
+            # c (
+            seq += self.tokenizer(prompt["c"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["c"], truncation=True)["input_ids"]
+
+            # =>
+            seq += DED
+
+            # c (second occurrence = conclusion b)
+            seq += self.tokenizer(prompt["c"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["c"], truncation=True)["input_ids"]
+
+            # <- (END = v3)
+            seq += self.tokenizer(prompt["v3"], add_special_tokens=False,
+                    padding="max_length", max_length=max_len["<-"], truncation=True)["input_ids"]
+
+            tokenised.append(seq)
+
+        return t.tensor(tokenised, dtype=t.long)
 
 class ExampleAMRBuilder(BaseAMRBuilder):
     def __init__(self, df: pd.DataFrame, N: int, seed: int, tokenizer):
